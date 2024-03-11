@@ -6,16 +6,17 @@
     @for (user of listOfPeople; track user.login.uuid) {
 
     <article
-      class="h-full aspect-square bg-black p-[2px] rounded-[50%] bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-center"
+      class="h-full aspect-square bg-black p-[2px] rounded-[50%] bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-center [&:hover>img]:scale-[0.98] cursor-pointer"
     >
-      <img [src]="user.picture.large" class="rounded-[inherit]" />
+      <img
+        [src]="user.picture.large"
+        class="rounded-[inherit] transition-all duration-200 ease-in-out"
+      />
       <p class="font-thin text-sm mt-2">
         {{ user.name.first }}
       </p>
     </article>
     } @empty { Empty list of users }
   </section>
-  <aside class="w-full min-h-[calc(100vh-14rem)] bg-black mt-8">
-
-  </aside>
+  <aside class="w-full min-h-[calc(100vh-14rem)] bg-black mt-8"></aside>
 </main>
