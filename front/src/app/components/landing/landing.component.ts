@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { response } from 'express';
-import { User } from '../core/models/models';
+import { IUSER } from '../../models/models';
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-landing',
@@ -10,12 +10,15 @@ import { User } from '../core/models/models';
   styleUrl: './landing.component.css',
 })
 export class LandingComponent {
-  listOfPeople: User[] = [];
+  listOfPeople: IUSER[] = [];
+
+  constructor(public dataService: DataService) {}
 
   ngOnInit() {
     fetch('https://randomuser.me/api/?results=10')
       .then((response) => response.json())
       .then(({ results }) => (this.listOfPeople = results))
-      .catch(null)
+      .catch(null);
+    this.dataService.print();
   }
 }
