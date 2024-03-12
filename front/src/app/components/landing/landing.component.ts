@@ -19,6 +19,6 @@ export class LandingComponent {
       .then((response) => response.json())
       .then(({ results }) => (this.listOfPeople = results))
       .catch(null);
-    this.dataService.print();
+
   }
 }
