@@ -1,17 +1,11 @@
 import { Sequelize } from "sequelize";
-import { mysqlPasswordUsers, mysqlUsernameUsers } from "./config";
 
-console.log({ mysqlUsernameUsers, mysqlPasswordUsers });
+import { mysqlSchema,mysqlUsername, mysqlPassword, mysqlHost } from "./config";
 
-//  It doesnt want to connect, use docker to use the database and be careful with the volumes
-const sequelize = new Sequelize(
-  "users",
-  mysqlUsernameUsers,
-  mysqlPasswordUsers,
-  {
-    host: "127.0.0.1",
-    dialect: "mysql",
-  }
-);
+const conn = new Sequelize(mysqlSchema, mysqlUsername, mysqlPassword, {
+  host: mysqlHost,
+  dialect: "mysql",
+});
 
-export default sequelize;
+
+export default conn

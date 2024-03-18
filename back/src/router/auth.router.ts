@@ -21,7 +21,8 @@ router.post("/register", (req: Request, res: Response) => {
     username,
     email,
     password,
-  }: { username: string; email: string; password: string } = req.body;
+  }: { name: string; username: string; email: string; password: string } =
+    req.body;
 
   if (
     !username ||
@@ -29,7 +30,9 @@ router.post("/register", (req: Request, res: Response) => {
     !email ||
     email == null ||
     !password ||
-    password == null
+    password == null ||
+    !name ||
+    name == null
   ) {
     return res
       .status(400)
