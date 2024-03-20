@@ -8,8 +8,7 @@ export const isLoggedOutGuard: CanActivateFn = (route, state) => {
     ?.split('=')[1];
 
   if (token) {
-    const router = inject(Router);
-    router.navigate(['/']);
+    inject(Router).navigate(['/']);
 
     return false;
   }

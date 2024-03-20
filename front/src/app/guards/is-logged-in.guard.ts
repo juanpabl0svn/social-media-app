@@ -1,5 +1,7 @@
-import { CanActivateFn } from '@angular/router';
+import { CanActivateFn, Router } from '@angular/router';
 import { DataService } from '../services/data.service';
+import { inject } from '@angular/core';
+
 
 const dataService = new DataService();
 
@@ -9,6 +11,7 @@ export const isLoggedInGuard: CanActivateFn = (route, state) => {
     .find((cookie) => cookie.includes('token'));
 
   if (!token) {
+    inject(Router).navigate(['/'])
     return false;
   }
 
