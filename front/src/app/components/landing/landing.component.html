@@ -2,21 +2,44 @@
   <header class="mb-4">
     <h1 class="text-5xl">Instagram</h1>
   </header>
-  <section class="flex gap-3 h-20 pl-2">
+  <section class="flex gap-3 h-32 pl-2 border-b border-b-gray-30">
     @for (user of listOfPeople; track user.login.uuid) {
-
-    <article
-      class="h-full aspect-square bg-black p-[2px] rounded-[50%] bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-center [&:hover>img]:scale-[0.98] cursor-pointer"
-    >
-      <img
-        [src]="user.picture.large"
-        class="rounded-[inherit] transition-all duration-200 ease-in-out"
-      />
+    <article class="text-center">
+      <article
+        class="w-20 aspect-square bg-black p-[2px] rounded-[50%] bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-center [&:hover>img]:scale-[0.98] cursor-pointer flex"
+      >
+        <img
+          [src]="user.picture.large"
+          class="rounded-[inherit] transition-all duration-200 ease-in-out"
+        />
+      </article>
       <p class="font-thin text-sm mt-2">
         {{ user.name.first }}
       </p>
     </article>
     } @empty { Empty list of users }
   </section>
-  <aside class="w-full min-h-[calc(100vh-14rem)] bg-black mt-8"></aside>
+  <aside
+    class="w-full min-h-[calc(100vh-14rem) mt-8 flex flex-col items-center"
+  >
+    @for (user of listOfPeople; track user.login.uuid) {
+
+    <article class="bg-white min-h-[600px] w-[500px]">
+      <div class="flex items-center pl-2 gap-3 pb-2">
+        <article
+          class="w-10 aspect-square bg-black p-[2px] rounded-[50%] bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-center [&:hover>img]:scale-[0.98] cursor-pointer"
+        >
+          <img
+            [src]="user.picture.large"
+            class="rounded-[inherit] transition-all duration-200 ease-in-out"
+          />
+        </article>
+        <h2 class="text-md">
+          {{ user.name.first }}
+        </h2>
+      </div>
+      <img [src]="user.picture.large" class="w-full aspect-[7/8]" />
+    </article>
+    } @empty { Empty list of users }
+  </aside>
 </main>
