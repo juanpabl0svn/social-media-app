@@ -4,8 +4,13 @@ import { DataService } from '../services/data.service';
 const dataService = new DataService();
 
 export const isLoggedInGuard: CanActivateFn = (route, state) => {
+  const token = document.cookie
+    .split(';')
+    .find((cookie) => cookie.includes('token'));
 
-  // TODO: dataServices tiene un atributo llamado loggedIn, si es verdadero retornar true, de lo contrario retornar false, pero no coje bien el valor, mira a ver que pasa
+  if (!token) {
+    return false;
+  }
 
   return true;
 };
