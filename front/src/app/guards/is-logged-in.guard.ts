@@ -9,8 +9,9 @@ export const isLoggedInGuard: CanActivateFn = (route, state) => {
 
   const token = document.cookie
     .split(';')
-    .find((cookie) => cookie.split('=')[0] === 'token')
+    .find((cookie) => cookie.trim().split('=')[0] === 'token')
     ?.split('=')[1];
+
 
   if (!token) {
     inject(Router).navigate(['/login']);

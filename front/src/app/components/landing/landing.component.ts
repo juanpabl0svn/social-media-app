@@ -10,6 +10,7 @@ import { IUSER } from '../../models/models';
 })
 export class LandingComponent {
   listOfPeople: IUSER[] = [];
+  renderSkeleton: number[] = Array(10).fill(0);
 
   constructor() {}
 
