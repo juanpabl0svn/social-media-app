@@ -4,7 +4,7 @@ import { CanActivateFn, Router } from '@angular/router';
 export const isLoggedOutGuard: CanActivateFn = (route, state) => {
   const token = document.cookie
     .split(';')
-    .find((cookie) => cookie.includes('token'))
+    .find((cookie) => cookie.split('=')[0] === 'token')
     ?.split('=')[1];
 
   if (token) {

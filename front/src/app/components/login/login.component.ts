@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { DataService } from '../../services/data.service';
-import { RouterLink } from '@angular/router';
-import { BackendReqService } from '../../services/backendReq/backend-req.service';
+import { Router, RouterLink } from '@angular/router';
+import UserService from '../../services/user/user.service';
 
 @Component({
   selector: 'app-login',
@@ -17,15 +16,19 @@ export class LoginComponent {
     usernameControl: new FormControl(''),
   });
 
-  constructor(public dataService: DataService, public backendReqService: BackendReqService) {}
+  constructor(private router: Router, public user: UserService) {}
 
   onSubmit() {
     const { usernameControl: username, passwordControl: password } =
       this.loginForm.value;
 
-    this.dataService.setValues({ username, password });
-    this.dataService.print();
+    if (!username || !password) return;
 
-    this.backendReqService.logInReq(username, password)?.subscribe(response => console.log(response))
+    this.user.logIn(username, password).subscribe(() => {
+      document.cookie = `token=${username}`;
+      this.user.setIsAuth = true;
+      this.user.setUsername = username;
+      this.router.navigate(['/']);
+    });
   }
 }

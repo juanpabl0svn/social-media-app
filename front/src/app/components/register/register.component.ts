@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { DataService } from '../../services/data.service';
 import { RouterLink } from '@angular/router';
 
 
@@ -12,12 +11,9 @@ import { RouterLink } from '@angular/router';
 })
 export class RegisterComponent {
 
-  constructor(public dataService: DataService) {}
+  constructor() {}
 
 
-  ngOnInit(){
-    this.dataService.print();
-  }
 
   
 

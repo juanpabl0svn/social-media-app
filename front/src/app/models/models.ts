@@ -4,5 +4,5 @@ export interface IUSER {
     last: string;
   };
   login: { uuid: string };
-  picture: { large: string };
+  picture: { large: string, medium: string, thumbnail: string };
 }
