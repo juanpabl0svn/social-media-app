@@ -17,7 +17,7 @@ export class LoginComponent {
     usernameControl: new FormControl(''),
   });
 
-  constructor(public dataService: DataService, public backreqService: BackendReqService) {}
+  constructor(public dataService: DataService, public backendReqService: BackendReqService) {}
 
   onSubmit() {
     const { usernameControl: username, passwordControl: password } =
@@ -26,6 +26,6 @@ export class LoginComponent {
     this.dataService.setValues({ username, password });
     this.dataService.print();
 
-    this.backreqService.logInReq(username, password)?.subscribe(response => console.log(response))
+    this.backendReqService.logInReq(username, password)?.subscribe(response => console.log(response))
   }
 }
