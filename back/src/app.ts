@@ -1,12 +1,13 @@
 import app from "./index";
 
-// import conn from "./db.mysql";// import { firebase } from "./db.firebase";
+import conn from "./db.mysql";
+// import { firebase } from "./db.firebase";
 import { PORT } from "./config";
 
 async function main() {
   try {
 
-    // await conn.authenticate(); // await sequelize check if it connects
+    await conn.authenticate(); // await sequelize check if it connects
 
 
     // await firebase check if it connects
