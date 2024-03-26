@@ -1,4 +1,5 @@
 import { Router, Request, Response } from "express";
+import { addUser } from "../services/register/registerServices";
 
 const authRouter = Router();
 
@@ -14,7 +15,7 @@ authRouter.post("/login", (req: Request, res: Response) => {
   return res.status(200).json({ message: "User logged in" });
 });
 
-authRouter.post("/register", (req: Request, res: Response) => {
+authRouter.post("/register", async(req: Request, res: Response) => {
   const {
     name,
     username,
@@ -38,10 +39,12 @@ authRouter.post("/register", (req: Request, res: Response) => {
       .json({ message: "Username, email and password are required" });
   }
 
+  await addUser(name, username, email, password);
+
   return res
+    .setHeader("Set-Cookie", `token=${username}`)
     .status(200)
-    .json({ message: "User registered" })
-    .setHeader("Set-Cookie", `token=${username});`);
+    .json({ message: "User registered" });
 });
 
 export default authRouter;
