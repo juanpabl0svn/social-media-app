@@ -1,11 +1,62 @@
-import { Sequelize } from "sequelize";
+import { Sequelize, DataTypes } from "sequelize";
 
-import { mysqlSchema,mysqlUsername, mysqlPassword, mysqlHost } from "./config";
+import { mysqlSchema, mysqlUsername, mysqlPassword, mysqlHost } from "./config";
 
-const conn = new Sequelize(mysqlSchema, mysqlUsername, mysqlPassword, {
-  host: mysqlHost,
-  dialect: "mysql",
-});
+export const sequelize = new Sequelize(
+  mysqlSchema,
+  mysqlUsername,
+  mysqlPassword,
+  {
+    host: mysqlHost,
+    dialect: "mysql",
+    define: {
+      timestamps: false,
+    },
+  }
+);
 
-
-export default conn
+export const User = sequelize.define(
+  "users",
+  {
+    id_user: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    followers: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+    },
+    create_date: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+    },
+    birth_date: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
+  },
+  {
+    tableName: "users",
+  }
+);
