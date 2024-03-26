@@ -25,10 +25,13 @@ export async function handleRegisterRoute(req: Request, res: Response) {
       .json({ message: "Username, email and password are required" });
   }
 
-  await registerUser(name, username, email, password);
-
-  return res
-    .setHeader("Set-Cookie", `token=${username}`)
-    .status(200)
-    .json({ message: "User registered" });
+  try {
+    await registerUser(name, username, email, password);
+    return res
+      .setHeader("Set-Cookie", `token=${username}`)
+      .status(200)
+      .json({ message: "User registered" });
+  } catch (error) {
+    return res.status(500).json({ message: "Internal server error" });
+  }
 }
