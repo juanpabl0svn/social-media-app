@@ -1,8 +1,9 @@
-<main class="min-h-dvh h-full">
+<main class="min-h-dvh h-full border max-w-[800px] overflow-hidden mx-auto">
   <header class="mb-4">
-    <h1 class="text-5xl">Instagram</h1>
+    <!-- <h1 class="text-5xl">Instagram</h1> -->
+    <img src="/assets/instagram.png" alt="instagram logo" class="h-20">
   </header>
-  <section class="flex gap-3 h-32 pl-2 border-b border-b-gray-30">
+  <section class="flex gap-3 pl-2 pb-4 border-b border-b-gray-30">
     @for (user of listOfPeople; track user.login.uuid) {
     <article class="text-center">
       <article
