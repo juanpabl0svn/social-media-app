@@ -42,4 +42,22 @@ export default class UserService {
     };
     return this.http.post(url, body, headers);
   }
+
+  register(name: string, email: string, password: string, date: string) {
+    const url: string = `${API}/register`;
+
+    const headers = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        withCredentials: 'true',
+      }),
+    };
+    const body = {
+      name,
+      email,
+      password,
+      date,
+    };
+    return this.http.post(url, body, headers);
+  }
 }

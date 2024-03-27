@@ -12,19 +12,18 @@ import UserService from '../../services/user/user.service';
 })
 export class LoginComponent {
   loginForm = new FormGroup({
-    passwordControl: new FormControl(''),
-    usernameControl: new FormControl(''),
+    username: new FormControl(''),
+    password: new FormControl(''),
   });
 
   constructor(private router: Router, public user: UserService) {}
 
   onSubmit() {
-    const { usernameControl: username, passwordControl: password } =
-      this.loginForm.value;
+    const { username, password } = this.loginForm.value;
 
     if (!username || !password) return;
 
-    this.user.logIn(username, password).subscribe(() => {
+    return this.user.logIn(username, password).subscribe(() => {
       document.cookie = `token=${username}`;
       this.user.setIsAuth = true;
       this.user.setUsername = username;

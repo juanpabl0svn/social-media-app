@@ -4,7 +4,11 @@
   >
     <img src="/assets/instagram.png" alt="instagram logo" class="h-20" />
     <h1 class="text-4xl font-serif">Registrar</h1>
-    <form class="px-5 py-5 flex flex-col gap-1">
+    <form
+      class="px-5 py-5 flex flex-col gap-1"
+      (submit)="onSubmit($event)"
+      [formGroup]="registerForm"
+    >
       <section class="input-component">
         <input
           type="text"
