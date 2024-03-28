@@ -16,6 +16,7 @@ export class RegisterComponent {
     email: new FormControl(''),
     password: new FormControl(''),
     password2: new FormControl(''),
+    username: new FormControl(''),
     date: new FormControl(''),
   });
 
@@ -24,20 +25,24 @@ export class RegisterComponent {
   async onSubmit(e: Event) {
     e.preventDefault();
 
-    const { name, email, password, password2, date } = this.registerForm.value;
+    const { name, email, password, password2, date, username } =
+      this.registerForm.value;
 
-    if (!name || !email || !password || !password2 || !date) return;
+    if (!name || !email || !password || !password2 || !date || !username)
+      return;
 
     if (password !== password2) {
       alert('Passwords do not match');
       return;
     }
 
-    return this.user.register(name, email, password, date).subscribe(() => {
-      document.cookie = `token=${email}`;
-      this.user.setIsAuth = true;
-      this.user.setUsername = email;
-      this.router.navigate(['/']);
-    });
+    return this.user
+      .register(name, username, email, password, date)
+      .subscribe(() => {
+        document.cookie = `token=${email}`;
+        this.user.setIsAuth = true;
+        this.user.setUsername = email;
+        this.router.navigate(['/']);
+      });
   }
 }

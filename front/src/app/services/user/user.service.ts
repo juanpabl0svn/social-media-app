@@ -43,7 +43,13 @@ export default class UserService {
     return this.http.post(url, body, headers);
   }
 
-  register(name: string, email: string, password: string, date: string) {
+  register(
+    name: string,
+    username: string,
+    email: string,
+    password: string,
+    date: string
+  ) {
     const url: string = `${API}/register`;
 
     const headers = {
@@ -57,7 +63,9 @@ export default class UserService {
       email,
       password,
       date,
+      username,
     };
+
     return this.http.post(url, body, headers);
   }
 }
