@@ -7,8 +7,14 @@ export async function handleRegisterRoute(req: Request, res: Response) {
     username,
     email,
     password,
-  }: { name: string; username: string; email: string; password: string } =
-    req.body;
+    date,
+  }: {
+    name: string;
+    username: string;
+    email: string;
+    password: string;
+    date: Date;
+  } = req.body;
 
   if (
     !username ||
@@ -18,20 +24,20 @@ export async function handleRegisterRoute(req: Request, res: Response) {
     !password ||
     password == null ||
     !name ||
-    name == null
+    name == null ||
+    !date ||
+    date == null
   ) {
-    return res
-      .status(400)
-      .json({ message: "Username, email and password are required" });
+    return res.status(400).json({ message: "Not enougth data" });
   }
 
-  try {
-    await registerUser(name, username, email, password);
-    return res
-      .setHeader("Set-Cookie", `token=${username}`)
-      .status(200)
-      .json({ message: "User registered" });
-  } catch (error) {
-    return res.status(500).json({ message: "Internal server error" });
+  const user = await registerUser(name, username, email, password, date);
+
+  if (user instanceof Error) {
+    return res.status(400).json({ message: user.message });
   }
+  return res
+    .setHeader("Set-Cookie", `token=${username}`)
+    .status(200)
+    .json({ message: "User registered" });
 }

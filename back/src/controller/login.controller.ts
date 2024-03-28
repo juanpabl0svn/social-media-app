@@ -13,6 +13,10 @@ export async function handleLogInRoute(req: Request, res: Response) {
 
   const user = await logInUser(username, password);
 
+  if (user instanceof Error) {
+    return res.status(400).json({ message: user.message });
+  }
+
   return res
     .setHeader("Set-Cookie", `token=${user.username}`)
     .status(200)
