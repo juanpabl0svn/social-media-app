@@ -7,6 +7,7 @@ CREATE TABLE users (
     create_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     birth_date TIMESTAMP NULL DEFAULT NULL,
     followers INT DEFAULT 0,
+    following INT DEFAULT 0,
 );
 
 CREATE TABLE posts (
