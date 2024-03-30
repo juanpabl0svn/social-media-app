@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-color: #c8a81b;
+      --secondary-color: #a98f1b;
+    }
+
+    .header-navigation {
+      position: relative;
+      height: 50px;
+      width: 100%;
+      background-color: var(--primary-color);
+      box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);
+      display: flex;
+      justify-content: space-between;
+
+      & > .user-info {
+        display: flex;
+        align-items: center;
+        position: absolute;
+        right: 10px;
+        top: 0;
+
+        & > .user-image {
+          width: 50px;
+          mix-blend-mode: multiply;
+        }
+      }
+
+      & > nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 100%;
+        padding: 0 20px;
+        margin: 0 auto;
+        width: fit-content;
+
+        & > a {
+          text-decoration: none;
+          color: white;
+          padding: 0 10px;
+          height: 100%;
+          align-content: center;
+          &:hover {
+            background-color: var(--secondary-color);
+          }
+        }
+      }
+    }
+  </style>
+  <body>
+    <header class="header-navigation">
+      <nav>
+        <a href="home.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="user-info">
+        <img src="assets/user.png" alt="user" class="user-image" />
+        <p>Juan Camilo Sanchez</p>
+      </div>
+    </header>
+  </body>
+</html>
