@@ -5,8 +5,6 @@ CREATE PROCEDURE accept_follower(
 )
 BEGIN
 	DECLARE v_id_follow INT;
-	DECLARE v_id_user_follow INT;
-	DECLARE v_id_user_request INT;
 
 	-- Declarar un handler para manejar excepciones
     DECLARE EXIT HANDLER FOR SQLEXCEPTION
@@ -19,7 +17,7 @@ BEGIN
 
 	START TRANSACTION;
 
-	SELECT id_follow, id_user_follow, id_user_request INTO v_id_follow, v_id_user_follow, v_id_user_request
+	SELECT id_follow, id_user_follow, id_user_request INTO v_id_follow
 	FROM followers 
 	WHERE id_follow = follow_id;
     
@@ -34,16 +32,7 @@ BEGIN
 	request_update_date = CURRENT_TIMESTAMP()
 	WHERE id_follow = follow_id;
 
-	-- Actualiza los seguidos de la persona que pidio seguir al otro
-	UPDATE users
-	SET following = following + 1
-	WHERE id_user = v_id_user_request;
 
-	-- Actualiza los seguidores de la persona que acepto el follow
-	UPDATE users
-	SET followers = followers + 1
-	WHERE id_user = v_id_follow;
-git 
 END//
 
 DELIMITER ;

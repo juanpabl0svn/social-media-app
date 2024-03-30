@@ -6,16 +6,17 @@ CREATE TABLE IF NOT EXISTS users (
     email VARCHAR(255) UNIQUE NOT NULL,
     create_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     birth_date TIMESTAMP NULL DEFAULT NULL,
-    followers INT DEFAULT 0,
-    following INT DEFAULT 0,
-    posts INT DEFAULT 0,
-    description VARCHAR(255) NULL DEFAULT NULL,
+
 );
 -- ?
 -- city
 -- country
 -- phone
 -- aditional information
+-- followers 
+-- following
+-- posts
+-- description 
 -- ?
 
 CREATE TABLE posts (
@@ -23,13 +24,13 @@ CREATE TABLE posts (
     id_user INT,
     uri_resource VARCHAR(255) NOT NULL,
     post_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    caption VARCHAR(255),
-    -- likes INT DEFAULT 0,
-    -- comments INT DEFAULT 0,
-    -- shares INT DEFAULT 0,
+    title VARCHAR(255),
     FOREIGN KEY (id_user) REFERENCES users(id_user)
 );
 -- ?
+-- likes
+-- comments
+-- shares
 -- location (optional)
 -- several posts? images and videos all in one
 -- ?
