@@ -1,4 +1,4 @@
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
 	id_user INT PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(255) UNIQUE NOT NULL,
     name VARCHAR(255) NOT NULL,
@@ -8,16 +8,31 @@ CREATE TABLE users (
     birth_date TIMESTAMP NULL DEFAULT NULL,
     followers INT DEFAULT 0,
     following INT DEFAULT 0,
+    posts INT DEFAULT 0,
+    description VARCHAR(255) NULL DEFAULT NULL,
 );
+-- ?
+-- city
+-- country
+-- phone
+-- aditional information
+-- ?
 
 CREATE TABLE posts (
 	id_post INT PRIMARY KEY AUTO_INCREMENT,
     id_user INT,
     uri_resource VARCHAR(255) NOT NULL,
     post_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    title VARCHAR(255),
+    caption VARCHAR(255),
+    -- likes INT DEFAULT 0,
+    -- comments INT DEFAULT 0,
+    -- shares INT DEFAULT 0,
     FOREIGN KEY (id_user) REFERENCES users(id_user)
 );
+-- ?
+-- location (optional)
+-- several posts? images and videos all in one
+-- ?
 
 CREATE TABLE likes (
 	id_like INT PRIMARY KEY AUTO_INCREMENT,
@@ -28,6 +43,10 @@ CREATE TABLE likes (
     FOREIGN KEY (id_user) REFERENCES users(id_user),
     FOREIGN KEY (id_post) REFERENCES posts(id_post)
 );
+
+-- ?
+-- like_date is necessary
+-- ? 
 
 CREATE TABLE followers (
 	id_follow INT PRIMARY KEY AUTO_INCREMENT,
@@ -40,6 +59,11 @@ CREATE TABLE followers (
     FOREIGN KEY (id_user_follow) REFERENCES users(id_user)
 );
 
+-- ?
+-- which one is which user_request or user_follow
+-- state should be a enum ('REQUESTED', 'FOLLOWING', 'BLOCKED', 'REJECTED')
+-- ?
+
 CREATE TABLE comments (
 	id_comment INT PRIMARY KEY AUTO_INCREMENT,
     id_user INT,
@@ -50,6 +74,9 @@ CREATE TABLE comments (
     FOREIGN KEY (id_post) REFERENCES posts(id_post)
 );
 
+
+
+
 CREATE TABLE direct_messages (
 	id_message INT PRIMARY KEY AUTO_INCREMENT,
     id_user_from INT,
@@ -59,3 +86,7 @@ CREATE TABLE direct_messages (
     FOREIGN KEY (id_user_from) REFERENCES users(id_user),
     FOREIGN KEY (id_user_to) REFERENCES users(id_user)
 );
+
+-- ? 
+-- messages should be bigger
+-- ?
