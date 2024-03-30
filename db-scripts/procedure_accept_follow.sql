@@ -4,7 +4,6 @@ CREATE PROCEDURE accept_follower(
 	IN follow_id INT
 )
 BEGIN
-
 	DECLARE v_id_follow INT;
 	DECLARE v_id_user_follow INT;
 	DECLARE v_id_user_request INT;
@@ -50,3 +49,4 @@ END//
 DELIMITER ;
 
 -- Revisar bien el user_request y user_follow
+-- Deberiamos revisar si se hizo una peticion de follow antes de aceptar

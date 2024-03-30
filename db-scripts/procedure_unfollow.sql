@@ -31,7 +31,7 @@ BEGIN
     SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'No existe follow';
     END IF;
 
-    -- Confirma la solicitud de follow
+    -- Confirma la solicitud de unfollow
 	UPDATE followers
 	SET
 	state = 'UNFOLLOWED',

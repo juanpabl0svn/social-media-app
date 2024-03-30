@@ -15,7 +15,7 @@ BEGIN
 		-- Relanzar la excepcion para que sea manejada por el cliente
 		RESIGNAL;
 	END;
-    -- Iniciar transaccion
+
 	START TRANSACTION;
     
     SELECT id_user INTO v_id_user_request 
