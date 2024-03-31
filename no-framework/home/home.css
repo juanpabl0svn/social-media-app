@@ -102,6 +102,15 @@
   }
 }
 
+@media (max-width: 768px) {
+  .main-user {
+    & > .user-info {
+      flex-direction: column;
+      gap: 20px;
+    }
+  }
+}
+
 .user-posts {
   margin-top: 40px;
   width: clamp(300px, 70vw, 1000px);
@@ -110,6 +119,13 @@
   border: 1px solid var(--primary-color);
   position: relative;
   display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+
+  & > img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+  }
 
   & > .first-post {
     border: 1px solid var(--secondary-color);
