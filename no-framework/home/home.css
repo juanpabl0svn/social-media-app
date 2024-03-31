@@ -11,7 +11,25 @@
   background-color: var(--primary-color);
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);
   display: flex;
-  justify-content: space-between;
+
+  & > .log-out-button {
+    background: var(--secondary-color);
+    opacity: 0.6;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 200ms ease-in-out;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    &:hover {
+      opacity: 1;
+    }
+  }
 
   & > nav {
     display: flex;

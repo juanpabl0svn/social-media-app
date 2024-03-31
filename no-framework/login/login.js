@@ -37,4 +37,9 @@ $("form").addEventListener("submit", (e) => {
     },
     onClick: function () {}, // Callback after click
   }).showToast();
+
+  setTimeout(() => {
+    localStorage.setItem("user", username);
+    sendTo("/home/home.html");
+  }, 3000);
 });
