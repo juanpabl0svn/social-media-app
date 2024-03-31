@@ -12,8 +12,9 @@ function logOut() {
   });
 }
 
+const posts = $("#user-posts");
+
 window.onload = () => {
-  const posts = $("#user-posts");
   let i;
   for (i = 1; i <= 4; i++) {
     const image = `<img src='assets/post${i}.jpg'/>`;
