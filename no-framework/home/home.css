@@ -4,21 +4,6 @@
   box-sizing: border-box;
 }
 
-:root {
-  --primary-color: #c8a81b;
-  --secondary-color: #a98f1b;
-
-  --primary-color-light: #eee29b;
-
-  --primary-font: "Roboto", sans-serif;
-  --secondary-font: "Open Sans", sans-serif;
-
-  --primary-font-color: #333;
-  --secondary-font-color: #555;
-
-  --header-height: 60px;
-}
-
 .header-navigation {
   position: relative;
   height: var(--header-height);
