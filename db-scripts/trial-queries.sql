@@ -1,14 +1,14 @@
-INSERT INTO users (username, name, password, email, birth_date) VALUES
-('user1', 'Usuario Uno', 'pass1', 'user1@example.com', '1990-01-01'),
-('user2', 'Usuario Dos', 'pass2', 'user2@example.com', '1991-02-02'),
-('user3', 'Usuario Tres', 'pass3', 'user3@example.com', '1992-03-03'),
-('user4', 'Usuario Cuatro', 'pass4', 'user4@example.com', '1993-04-04'),
-('user5', 'Usuario Cinco', 'pass5', 'user5@example.com', '1994-05-05'),
-('user6', 'Usuario Seis', 'pass6', 'user6@example.com', '1995-06-06'),
-('user7', 'Usuario Siete', 'pass7', 'user7@example.com', '1996-07-07'),
-('user8', 'Usuario Ocho', 'pass8', 'user8@example.com', '1997-08-08'),
-('user9', 'Usuario Nueve', 'pass9', 'user9@example.com', '1998-09-09'),
-('user10', 'Usuario Diez', 'pass10', 'user10@example.com', '1999-10-10');
+INSERT INTO users (username, name, last_name,  password, email, birth_date) VALUES
+('user1', 'Usuario Uno', 'pass1', 'Zapata','user1@example.com', '1990-01-01'),
+('user2', 'Usuario Dos','Zapata', 'pass2', 'user2@example.com', '1991-02-02'),
+('user3', 'Usuario Tres','Zapata', 'pass3', 'user3@example.com', '1992-03-03'),
+('user4', 'Usuario Cuatro','Zapata', 'pass4', 'user4@example.com', '1993-04-04'),
+('user5', 'Usuario Cinco','Zapata', 'pass5', 'user5@example.com', '1994-05-05'),
+('user6', 'Usuario Seis','Zapata', 'pass6', 'user6@example.com', '1995-06-06'),
+('user7', 'Usuario Siete','Zapata', 'pass7', 'user7@example.com', '1996-07-07'),
+('user8', 'Usuario Ocho','Zapata', 'pass8', 'user8@example.com', '1997-08-08'),
+('user9', 'Usuario Nueve','Zapata', 'pass9', 'user9@example.com', '1998-09-09'),
+('user10', 'Usuario Diez','Zapata', 'pass10', 'user10@example.com', '1999-10-10');
 
 INSERT INTO posts (id_user, uri_resource, title) VALUES
 (1, 'http://example.com/resource1.jpg', 'Post Uno'),

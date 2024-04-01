@@ -9,7 +9,7 @@ CREATE PROCEDURE register_user(
 )
 BEGIN
     DECLARE v_min_birth_date DATE;
-    DECLARE v_nickname DATE;
+    DECLARE v_usernmae DATE;
     DECLARE v_email DATE;
     
     BEGIN
@@ -21,9 +21,9 @@ BEGIN
 
     START TRANSACTION;
 
-    SELECT nickname, email INTO v_nickname, v_email
+    SELECT usernmae, email INTO v_usernmae, v_email
     FROM users
-    WHERE nickname = p_username or email = p_email;
+    WHERE username = p_username or email = p_email;
 
 
     SET v_min_birth_date = DATE_SUB(CURDATE(), INTERVAL 14 YEAR);
@@ -32,8 +32,8 @@ BEGIN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Debes tener al menos 14 años para registrarte';
     END IF;
 
-    IF (v_nickname IS NOT NULL) THEN
-        IF (v_nickname = p_username) THEN
+    IF (v_usernmae IS NOT NULL) THEN
+        IF (v_usernmae = p_username) THEN
             SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El nickname ya esta en uso';
         ELSE
             SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El email ya está en uso';
