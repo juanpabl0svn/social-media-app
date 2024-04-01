@@ -36,16 +36,16 @@ INSERT INTO likes (id_user, id_post, emoji_like) VALUES
 
 
 INSERT INTO followers (id_user_request, id_user_follow, state) VALUES
-(1, 2, 'FOLLOWING'),
-(2, 3, 'FOLLOWING'),
-(3, 4, 'FOLLOWING'),
-(4, 5, 'FOLLOWING'),
-(5, 6, 'FOLLOWING'),
-(6, 7, 'FOLLOWING'),
-(7, 8, 'FOLLOWING'),
-(8, 9, 'FOLLOWING'),
-(9, 10, 'FOLLOWING'),
-(10, 1, 'FOLLOWING');
+(1, 2, 'REQUESTED'),
+(2, 3, 'REQUESTED'),
+(3, 4, 'REQUESTED'),
+(4, 5, 'REQUESTED'),
+(5, 6, 'REQUESTED'),
+(6, 7, 'REQUESTED'),
+(7, 8, 'REQUESTED'),
+(8, 9, 'REQUESTED'),
+(9, 10, 'REQUESTED'),
+(10, 1, 'REQUESTED');
 
 
 INSERT INTO comments (id_user, id_post, comment) VALUES
