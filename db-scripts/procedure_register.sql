@@ -14,49 +14,39 @@ BEGIN
     DECLARE v_email DATE;
     
     BEGIN
-	  -- Rollback en caso de excepcion
-      ROLLBACK;
-      -- Relanzar la excepcion para que sea manejada por el cliente
-      RESIGNAL;
-	  END;
+        -- Rollback en caso de excepcion
+        ROLLBACK;
+        -- Relanzar la excepcion para que sea manejada por el cliente
+        RESIGNAL;
+        END;
 
     START TRANSACTION;
 
-    SELECT id_user INTO v_nickname
+    SELECT nickname, email INTO v_nickname, v_email
     FROM users
-    WHERE nickname = p_nickname;
-
-    SELECT id_user INTO v_email
-    FROM users
-    WHERE email = p_email;
+    WHERE nickname = p_nickname or email = p_email;
 
 
-    -- Calcular la fecha mínima de nacimiento (hace 14 años)
     SET v_min_birth_date = DATE_SUB(CURDATE(), INTERVAL 14 YEAR);
 
-    -- Verificar si la fecha de nacimiento es mayor a 14 años
-    IF (p_birth_date >= v_min_birth_date) THEN
-
-        -- Verificar si el nickname ya está en uso
-        IF (v_nickname IS NOT NULL) THEN
-            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El nickname ya está en uso';
-        END IF;
-
-        -- Verificar si el correo electrónico ya está en uso
-        IF (v_email IS NOT NULL) THEN
-            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El correo electrónico ya está en uso';
-        END IF;
-
-        -- Insertar el nuevo usuario en la tabla de users
-        INSERT INTO users (nickname, name, lastname, email, password, create_Date, birth_date)
-        VALUES (p_nickname, p_name, p_lastname, p_email, p_password, NOW(), p_birth_date);
-        
-       COMMIT
-
-    ELSE
+    IF (p_birth_date < v_min_birth_date) THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Debes tener al menos 14 años para registrarte';
     END IF;
 
-  
+    IF (v_nickname IS NOT NULL) THEN
+        IF (v_nickname = p_nickname) THEN
+            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El nickname ya esta en uso';
+        ELSE
+            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El email ya está en uso';
+        END IF;
+    END IF;
+
+
+    -- Insertar el nuevo usuario en la tabla de users
+    INSERT INTO users (nickname, name, lastname, email, password, birth_date)
+    VALUES (p_nickname, p_name, p_lastname, p_email, p_password, p_birth_date);
+        
+    COMMIT;
+        
 END//
 DELIMITER ;
