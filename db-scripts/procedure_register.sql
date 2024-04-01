@@ -1,6 +1,6 @@
 DELIMITER //
 
-CREATE PROCEDURE RegistrarUsuario(
+CREATE PROCEDURE register_user(
     IN p_username VARCHAR(100),
     IN p_name VARCHAR(100),
     IN p_lastname VARCHAR(100),
