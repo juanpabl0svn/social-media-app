@@ -1,17 +1,11 @@
 DELIMITER //
 
-CREATE PROCEDURE register_user(
-    IN p_username VARCHAR(100),
-    IN p_name VARCHAR(100),
-    IN p_last_name VARCHAR(100),
-    IN p_email VARCHAR(100),
-    IN p_password VARCHAR(100),
-    IN p_birth_date VARCHAR(100)
+CREATE PROCEDURE delete_post(
+    IN p_id_post INT
 )
 BEGIN
-    DECLARE v_min_birth_date DATE;
-    DECLARE v_username VARCHAR(255);
-    DECLARE v_email VARCHAR(255);
+
+    DECLARE v_id_post INT;
     
     DECLARE EXIT HANDLER FOR SQLEXCEPTION
     BEGIN
@@ -23,31 +17,27 @@ BEGIN
 
 	START TRANSACTION;
 
-    SELECT username, email INTO v_username, v_email
-    FROM users
-    WHERE username = p_username or email = p_email;
+    SELECT id_post INTO v_id_post
+    FROM posts
+    WHERE id_post = p_id_post;
 
-
-    SET v_min_birth_date = DATE_SUB(CURDATE(), INTERVAL 14 YEAR);
-
-    IF (p_birth_date < v_min_birth_date) THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Debes tener al menos 14 años para registrarte';
-    END IF;
-
-    IF (v_username IS NOT NULL) THEN
-        IF (v_username = p_username) THEN
-            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El nickname ya esta en uso';
-        ELSE
-            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El email ya está en uso';
-        END IF;
+    IF v_id_post IS NULL THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El usuario no existe';
     END IF;
 
 
-    -- Insertar el nuevo usuario en la tabla de users
-    INSERT INTO users (username, name, last_name, email, password, birth_date)
-    VALUES (p_username, p_name, p_last_name, p_email, p_password, p_birth_date);
-        
+
+    DELETE from likes
+    WHERE id_post = p_id_post;
+
+    DELETE from comments
+    WHERE id_post = p_id_post;
+    
+    DELETE from posts
+    WHERE id_post = p_id_post;
+
     COMMIT;
-        
+
 END//
+
 DELIMITER ;
