@@ -60,6 +60,6 @@ BEGIN
 	'REQUESTED'
     );
 
-
+	COMMIT;
 END//
 DELIMITER ;
