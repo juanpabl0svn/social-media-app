@@ -33,7 +33,7 @@ BEGIN
 	request_update_date = CURRENT_TIMESTAMP()
 	WHERE id_follow = v_id_follow;
 
-
+	COMMIT;
 END//
 
 DELIMITER ;
