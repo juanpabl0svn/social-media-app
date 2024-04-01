@@ -7,14 +7,15 @@ BEGIN
 
     DECLARE v_id_post INT;
     
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
     BEGIN
-        -- Rollback en caso de excepcion
-        ROLLBACK;
-        -- Relanzar la excepcion para que sea manejada por el cliente
-        RESIGNAL;
-        END;
+		-- Rollback en caso de excepcion
+		ROLLBACK;
+		-- Relanzar la excepcion para que sea manejada por el cliente
+		RESIGNAL;
+	END;
 
-    START TRANSACTION;
+	START TRANSACTION;
 
     SELECT id_post INTO v_id_post
     FROM posts
@@ -25,13 +26,14 @@ BEGIN
     END IF;
 
 
-    DELETE from posts
-    WHERE id_post = p_id_post;
 
     DELETE from likes
     WHERE id_post = p_id_post;
 
     DELETE from comments
+    WHERE id_post = p_id_post;
+    
+    DELETE from posts
     WHERE id_post = p_id_post;
 
     COMMIT;
