@@ -57,7 +57,7 @@ BEGIN
 	(
 	v_id_user_request,
 	v_id_user_follow,
-	'REQUESTED'
+	'PENDING'
     );
 
 	COMMIT;
