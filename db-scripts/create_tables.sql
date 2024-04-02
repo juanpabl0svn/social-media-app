@@ -54,7 +54,7 @@ CREATE TABLE followers (
     id_follow INT PRIMARY KEY AUTO_INCREMENT,
     id_user_request INT,
     id_user_follow INT,
-    state ENUM('REQUESTED', 'ACCEPTED') NOT NULL,
+    state ENUM('PENDING', 'ACCEPTED', 'REJECTED') NOT NULL,
     request_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     request_update_date TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (id_user_request) REFERENCES users(id_user),
