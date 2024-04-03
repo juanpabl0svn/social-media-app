@@ -1,8 +1,8 @@
 DELIMITER //
 
 CREATE PROCEDURE unfollow_user(
-	IN p_current_user VARCHAR(255),
-    IN p_user_to_unfollow VARCHAR(255)
+	IN p_user_to_unfollow VARCHAR(255),
+	IN p_current_user VARCHAR(255)
 )
 BEGIN
 	DECLARE v_id_follow INT;
