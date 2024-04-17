@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { API } from '../../config';
+import { DOCUMENT } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,7 @@ export default class UserService {
   username: string = '';
   isAuth: boolean = false;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, @Inject(DOCUMENT) private document: Document) {}
 
   get getUsername() {
     return this.username;
