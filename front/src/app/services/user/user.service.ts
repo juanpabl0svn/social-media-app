@@ -2,6 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, Inject } from '@angular/core';
 import { API } from '../../config';
 import { DOCUMENT } from '@angular/common';
+import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +12,7 @@ export default class UserService {
   username: string = '';
   isAuth: boolean = false;
 
-  constructor(private http: HttpClient, @Inject(DOCUMENT) private document: Document) {}
+  constructor(private http: HttpClient, private _cookieService:CookieService, private router:Router) {}
 
   get getUsername() {
     return this.username;
@@ -68,5 +70,10 @@ export default class UserService {
     };
 
     return this.http.post(url, body, headers);
+  }
+
+  signOut(){
+    this._cookieService.delete('token')
+    this.router.navigate(['/login'])
   }
 }
