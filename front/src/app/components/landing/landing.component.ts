@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
 import { IUSER } from '../../models/models';
+import { CookieService } from 'ngx-cookie-service';
+import UserService from '../../services/user/user.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.css',
 })
@@ -12,7 +15,7 @@ export class LandingComponent {
   listOfPeople: IUSER[] = [];
   renderSkeleton: number[] = Array(10).fill(0);
 
-  constructor() {}
+  constructor(private _cookieService: CookieService, private _userService:UserService) {}
 
   ngOnInit() {
     fetch('https://randomuser.me/api/?results=10')

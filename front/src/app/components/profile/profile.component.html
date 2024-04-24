@@ -1,0 +1,52 @@
+<header>
+  <nav class="hidden w-full md:block md:w-auto">
+    <ul
+      class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white"
+    >
+      <li>
+        <a
+          routerLink="/"
+          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
+          >Home</a
+        >
+      </li>
+      <li>
+        <button
+          (click)="signOut()"
+          type="button"
+          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
+        >
+          LogOut
+        </button>
+      </li>
+    </ul>
+  </nav>
+</header>
+<main>
+  <section class="flex flex-row gap-20">
+    <img
+      src="../../../assets/user.jpg"
+      alt="user-image"
+      class="rounded-full w-1/5 h-/w-1/5"
+    />
+
+    <div class="flex flex-col gap-5 justify-center">
+      <h1 class="text-4xl">Juan Camilo Sanchez</h1>
+      <div class="flex flex-row gap-10">
+        <div>
+          <p>Publicaciones</p>
+          <span>0</span>
+        </div>
+        <div>
+          <p>Amigos</p>
+          <span>0</span>
+        </div>
+        <div>
+          <p>Solicitudes pendientes</p>
+          <span>0</span>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="user-posts"></section>
+</main>
