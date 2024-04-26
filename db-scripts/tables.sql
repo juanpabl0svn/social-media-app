@@ -21,12 +21,14 @@ CREATE TABLE IF NOT EXISTS users (
 -- posts
 -- description 
 -- ?
+
 CREATE TABLE posts (
     id_post INT PRIMARY KEY AUTO_INCREMENT,
     id_user INT,
     uri_resource VARCHAR(255) NOT NULL,
     post_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     title VARCHAR(255),
+    post TIMESTAMP NULL,
     FOREIGN KEY (id_user) REFERENCES users(id_user)
 );
 
@@ -88,3 +90,11 @@ CREATE TABLE direct_messages (
 -- ? 
 -- messages should be bigger
 -- ?
+
+
+CREATE TABLE IF NOT EXISTS audits(
+    id_audit INT PRIMARY KEY AUTO_INCREMENT,
+    id_user INT,
+    reason VARCHAR(999) NOT NULL,
+    FOREIGN KEY (id_user) REFERENCES users(id_user),
+);
