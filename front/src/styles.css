@@ -3,60 +3,23 @@
 @tailwind components;
 @tailwind utilities;
 
-.input-component {
-  display: flex;
-  flex-direction: column;
-  position: relative;
+:root {
+  --primary-color: #c8a81b;
+  --secondary-color: #a98f1b;
 
-  input {
-    margin: 10px 0;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+  --primary-color-light: #eee29b;
 
-    &:is(:focus, :valid) + label {
-      transform: translateY(-170%);
-      color: black;
-      font-size: 13px;
-    }
-  }
+  --primary-font: "Roboto", sans-serif;
+  --secondary-font: "Open Sans", sans-serif;
 
-  label {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    left: 10px;
-    transition: all 200ms ease-in-out;
-    background: white;
-    padding: 0 5px;
-    color: gray;
-  }
+  --primary-font-color: #333;
+  --secondary-font-color: #555;
+
+  --header-height: 60px;
 }
 
-.button-component {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  background: #f3f3f3;
-  cursor: pointer;
-  transition: all 200ms ease-in-out;
-  background: rgb(181, 58, 143);
-  background: linear-gradient(
-    45deg,
-    rgba(181, 58, 143, 1) 0%,
-    rgba(255, 0, 39, 1) 48%,
-    rgba(255, 196, 0, 1) 97%
-  );
-  color: white;
-
-  transition: all 200ms ease-in-out;
-
-  &:hover {
-    transform: scale(1.05);
-  }
-}
-
-.storie {
-  border-radius: 50%;
-
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }

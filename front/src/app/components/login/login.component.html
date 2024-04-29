@@ -1,61 +1,14 @@
-<main class="w-full min-h-dvh content-center">
-  <aside
-    class="mx-auto w-[clamp(300px,60vw,600px)] border border-gray-300 p-20 text-center rounded-md"
-  >
-    <img src="/assets/instagram.png" alt="" />
-    <form class="" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <section class="input-component">
-        <input
-          type="text"
-          id="username"
-          name="username"
-          required
-          formControlName="username"
-        />
-        <label for="username">Usuario</label>
-      </section>
-      <section class="input-component">
-        <input
-          required
-          type="password"
-          id="password"
-          name="password"
-          formControlName="password"
-        />
-        <label for="password"> Password </label>
-      </section>
-      <button
-        class="bg-[rgb(0,149,246)] text-white w-full text-center rounded-md py-1 transition-all duration-200 ease-in-out hover:bg-[rgb(0,120,200)]"
-      >
-        Log In
-      </button>
-    </form>
-    <div class="content__or-text">
-      <span></span>
-      <span>OR</span>
-      <span></span>
-    </div>
-    <svg
-      class="h-10 mx-auto pt-2 mb-5"
-      xml:space="preserve"
-      style="enable-background: new 0 0 512 512"
-      viewBox="0 0 408.788 408.788"
-      xmlns:xlink="http://www.w3.org/1999/xlink"
-      version="1.1"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <g>
-        <path
-          class=""
-          data-original="#475993"
-          fill="#475993"
-          d="M353.701 0H55.087C24.665 0 .002 24.662.002 55.085v298.616c0 30.423 24.662 55.085 55.085 55.085h147.275l.251-146.078h-37.951a8.954 8.954 0 0 1-8.954-8.92l-.182-47.087a8.955 8.955 0 0 1 8.955-8.989h37.882v-45.498c0-52.8 32.247-81.55 79.348-81.55h38.65a8.955 8.955 0 0 1 8.955 8.955v39.704a8.955 8.955 0 0 1-8.95 8.955l-23.719.011c-25.615 0-30.575 12.172-30.575 30.035v39.389h56.285c5.363 0 9.524 4.683 8.892 10.009l-5.581 47.087a8.955 8.955 0 0 1-8.892 7.901h-50.453l-.251 146.078h87.631c30.422 0 55.084-24.662 55.084-55.084V55.085C408.786 24.662 384.124 0 353.701 0z"
-        ></path>
-      </g>
-    </svg>
-
-    <a routerLink="/register" class="text-blue-600 hover:underline">
-      Create Account
-    </a>
-  </aside>
+<main class="main-log-in">
+  <form action="">
+    <h1>Log in</h1>
+    <section>
+      <input type="text" name="username" id="username" required />
+      <label for="username">Usuario</label>
+    </section>
+    <section>
+      <input type="text" name="password" id="password" required />
+      <label for="password">Contraseña</label>
+    </section>
+    <button>Ingresar</button>
+  </form>
 </main>

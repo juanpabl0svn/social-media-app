@@ -30,7 +30,7 @@ CREATE TABLE posts (
     title VARCHAR(255),
     post TIMESTAMP NULL,
     FOREIGN KEY (id_user) REFERENCES users(id_user)
-);
+)
 
 -- ?
 -- likes
@@ -56,7 +56,7 @@ CREATE TABLE followers (
     id_follow INT PRIMARY KEY AUTO_INCREMENT,
     id_user_request INT,
     id_user_follow INT,
-    state ENUM('PENDING', 'ACCEPTED', 'REJECTED') NOT NULL,
+    state ENUM('REQUESTED', 'ACCEPTED', 'REJECTED') NOT NULL,
     request_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     request_update_date TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (id_user_request) REFERENCES users(id_user),
@@ -96,5 +96,5 @@ CREATE TABLE IF NOT EXISTS audits(
     id_audit INT PRIMARY KEY AUTO_INCREMENT,
     id_user INT,
     reason VARCHAR(999) NOT NULL,
-    FOREIGN KEY (id_user) REFERENCES users(id_user),
+    FOREIGN KEY (id_user) REFERENCES users(id_user)
 );
