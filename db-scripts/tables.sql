@@ -30,7 +30,7 @@ CREATE TABLE posts (
     title VARCHAR(255),
     post TIMESTAMP NULL,
     FOREIGN KEY (id_user) REFERENCES users(id_user)
-)
+);
 
 -- ?
 -- likes
@@ -39,6 +39,7 @@ CREATE TABLE posts (
 -- location (optional)
 -- several posts? images and videos all in one
 -- ?
+
 CREATE TABLE likes (
     id_like INT PRIMARY KEY AUTO_INCREMENT,
     id_user INT,
@@ -95,6 +96,6 @@ CREATE TABLE direct_messages (
 CREATE TABLE IF NOT EXISTS audits(
     id_audit INT PRIMARY KEY AUTO_INCREMENT,
     id_user INT,
-    reason VARCHAR(999) NOT NULL,
+    reason VARCHAR(999) DEFAULT 'No reason provided',
     FOREIGN KEY (id_user) REFERENCES users(id_user)
 );
