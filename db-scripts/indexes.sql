@@ -1,2 +1,2 @@
-CREATE INDEX idx_post_date ON posts (post_date);
-CREATE INDEX idx_like_post_id ON likes (id_post);
+CREATE INDEX idx_comments_post ON comments (id_post);
+CREATE INDEX idx_users_username ON users (username);

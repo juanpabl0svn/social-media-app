@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS users (
     password VARCHAR(255) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     create_date TIMESTAMP DEFAULT NOW(),
-    birth_date TIMESTAMP NOT NULL
+    birth_date DATE NOT NULL
 );
 
 -- ?
