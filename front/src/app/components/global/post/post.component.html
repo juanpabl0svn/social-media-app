@@ -1,0 +1,36 @@
+<section
+  class="bg-white min-h-[600px] w-[500px] mb-10 border border-gray-300 rounded-md pt-3 pb-2"
+>
+  <article class="flex items-center pl-2 gap-3 pb-2">
+    <div
+      class="w-10 aspect-square bg-black p-[2px] rounded-[50%] bg-gradient-to-r from-yellow-200 via-orange-200 to-yellow-500 text-center [&:hover>img]:scale-[0.98] cursor-pointer"
+    >
+      <img
+        [src]="post.picture.large"
+        class="rounded-[inherit] transition-all duration-200 ease-in-out"
+      />
+    </div>
+    <h2 class="text-md">
+      {{ post.name.first }}
+    </h2>
+  </article>
+  <img [src]="post.picture.large" class="w-full aspect-[7/8]" />
+
+  <div class="flex">
+    <app-like [hasLiked]="post.hasLiked" (handleClick)="toggleLike()
+    " />
+    <app-comment />
+  </div>
+  <article class="px-4">
+    <span>{{post.likes}} likes</span>
+    <p>
+      <span class="font-bold">
+        {{ post.name.first }}
+      </span>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas cumque
+      nam et eveniet non! Saepe eligendi distinctio dolorum, voluptates, natus
+      quas consequatur nostrum placeat quaerat odio beatae reprehenderit, labore
+      minima.
+    </p>
+  </article>
+</section>

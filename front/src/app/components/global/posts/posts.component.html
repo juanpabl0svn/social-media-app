@@ -1,39 +1,9 @@
 <aside
   class="w-full min-h-[calc(100vh-14rem) pt-8 flex flex-col items-center bg-[rgba(236,234,103,0.9)]"
 >
-  @for (user of this.userService.posts; track user.login.uuid;) {
+  @for (post of this.userService.posts; track post.login.uuid;) {
+  <app-post [post]="post" />
 
-  <article
-    class="bg-white min-h-[600px] w-[500px] mb-10 border border-gray-300 rounded-md pt-3 pb-2"
-  >
-    <div class="flex items-center pl-2 gap-3 pb-2">
-      <article
-        class="w-10 aspect-square bg-black p-[2px] rounded-[50%] bg-gradient-to-r from-yellow-200 via-orange-200 to-yellow-500 text-center [&:hover>img]:scale-[0.98] cursor-pointer"
-      >
-        <img
-          [src]="user.picture.large"
-          class="rounded-[inherit] transition-all duration-200 ease-in-out"
-        />
-      </article>
-      <h2 class="text-md">
-        {{ user.name.first }}
-      </h2>
-    </div>
-    <img [src]="user.picture.large" class="w-full aspect-[7/8]" />
-    <div class="flex">
-      <app-like [hasLiked]="user.hasLiked" />
-      <app-comment />
-    </div>
-    <p class="px-4">
-      <span class="font-bold">
-        {{ user.name.first }}
-      </span>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas cumque
-      nam et eveniet non! Saepe eligendi distinctio dolorum, voluptates, natus
-      quas consequatur nostrum placeat quaerat odio beatae reprehenderit, labore
-      minima.
-    </p>
-  </article>
   } @empty {
   <app-posts-skeleton />
   }

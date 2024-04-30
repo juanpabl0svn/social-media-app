@@ -14,6 +14,8 @@ export default class UserService {
   username: string = '';
   isAuth: boolean = false;
 
+  showComments: boolean = false;
+
   posts: IPOST[] = [];
 
   constructor(
@@ -40,9 +42,10 @@ export default class UserService {
 
   getPosts() {
     this.http
-      .get<{ results: IPOST[] }>('https://randomuser.me/api/?results=10')
+      .get<{ results: any }>('https://randomuser.me/api/?results=10')
       .subscribe((posts) => {
-        this.posts = posts.results;
+        const postsFixed = posts.results.map((result: any )=> ({...result, hasLiked: false, likes: 0, comments: []}))
+        this.posts = postsFixed as IPOST[];
       });
   }
 

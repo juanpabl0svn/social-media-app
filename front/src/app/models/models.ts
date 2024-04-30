@@ -5,7 +5,6 @@ export interface IUSER {
   };
   login: { uuid: string };
   picture: { large: string; medium: string; thumbnail: string };
-  hasLiked: boolean;
 }
 
 export interface ICOMMENT {
@@ -24,6 +23,7 @@ export interface IPOST {
   picture: { large: string; medium: string; thumbnail: string };
   gender: string;
   hasLiked: boolean;
+  likes: number;
   email: string;
   comments: ICOMMENT[];
 }

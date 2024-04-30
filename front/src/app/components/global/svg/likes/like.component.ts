@@ -7,5 +7,9 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 })
 export class LikeComponent {
   @Input() hasLiked: boolean = false;
-  @Input() handleClick: any = () => {};
+  @Output() handleClick: EventEmitter<any> = new EventEmitter();
+
+  handleClickEvent() {
+  this.handleClick.emit();
+  }
 }
