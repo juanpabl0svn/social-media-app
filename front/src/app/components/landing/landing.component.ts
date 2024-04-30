@@ -3,13 +3,14 @@ import { IUSER } from '../../models/models';
 import { CookieService } from 'ngx-cookie-service';
 import UserService from '../../services/user/user.service';
 import { RouterLink } from '@angular/router';
-import { CommentComponent } from '../global/svg/comment/comment.component';
-import { LikeComponent } from '../global/svg/likes/like.component';
+import { HeaderComponent } from './header/header.component';
+import { PostsComponent } from '../global/posts/posts.component';
+import { StoriesComponent } from '../global/stories/stories.component';
 
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [RouterLink, CommentComponent, LikeComponent],
+  imports: [RouterLink,  HeaderComponent, PostsComponent, StoriesComponent],
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.css',
 })
@@ -18,18 +19,17 @@ export class LandingComponent {
   renderSkeleton: number[] = Array(10).fill(0);
 
   constructor(
-    private _cookieService: CookieService,
-    private _userService: UserService
+    private userService: UserService
   ) {}
 
-  ngOnInit() {
-    fetch('https://randomuser.me/api/?results=10')
-      .then((response) => response.json())
-      .then(({ results }: { results: IUSER[] }) => {
-        results.forEach((user) =>
-          this.listOfPeople.push({ ...user, hasLiked: false })
-        );
-      })
-      .catch(null);
+  toggleLike(index: number): void {
+    console.log(index)
+    const lastValue = this.userService.posts[index].hasLiked;
+    this.userService.posts[index].hasLiked = !lastValue;
   }
+
+  ngOnInit() {
+    this.userService.getPosts()
+  }
+  
 }

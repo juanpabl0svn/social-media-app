@@ -7,8 +7,5 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 })
 export class LikeComponent {
   @Input() hasLiked: boolean = false;
-
-  toggleLike() {
-    this.hasLiked = !this.hasLiked;
-  }
+  @Input() handleClick: any = () => {};
 }

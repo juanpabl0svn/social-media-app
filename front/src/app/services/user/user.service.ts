@@ -5,6 +5,8 @@ import { DOCUMENT } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 
+import { IPOST } from '../../models/models';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -12,7 +14,13 @@ export default class UserService {
   username: string = '';
   isAuth: boolean = false;
 
-  constructor(private http: HttpClient, private _cookieService:CookieService, private router:Router) {}
+  posts: IPOST[] = [];
+
+  constructor(
+    private http: HttpClient,
+    private _cookieService: CookieService,
+    private router: Router
+  ) {}
 
   get getUsername() {
     return this.username;
@@ -28,6 +36,14 @@ export default class UserService {
 
   set setUsername(username: string) {
     this.username = username;
+  }
+
+  getPosts() {
+    this.http
+      .get<{ results: IPOST[] }>('https://randomuser.me/api/?results=10')
+      .subscribe((posts) => {
+        this.posts = posts.results;
+      });
   }
 
   logIn(username: string, password: string) {
@@ -72,8 +88,8 @@ export default class UserService {
     return this.http.post(url, body, headers);
   }
 
-  signOut(){
-    this._cookieService.delete('token')
-    this.router.navigate(['/login'])
+  signOut() {
+    this._cookieService.delete('token');
+    this.router.navigate(['/login']);
   }
 }
