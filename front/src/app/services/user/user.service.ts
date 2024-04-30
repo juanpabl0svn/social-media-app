@@ -5,7 +5,7 @@ import { DOCUMENT } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 
-import { IPOST } from '../../models/models';
+import { ICOMMENT, IPOST } from '../../models/models';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +14,7 @@ export default class UserService {
   username: string = '';
   isAuth: boolean = false;
 
-  showComments: boolean = false;
+  showComments: ICOMMENT[] = [];
 
   posts: IPOST[] = [];
 

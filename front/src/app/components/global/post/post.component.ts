@@ -23,6 +23,6 @@ export class PostComponent {
   }
 
   showComments() {
-    this.userService.showComments = true;
+    this.userService.showComments = this.post.comments;
   }
 }
