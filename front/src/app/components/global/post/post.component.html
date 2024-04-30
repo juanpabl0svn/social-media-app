@@ -17,9 +17,9 @@
   <img [src]="post.picture.large" class="w-full aspect-[7/8]" />
 
   <div class="flex">
-    <app-like [hasLiked]="post.hasLiked" (handleClick)="toggleLike()
+    <app-like [hasLiked]="post.hasLiked" (onClick)="toggleLike()
     " />
-    <app-comment />
+    <app-comment (onClick)="setComment()" />
   </div>
   <article class="px-4">
     <span>{{post.likes}} likes</span>

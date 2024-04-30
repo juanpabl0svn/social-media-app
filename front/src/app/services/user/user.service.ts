@@ -14,7 +14,7 @@ export default class UserService {
   username: string = '';
   isAuth: boolean = false;
 
-  showComments: ICOMMENT[] = [];
+  showComments: ICOMMENT[] | null = [];
 
   posts: IPOST[] = [];
 

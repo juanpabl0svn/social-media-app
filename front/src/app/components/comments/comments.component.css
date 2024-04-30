@@ -1,0 +1,30 @@
+.comments {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  min-height: 80vh;
+  background: rgb(212, 210, 86);
+  animation: up 400ms ease-in-out forwards;
+  border-radius: 20px 20px;
+}
+
+@keyframes up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes down {
+  to {
+    transform: translateY(100%);
+  }
+}
+
+.hide-comments {
+  animation: down 400ms ease-in-out forwards;
+}
+

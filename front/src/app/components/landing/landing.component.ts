@@ -6,11 +6,13 @@ import { RouterLink } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { PostsComponent } from '../global/posts/posts.component';
 import { StoriesComponent } from '../global/stories/stories.component';
+import { CommentsComponent } from '../comments/comments.component';
+
 
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [RouterLink,  HeaderComponent, PostsComponent, StoriesComponent],
+  imports: [RouterLink,  HeaderComponent, PostsComponent, StoriesComponent, CommentsComponent],
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.css',
 })
@@ -19,7 +21,7 @@ export class LandingComponent {
   renderSkeleton: number[] = Array(10).fill(0);
 
   constructor(
-    private userService: UserService
+    public userService: UserService
   ) {}
 
   toggleLike(index: number): void {

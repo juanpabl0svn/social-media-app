@@ -16,13 +16,13 @@ export class PostComponent {
 
   constructor(public userService: UserService) {}
 
-  toggleLike(): void {
+  toggleLike() {
     const value = this.post.hasLiked;
     this.post.hasLiked = !value;
     this.post.likes = value ? this.post.likes - 1 : this.post.likes + 1;
   }
 
-  showComments() {
+  setComment() {
     this.userService.showComments = this.post.comments;
   }
 }

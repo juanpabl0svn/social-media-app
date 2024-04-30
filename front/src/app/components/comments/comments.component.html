@@ -1,1 +1,5 @@
-<p>comments works!</p>
+<aside class="fixed top-0 left-0  w-full h-dvh" (click)="closeComments()">
+  <section id="comments" class="comments" (click)="$event.stopPropagation()" >
+    <span class="absolute right-10 top-10 text-white font-bold text-2xl cursor-pointer" (click)="closeComments()">X</span>
+  </section>
+</aside>
