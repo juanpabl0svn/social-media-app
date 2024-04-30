@@ -1,6 +1,5 @@
 <main class="min-h-dvh h-full border max-w-[800px] overflow-hidden mx-auto">
-  <header class="flex flex-row justify-between items-center mb-4 py-4 border">
-    <!-- <h1 class="text-5xl">Instagram</h1> -->
+  <header class="flex flex-row justify-between items-center py-4 border bg-white" >
     <span
       class="text-6xl font-bold bg-gradient-to-b from-yellow-300 to-yellow-100 bg-clip-text text-transparent"
       >Instapic</span
@@ -12,7 +11,9 @@
       routerLink="/profile"
     />
   </header>
-  <section class="flex gap-3 pl-2 pb-4 border-b border-b-gray-30">
+  <section
+    class="flex gap-3 pl-2 py-4 border-b border-b-gray-30 bg-[rgba(231,222,138,0.5)]"
+  >
     @for (user of listOfPeople; track user.login.uuid) {
     <article class="text-center">
       <article
@@ -42,11 +43,13 @@
     }}
   </section>
   <aside
-    class="w-full min-h-[calc(100vh-14rem) mt-8 flex flex-col items-center"
+    class="w-full min-h-[calc(100vh-14rem) pt-8 flex flex-col items-center bg-[rgba(236,234,103,0.9)]"
   >
     @for (user of listOfPeople; track user.login.uuid) {
 
-    <article class="bg-white min-h-[600px] w-[500px] mb-10 border border-gray-300 rounded-md pt-3">
+    <article
+      class="bg-white min-h-[600px] w-[500px] mb-10 border border-gray-300 rounded-md pt-3 pb-2"
+    >
       <div class="flex items-center pl-2 gap-3 pb-2">
         <article
           class="w-10 aspect-square bg-black p-[2px] rounded-[50%] bg-gradient-to-r from-yellow-200 via-orange-200 to-yellow-500 text-center [&:hover>img]:scale-[0.98] cursor-pointer"
@@ -61,7 +64,12 @@
         </h2>
       </div>
       <img [src]="user.picture.large" class="w-full aspect-[7/8]" />
-      <p>
+      <div class="flex">
+        <app-like [hasLiked]="user.hasLiked"  />
+        <app-comment/>
+        
+      </div>
+      <p class="px-4">
         <span class="font-bold">
           {{ user.name.first }}
         </span>
