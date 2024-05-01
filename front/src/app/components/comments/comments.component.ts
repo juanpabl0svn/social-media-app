@@ -13,6 +13,33 @@ export class CommentsComponent {
 
   constructor(public userService: UserService) {}
 
+
+  handleKey(e: any){
+    if(e.key === 'Enter'){
+      e.target.nextElementSibling.click()
+      e.target.value = ''
+    }
+
+  }
+
+  handleSubmit(e: any) {
+    e.preventDefault();
+
+    const content = e.target.content.value
+
+    if (!content) return alert('Please enter a comment')
+
+      console.log(content)
+
+    this.userService.showComments?.push({
+      id: `${Math.random()}`,
+      content,
+      image: '',
+      username: this.userService.getUsername,
+    });
+
+  }
+
   closeComments() {
     clearTimeout(this.timer);
     document.querySelector('#comments')?.classList.add('hide-comments');

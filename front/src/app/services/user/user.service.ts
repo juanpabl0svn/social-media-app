@@ -11,10 +11,10 @@ import { ICOMMENT, IPOST } from '../../models/models';
   providedIn: 'root',
 })
 export default class UserService {
-  username: string = '';
+  username: string = 'Juan pablo';
   isAuth: boolean = false;
 
-  showComments: ICOMMENT[] | null = [];
+  showComments: ICOMMENT[] | null = null;
 
   posts: IPOST[] = [];
 
@@ -44,7 +44,19 @@ export default class UserService {
     this.http
       .get<{ results: any }>('https://randomuser.me/api/?results=10')
       .subscribe((posts) => {
-        const postsFixed = posts.results.map((result: any )=> ({...result, hasLiked: false, likes: 0, comments: []}))
+        const postsFixed = posts.results.map((result: any) => ({
+          ...result,
+          hasLiked: false,
+          likes: 0,
+          comments: [
+            {
+              id: 1,
+              image: '',
+              username: 'mi mami',
+              content: 'Este es un comentario de prueba',
+            },
+          ],
+        }));
         this.posts = postsFixed as IPOST[];
       });
   }

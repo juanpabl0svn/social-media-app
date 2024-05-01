@@ -12,14 +12,18 @@
   justify-content: end;
   align-items: center;
 
-
-  & > .list-comments{
-    width: 80%;
-    background: #000;
+  & > aside {
+    width: clamp(300px, 80%, 800px);
+    height: 100%;
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+    & > article{
+      border: 1px solid red;
+    }
   }
-
-
-
 }
 
 @keyframes up {
@@ -40,4 +44,3 @@
 .hide-comments {
   animation: down 400ms ease-in-out forwards;
 }
-
