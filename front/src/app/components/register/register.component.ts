@@ -38,8 +38,9 @@ export class RegisterComponent {
 
     return this.user
       .register(name, username, email, password, date)
-      .subscribe(() => {
+      .subscribe((respuesta:any) => {
         document.cookie = `token=${email}`;
+        document.cookie = `token=${respuesta.userData.id_user}`;
         this.user.setIsAuth = true;
         this.user.setUsername = email;
         this.router.navigate(['/']);

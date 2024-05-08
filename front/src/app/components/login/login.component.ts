@@ -23,8 +23,10 @@ export class LoginComponent {
 
     if (!username || !password) return;
 
-    return this.user.logIn(username, password).subscribe(() => {
+    return this.user.logIn(username, password).subscribe((response: any) => {
       document.cookie = `token=${username}`;
+      document.cookie = `userId=${response.user.id_user}`
+      this.user.userData = response
       this.user.setIsAuth = true;
       this.user.setUsername = username;
       this.router.navigate(['/']);

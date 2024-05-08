@@ -60,3 +60,34 @@ export const User = sequelize.define(
     tableName: "users",
   }
 );
+
+export const Post = sequelize.define(
+  "posts",
+  {
+    id_post: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    user_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "users",
+        key: "id_user",
+      },
+    },
+    imageSrc: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    create_date: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+    },
+  },
+  {
+    tableName: "posts",
+  }
+);

@@ -20,5 +20,5 @@ export async function handleLogInRoute(req: Request, res: Response) {
   return res
     .setHeader("Set-Cookie", `token=${user.username}`)
     .status(200)
-    .json({ message: "User logedIn" });
+    .json({ message: "User logedIn", user: user });
 }

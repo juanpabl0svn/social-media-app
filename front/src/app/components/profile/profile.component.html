@@ -48,5 +48,16 @@
       </div>
     </div>
   </section>
-  <section class="user-posts"></section>
+  <section class="user-posts">
+    @for (post of posts; track $index) {
+    <div class="flex flex-col">
+      <img [src]="post.imageSrc" />
+      <ul>
+        @for (comment of post.commments; track $index) {
+        <li>{{comment}}</li>
+        }
+      </ul>
+    </div>
+    }
+  </section>
 </main>
