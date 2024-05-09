@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export default class UserService {
   username: string = '';
   isAuth: boolean = false;
+  userData: any = {}
 
   constructor(private http: HttpClient, private _cookieService:CookieService, private router:Router) {}
 
