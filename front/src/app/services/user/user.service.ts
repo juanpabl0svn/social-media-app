@@ -31,6 +31,15 @@ export default class UserService {
     this.username = username;
   }
 
+  getUser(){
+    const username = this._cookieService.get('token')
+    const userId = this._cookieService.get('userId')
+    if (username && userId){
+      return {username: username, userId: userId}
+    }
+    return {}
+  }
+
   logIn(username: string, password: string) {
     const url: string = `${API}/login`;
 

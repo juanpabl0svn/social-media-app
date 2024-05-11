@@ -81,6 +81,10 @@ export const Post = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    desciption:{
+      type: DataTypes.STRING,
+      allowNull:true
+    },
     create_date: {
       type: DataTypes.DATE,
       allowNull: false,

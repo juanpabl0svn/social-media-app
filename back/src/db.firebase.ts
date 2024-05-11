@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, set, update, remove } from "firebase/database";
+import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAoCr5_tGtB1FUPO5XPsje2eST4OO4Ib5E",
@@ -17,6 +18,9 @@ export const firebase = initializeApp(firebaseConfig);
 
 // Get a reference to the database
 const database = getDatabase();
+
+//Get a reference to the storage
+export const storage = getStorage(firebase)
 
 // Function to create a new record
 export const createRecord = (path: string, data: any) => {
