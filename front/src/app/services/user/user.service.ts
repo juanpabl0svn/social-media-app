@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export default class UserService {
   username: string = '';
   isAuth: boolean = false;
+  userData: any = {}
 
   constructor(private http: HttpClient, private _cookieService:CookieService, private router:Router) {}
 
@@ -28,6 +29,15 @@ export default class UserService {
 
   set setUsername(username: string) {
     this.username = username;
+  }
+
+  getUser(){
+    const username = this._cookieService.get('token')
+    const userId = this._cookieService.get('userId')
+    if (username && userId){
+      return {username: username, userId: userId}
+    }
+    return {}
   }
 
   logIn(username: string, password: string) {

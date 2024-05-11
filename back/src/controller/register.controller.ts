@@ -39,5 +39,5 @@ export async function handleRegisterRoute(req: Request, res: Response) {
   return res
     .setHeader("Set-Cookie", `token=${username}`)
     .status(200)
-    .json({ message: "User registered" });
+    .json({ message: "User registered", userData: user});
 }
