@@ -31,6 +31,7 @@ export class LandingComponent {
       .catch(null);
 
     this._postService.get_all_post().subscribe((response: any) => {
+      console.log(response.data)
       this.posts = response.data;
     });
   }

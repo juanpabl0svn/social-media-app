@@ -5,6 +5,7 @@ import { LandingComponent } from './components/landing/landing.component';
 import { isLoggedInGuard } from './guards/is-logged-in.guard';
 import { isLoggedOutGuard } from './guards/is-logged-out.guard';
 import { ProfileComponent } from './components/profile/profile.component';
+import { NewpostComponent } from './components/newpost/newpost.component';
 
 export const routes: Routes = [
   {
@@ -16,6 +17,11 @@ export const routes: Routes = [
     path: 'profile',
     component: ProfileComponent,
     canActivate: [isLoggedInGuard]
+  },
+  {
+    path: 'newpost',
+    component: NewpostComponent,
+    canActivate:[isLoggedInGuard]
   },
   {
     path: 'login',

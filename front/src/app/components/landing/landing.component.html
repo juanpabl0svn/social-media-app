@@ -41,34 +41,30 @@
   <aside
     class="w-full min-h-[calc(100vh-14rem) mt-8 flex flex-col items-center"
   >
-    @for (user of listOfPeople; track user.login.uuid) {
-
-    <article class="bg-white min-h-[600px] w-[500px] mb-10">
-      <div class="flex items-center pl-2 gap-3 pb-2">
-        <article
-          class="w-10 aspect-square bg-black p-[2px] rounded-[50%] bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-center [&:hover>img]:scale-[0.98] cursor-pointer"
-        >
-          <img
-            [src]="user.picture.large"
-            class="rounded-[inherit] transition-all duration-200 ease-in-out"
-          />
-        </article>
-        <h2 class="text-md">
-          {{ user.name.first }}
-        </h2>
-      </div>
-      <img [src]="user.picture.large" class="w-full aspect-[7/8]" />
-      <p>
-        <span class="font-bold">
-          {{ user.name.first }}
-        </span>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas cumque
-        nam et eveniet non! Saepe eligendi distinctio dolorum, voluptates, natus
-        quas consequatur nostrum placeat quaerat odio beatae reprehenderit,
-        labore minima.
-      </p>
-    </article>
-    } @empty { @for(item of renderSkeleton; track $index) {
+    @for (post of posts; track $index){
+      <article class="bg-white min-h-[600px] w-[500px] mb-10">
+        <div class="flex items-center pl-2 gap-3 pb-2">
+          <!-- <article
+            class="w-10 aspect-square bg-black p-[2px] rounded-[50%] bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-center [&:hover>img]:scale-[0.98] cursor-pointer"
+          >
+            <img
+              [src]="user.picture.large"
+              class="rounded-[inherit] transition-all duration-200 ease-in-out"
+            />
+          </article> -->
+          <h2 class="text-md">
+            {{ post.username }}
+          </h2>
+        </div>
+        <img [src]="post.imageSrc" class="w-full aspect-[7/8]" />
+        <p>
+          <span class="font-bold">
+            {{ post.username }}
+          </span>
+          {{post.description}}
+        </p>
+      </article>
+    }@empty { @for(item of renderSkeleton; track $index) {
     <article
       class="bg-gray-200 min-h-[600px] w-[500px] mb-10 rounded-lg animate-pulse"
     >

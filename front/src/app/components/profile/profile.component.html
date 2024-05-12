@@ -48,10 +48,11 @@
       </div>
     </div>
   </section>
-  <section class="user-posts">
+  <section class="grid grid-cols-3 ml-10 mr-10">
     @for (post of posts; track $index) {
     <div class="flex flex-col">
       <img [src]="post.imageSrc" />
+      <p>{{post.description}}</p>
       <ul>
         @for (comment of post.commments; track $index) {
         <li>{{comment}}</li>
@@ -59,5 +60,6 @@
       </ul>
     </div>
     }
+    <a href="/newpost">+</a>
   </section>
 </main>
