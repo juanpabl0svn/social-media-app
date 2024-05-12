@@ -1,11 +1,20 @@
 import { storage } from "../db.firebase";
-import { Post } from "../db.mysql";
+import { Post, User } from "../db.mysql";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 export async function getAllPosts() {
   try {
-    const posts = await Post.findAll({ order: [["create_date", "DESC"]] });
-    return posts;
+    const postsData = []
+    const posts = await Post.findAll({ order: [["create_date", "DESC"]], limit: 10 });
+    for (let post of posts){
+      const user = await User.findOne({where: {id_user: post.toJSON().user_id}})
+      postsData.push({
+        username: user?.toJSON().username,
+        imageSrc: post.toJSON().imageSrc,
+        description: post.toJSON().description
+      })
+    }
+    return postsData;
   } catch (err) {
     console.error(err);
     return err;
