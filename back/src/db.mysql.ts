@@ -81,7 +81,7 @@ export const Post = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    desciption:{
+    description:{
       type: DataTypes.STRING,
       allowNull:true
     },
