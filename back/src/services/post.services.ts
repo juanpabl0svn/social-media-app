@@ -1,6 +1,6 @@
 import { storage } from "../db.firebase";
 import { Post } from "../db.mysql";
-import { ref, uploadBytes } from "firebase/storage";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 export async function getAllPosts() {
   try {
@@ -22,20 +22,21 @@ export async function getAllUserPosts(userId: any) {
   }
 }
 
-export async function createNewPost(formData: any){
+export async function createNewPost(file: any, postData: any) {
   const data = {
-    user_id: formData.get('user_id'),
-    description: formData.get('description'),
-    imageSrc: '',
-  }
-  try{
-    const storageRef = ref(storage, `posts`)
-    uploadBytes(storageRef, formData.get('file')).then((snapshot)=>{
-      console.log('uploaded file', snapshot)
-    })
-    
-    // const newPost = await Post.create(data)
-  }catch(err){
-    console.error(err)
+    user_id: postData.user_id,
+    description: postData.description,
+    imageSrc: "",
+  };
+  try {
+    const storageRef = ref(storage, `posts/${Date.now()}_${file.originalname}`);
+    const snapshot = await uploadBytes(storageRef,file.buffer, {contentType: file.mimetype});
+    const downloadURL = await getDownloadURL(storageRef)
+    data.imageSrc = downloadURL;
+    const newPost = await Post.create(data);
+    return newPost.toJSON()
+  } catch (err) {
+    console.error(err);
+    return 
   }
 }

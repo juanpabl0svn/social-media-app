@@ -10,37 +10,47 @@ import PostService from '../../services/post/post.service';
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './newpost.component.html',
-  styleUrl: './newpost.component.css'
+  styleUrl: './newpost.component.css',
 })
 export class NewpostComponent {
-    postform = new FormGroup({
-      description: new FormControl(''),
-    });
-    formData = new FormData()
-    user:any = {}
-  constructor(private _userService:UserService, private router:Router, private _postService:PostService){}
+  postform = new FormGroup({
+    description: new FormControl(''),
+  });
+  user: any = {};
+  constructor(
+    private _userService: UserService,
+    private router: Router,
+    private _postService: PostService
+  ) {}
 
-  ngOnInit(){
-    this.user = this._userService.getUser()
-    if(!this.user){
-      this.router.navigate(['/login'])
+  ngOnInit() {
+    this.user = this._userService.getUser();
+    if (!this.user) {
+      this.router.navigate(['/login']);
     }
   }
 
-  getFile(event:Event){
-    const target = event.target as HTMLInputElement;
-    const files: FileList | null = target.files;
-    if(files!.length > 0 && files != null){
-      this.formData.set('file', files[0])
+  // getFile(event: Event) {
+  //   const target = event.target as HTMLInputElement;
+  //   const files: FileList | null = target.files;
+  //   if (files!.length > 0 && files != null) {
+  //     this.formData.set('file', files[0]);
+  //   }
+  // }
+
+  async onSubmit(e: Event) {
+    e.preventDefault();
+    const { description } = this.postform.value;
+    const formData = new FormData();
+    if (description) {
+      formData.set('description', description);
     }
-  }
-  
-  submitForm(){
-    const {description} = this.postform.value
-    if(description){
-      this.formData.set('description', description)
+    const fileInput = document.getElementById('imgInput') as HTMLInputElement;
+    if (fileInput.files && fileInput.files.length > 0) {
+      formData.set('file', fileInput.files[0]);
     }
-    this.formData.set('user_id', this.user.userId)
-    this._postService.createPost(this.formData)
+    formData.set('user_id', this.user.userId);
+    const response = await this._postService.createPost(formData);
+    this.router.navigate(['/profile'])
   }
 }

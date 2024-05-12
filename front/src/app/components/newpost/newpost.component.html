@@ -7,10 +7,11 @@
         >
     </nav>
 </header>
-<form [formGroup]="postform">
-    <input type="file" (change)="getFile($event)">
+<form [formGroup]="postform" (submit)="onSubmit($event)">
+    <input id='imgInput' type="file" > 
+    <!-- (change)="getFile($event)" -->
     <label for="description">Description:</label>
     <textarea id="description" formControlName="description"></textarea>
 
-    <button>Publicar</button>
+    <button class="button-component">Publicar</button>
 </form>

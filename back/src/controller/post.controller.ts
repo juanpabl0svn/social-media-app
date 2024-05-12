@@ -14,7 +14,6 @@ export async function handleGetUserPosts (req:Request, res:Response){
 }
 
 export async function createPost(req:Request, res:Response){
-    const formData= await req.body.formData()
-    const result = await createNewPost(formData)
-    return res.json({message: result})
+    const result = await createNewPost(req.file, req.body)
+    return res.json({message: 'done', data: result})
 }
