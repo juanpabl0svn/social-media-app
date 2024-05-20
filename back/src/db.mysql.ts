@@ -81,9 +81,9 @@ export const Post = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    description:{
+    description: {
       type: DataTypes.STRING,
-      allowNull:true
+      allowNull: true,
     },
     create_date: {
       type: DataTypes.DATE,
@@ -93,5 +93,88 @@ export const Post = sequelize.define(
   },
   {
     tableName: "posts",
+  }
+);
+
+export const Comment = sequelize.define(
+  "comments",
+  {
+    id_comment: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    id_user: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "users",
+        key: "id_user",
+      },
+    },
+    id_post: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "posts",
+        key: "id_post",
+      },
+    },
+    comment: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    comment_date: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+    },
+  },
+  {
+    tableName: "comments",
+  }
+);
+
+export const Follower = sequelize.define(
+  "followers",
+  {
+    id_follow: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    id_user: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "users",
+        key: "id_user",
+      },
+    },
+    id_user_follower: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "users",
+        key: "id_user",
+      },
+    },
+    state: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: "pending",
+    },
+    request_date: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+    },
+    request_update_date: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
+  },
+  {
+    tableName: "followers",
   }
 );
