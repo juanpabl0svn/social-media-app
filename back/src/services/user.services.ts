@@ -47,3 +47,31 @@ export async function logInUser(
     return err as Error;
   }
 }
+
+export async function updateProfile(
+  id_user: number,
+  name: string,
+  username: string,
+  email: string,
+  password: string,
+  date: Date
+) {
+  try {
+    const user = await User.findOne({
+      where: { id_user },
+    });
+
+    user?.set({
+      name: name,
+      username: username,
+      email: email,
+      password: password,
+      date: date,
+    });
+    const savedUser = await user?.save();
+    return savedUser;
+  } catch (err) {
+    console.error(err);
+    return new Error(`${err}`);
+  }
+}
