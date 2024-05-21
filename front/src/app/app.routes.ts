@@ -6,6 +6,7 @@ import { isLoggedInGuard } from './guards/is-logged-in.guard';
 import { isLoggedOutGuard } from './guards/is-logged-out.guard';
 import { ProfileComponent } from './components/profile/profile.component';
 import { NewpostComponent } from './components/newpost/newpost.component';
+import { EditprofileComponent } from './components/editprofile/editprofile.component';
 
 export const routes: Routes = [
   {
@@ -16,6 +17,11 @@ export const routes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent,
+    canActivate: [isLoggedInGuard]
+  },
+  {
+    path: 'profile/edit',
+    component: EditprofileComponent,
     canActivate: [isLoggedInGuard]
   },
   {
