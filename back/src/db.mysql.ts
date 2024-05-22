@@ -8,7 +8,7 @@ export const sequelize = new Sequelize(
   mysqlPassword,
   {
     host: mysqlHost,
-    dialect: "mysql",
+    dialect: "postgres",
     define: {
       timestamps: false,
     },
