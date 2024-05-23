@@ -1,1 +1,50 @@
-<p>editprofile works!</p>
+@if (user !== null) {
+<form
+  class="flex flex-col"
+  (submit)="onSubmit($event)"
+  [formGroup]="updateForm"
+>
+  <div class="flex gap-5">
+    <label class="font-bold">Username:</label>
+    <input
+      [defaultValue]="user.username"
+      type="text"
+      id="username"
+      name="username"
+      formControlName="username"
+    />
+  </div>
+  <div class="flex gap-5">
+    <label class="font-bold">Name:</label>
+    <input
+      [defaultValue]="user.name"
+      type="text"
+      id="name"
+      name="name"
+      formControlName="name"
+    />
+  </div>
+  <div class="flex gap-5">
+    <label class="font-bold">Email:</label>
+    <input
+      [defaultValue]="user.email"
+      type="text"
+      id="email"
+      name="email"
+      formControlName="email"
+    />
+  </div>
+  <div class="flex gap-5">
+    <label class="font-bold">Birth Date:</label>
+    <input
+      [defaultValue]="user.birth_date"
+      type="date"
+      id="birth_date"
+      name="birth_date"
+      formControlName="birth_date"
+    />
+  </div>
+  <button type="submit">Actualizar</button>
+  <a href="/profile">Cancelar</a>
+</form>
+}

@@ -11,9 +11,13 @@ import { Router } from '@angular/router';
 export default class UserService {
   username: string = '';
   isAuth: boolean = false;
-  userData: any = {}
+  userData: any = {};
 
-  constructor(private http: HttpClient, private _cookieService:CookieService, private router:Router) {}
+  constructor(
+    private http: HttpClient,
+    private _cookieService: CookieService,
+    private router: Router
+  ) {}
 
   get getUsername() {
     return this.username;
@@ -31,13 +35,30 @@ export default class UserService {
     this.username = username;
   }
 
-  getUser(){
-    const username = this._cookieService.get('token')
-    const userId = this._cookieService.get('userId')
-    if (username && userId){
-      return {username: username, userId: userId}
+  fetchUser() {
+    const userId = this._cookieService.get('userId');
+    const url: string = `${API}/getUser`;
+
+    const headers = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        withCredentials: 'true',
+      }),
+    };
+
+    const body = {
+      userId,
+    };
+    return this.http.post(url, body, headers);
+  }
+
+  getUser() {
+    const username = this._cookieService.get('token');
+    const userId = this._cookieService.get('userId');
+    if (username && userId) {
+      return { username: username, userId: userId };
     }
-    return {}
+    return {};
   }
 
   logIn(username: string, password: string) {
@@ -82,8 +103,8 @@ export default class UserService {
     return this.http.post(url, body, headers);
   }
 
-  signOut(){
-    this._cookieService.delete('token')
-    this.router.navigate(['/login'])
+  signOut() {
+    this._cookieService.delete('token');
+    this.router.navigate(['/login']);
   }
 }

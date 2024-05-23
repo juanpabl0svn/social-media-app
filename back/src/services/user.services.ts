@@ -53,7 +53,6 @@ export async function updateProfile(
   name: string,
   username: string,
   email: string,
-  password: string,
   date: Date
 ) {
   try {
@@ -65,7 +64,6 @@ export async function updateProfile(
       name: name,
       username: username,
       email: email,
-      password: password,
       date: date,
     });
     const savedUser = await user?.save();
@@ -73,5 +71,17 @@ export async function updateProfile(
   } catch (err) {
     console.error(err);
     return new Error(`${err}`);
+  }
+}
+
+export async function getUser(userId: number) {
+  try {
+    const user = await User.findOne({
+      where: { id_user : userId },
+    });
+    return user;
+  } catch (err) {
+    console.error(err);
+    return;
   }
 }
