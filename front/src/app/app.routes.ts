@@ -7,6 +7,7 @@ import { isLoggedOutGuard } from './guards/is-logged-out.guard';
 import { ProfileComponent } from './components/profile/profile.component';
 import { NewpostComponent } from './components/newpost/newpost.component';
 import { EditprofileComponent } from './components/editprofile/editprofile.component';
+import { SearchComponent } from './components/search/search.component';
 
 export const routes: Routes = [
   {
@@ -27,6 +28,11 @@ export const routes: Routes = [
   {
     path: 'newpost',
     component: NewpostComponent,
+    canActivate:[isLoggedInGuard]
+  },
+  {
+    path: 'search',
+    component: SearchComponent,
     canActivate:[isLoggedInGuard]
   },
   {

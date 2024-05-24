@@ -14,7 +14,6 @@ import PostService from '../../services/post/post.service';
   styleUrl: './landing.component.css',
 })
 export class LandingComponent {
-  listOfPeople: IUSER[] = [];
   renderSkeleton: number[] = Array(10).fill(0);
   posts: any = [];
 
@@ -25,11 +24,6 @@ export class LandingComponent {
   ) {}
 
   ngOnInit() {
-    fetch('https://randomuser.me/api/?results=10')
-      .then((response) => response.json())
-      .then(({ results }) => (this.listOfPeople = results))
-      .catch(null);
-
     this._postService.get_all_post().subscribe((response: any) => {
       console.log(response.data)
       this.posts = response.data;
