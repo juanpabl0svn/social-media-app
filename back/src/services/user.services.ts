@@ -2,6 +2,7 @@ import { SALT } from "../config";
 import { User } from "../db.mysql";
 import bcrypt from "bcrypt";
 import { IUSER } from "../model/types";
+import { Op } from "sequelize";
 
 export async function registerUser(
   name: string,
@@ -77,11 +78,27 @@ export async function updateProfile(
 export async function getUser(userId: number) {
   try {
     const user = await User.findOne({
-      where: { id_user : userId },
+      where: { id_user: userId },
     });
     return user;
   } catch (err) {
     console.error(err);
     return;
+  }
+}
+
+export async function getUsers(searchString: string) {
+  try {
+    const users = await User.findAll({
+      where: {
+        [Op.or]: [
+          { username: { [Op.iLike]: `%${searchString}%` } },
+          { name: { [Op.iLike]: `%${searchString}%` } },
+        ],
+      },
+    });
+    return users;
+  } catch (err) {
+    return `${searchString} failed`;
   }
 }

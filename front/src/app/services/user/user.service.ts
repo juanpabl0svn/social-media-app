@@ -127,4 +127,18 @@ export default class UserService {
     this._cookieService.delete('token');
     this.router.navigate(['/login']);
   }
+
+  searchUsers(searchString:string){
+    const url: string = `${API}/search`
+    const headers = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        withCredentials: 'true',
+      }),
+    };
+    const body = {
+      searchString
+    };
+    return this.http.post(url, body, headers);
+  }
 }
