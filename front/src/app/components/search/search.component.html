@@ -33,10 +33,55 @@
       >Profile</a
     >
   </header>
-  <section>
-    <div>
-        <label for="search_text" class="block mb-2 text-sm font-medium text-gray-900">Search</label>
-        <input type="text" id="search_text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Search" required />
-    </div>
+  <section class="w-full">
+    <form
+      class="flex flex-row w-full gap-5"
+      (submit)="onSubmit($event)"
+      [formGroup]="searchForm"
+    >
+      <div class="w-full">
+        <label
+          for="search_text"
+          class="block mb-2 text-sm font-medium text-gray-900"
+          >Search</label
+        >
+        <input
+          formControlName="search_text"
+          name="search_text"
+          type="text"
+          id="search_text"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+          placeholder="Search"
+          required
+        />
+      </div>
+      <button
+        type="submit"
+        class="flex flex-row items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
+      >
+        <svg
+          fill="#000000"
+          class="h-5 w-5"
+          version="1.1"
+          id="Capa_1"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          viewBox="0 0 488.4 488.4"
+          xml:space="preserve"
+        >
+          <g>
+            <g>
+              <path
+                d="M0,203.25c0,112.1,91.2,203.2,203.2,203.2c51.6,0,98.8-19.4,134.7-51.2l129.5,129.5c2.4,2.4,5.5,3.6,8.7,3.6
+       s6.3-1.2,8.7-3.6c4.8-4.8,4.8-12.5,0-17.3l-129.6-129.5c31.8-35.9,51.2-83,51.2-134.7c0-112.1-91.2-203.2-203.2-203.2
+       S0,91.15,0,203.25z M381.9,203.25c0,98.5-80.2,178.7-178.7,178.7s-178.7-80.2-178.7-178.7s80.2-178.7,178.7-178.7
+       S381.9,104.65,381.9,203.25z"
+              />
+            </g>
+          </g>
+        </svg>
+        Search
+      </button>
+    </form>
   </section>
 </main>
