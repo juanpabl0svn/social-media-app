@@ -61,6 +61,26 @@ export default class UserService {
     return {};
   }
 
+  updateUser(userData: {
+    id_user: any;
+    name: any;
+    username: any;
+    email: any;
+    birth_date: any;
+  }) {
+    const url: string = `${API}/update_profile`;
+    const headers = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        withCredentials: 'true',
+      }),
+    };
+    const body = {
+      userData,
+    };
+    return this.http.post(url, body, headers)
+  }
+
   logIn(username: string, password: string) {
     const url: string = `${API}/login`;
 
