@@ -29,16 +29,18 @@
     </ul>
   </nav>
 </header>
+@if(user !== null){
 <main>
   <section class="flex flex-row gap-20">
-    <img
-      src="../../../assets/user.jpg"
-      alt="user-image"
-      class="rounded-full w-1/5 h-/w-1/5"
-    />
+    <!-- <img
+        src="../../../assets/user.jpg"
+        alt="user-image"
+        class="rounded-full w-1/5 h-/w-1/5"
+      /> -->
 
     <div class="flex flex-col gap-5 justify-center">
-      <h1 class="text-4xl">Juan Camilo Sanchez</h1>
+      <h1 class="text-4xl">{{ user.name }}</h1>
+      <span>{{ user.username }}</span>
       <div class="flex flex-row gap-10">
         <div>
           <p>Publicaciones</p>
@@ -55,18 +57,26 @@
       </div>
     </div>
   </section>
-  <section class="grid grid-cols-3 ml-10 mr-10">
+  <section class="grid grid-cols-2 md:grid-cols-3 gap-4">
     @for (post of posts; track $index) {
-    <div class="flex flex-col">
-      <img [src]="post.imageSrc" />
-      <p>{{post.description}}</p>
+
+    <div>
+      <img class="h-auto max-w-full rounded-lg" [src]="post.imageSrc" alt="" />
+      <p>{{ post.description }}</p>
       <ul>
         @for (comment of post.commments; track $index) {
-        <li>{{comment}}</li>
+        <li>{{ comment }}</li>
         }
       </ul>
     </div>
+
     }
-    <a href="/newpost">+</a>
+    <a href="/newpost" class="flex flex-col justify-center items-center">
+      <svg class="w-auto h-auto" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 12H20M12 4V20" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <p class="text-3xl">Add post</p>
+    </a>
   </section>
 </main>
+}

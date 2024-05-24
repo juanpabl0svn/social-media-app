@@ -13,6 +13,7 @@ import PostService from '../../services/post/post.service';
 })
 export class ProfileComponent {
   posts: any = [];
+  user: any = null;
   constructor(
     private _userService: UserService,
     private _postService: PostService
@@ -21,6 +22,9 @@ export class ProfileComponent {
   ngOnInit() {
     this._postService.get_all_user_posts().subscribe((response: any) => {
       this.posts = response.data;
+    });
+    this._userService.fetchUser().subscribe((user: any) => {
+      this.user = user;
     });
   }
 
