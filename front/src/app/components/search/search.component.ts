@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import UserService from '../../services/user/user.service';
+import { FollowService } from '../../services/follow/follow.service';
 
 @Component({
   selector: 'app-search',
@@ -12,12 +13,16 @@ import UserService from '../../services/user/user.service';
 })
 export class SearchComponent {
   usersList: any = [];
+  loggedUser: any = null;
 
   searchForm = new FormGroup({
     search_text: new FormControl(''),
   });
 
-  constructor(private _userService: UserService) {}
+  constructor(
+    private _userService: UserService,
+    private _followService: FollowService
+  ) {}
 
   onSubmit(e: Event) {
     e.preventDefault();
@@ -26,6 +31,15 @@ export class SearchComponent {
       this._userService.searchUsers(search_text).subscribe((response: any) => {
         this.usersList = response.users;
       });
+    }
+  }
+
+  onFollow(userToFollow: number) {
+    const { userId } = this._userService.getUser();
+    if (userId) {
+      this._followService.followReq(parseInt(userId), userToFollow).subscribe((response)=>{
+        
+      })
     }
   }
 }
