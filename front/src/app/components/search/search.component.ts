@@ -14,6 +14,7 @@ import { FollowService } from '../../services/follow/follow.service';
 export class SearchComponent {
   usersList: any = [];
   loggedUser: any = null;
+  followingList:any = []
 
   searchForm = new FormGroup({
     search_text: new FormControl(''),
@@ -31,6 +32,10 @@ export class SearchComponent {
       this._userService.searchUsers(search_text).subscribe((response: any) => {
         this.usersList = response.users;
       });
+      this._followService.getUserFollows().subscribe((response)=>{
+        console.log(response)
+        this.followingList = response
+      })
     }
   }
 

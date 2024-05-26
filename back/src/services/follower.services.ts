@@ -15,13 +15,15 @@ export async function followReq(userReq: number, userToFollow: number) {
 }
 
 export async function getUserFollows(userId: number) {
-  try {
-    const follows = await Follower.findAll({
-      where: { id_user: userId },
-    });
-    return follows;
-  } catch (err) {
-    console.error(err);
-    return false;
-  }
+  console.log(userId);
+  return userId;
+  // try {
+  //   const follows = await Follower.findAll({
+  //     where: { id_user: userId },
+  //   });
+  //   return follows;
+  // } catch (err) {
+  //   console.error(err);
+  //   return false;
+  // }
 }
