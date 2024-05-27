@@ -141,4 +141,17 @@ export default class UserService {
     };
     return this.http.post(url, body, headers);
   }
+
+  getOtherUser(userId:number){
+    const url: string = `${API}/users/${userId}`;
+
+    const headers = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        withCredentials: 'true',
+      }),
+    };
+    return this.http.get(url, headers);
+  }
 }
+

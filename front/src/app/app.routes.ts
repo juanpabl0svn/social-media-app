@@ -8,6 +8,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { NewpostComponent } from './components/newpost/newpost.component';
 import { EditprofileComponent } from './components/editprofile/editprofile.component';
 import { SearchComponent } from './components/search/search.component';
+import { OthersProfileComponent } from './components/others-profile/others-profile.component';
 
 export const routes: Routes = [
   {
@@ -34,6 +35,10 @@ export const routes: Routes = [
     path: 'search',
     component: SearchComponent,
     canActivate:[isLoggedInGuard]
+  },
+  {
+    path: 'users/:userId',
+    component: OthersProfileComponent,
   },
   {
     path: 'login',

@@ -1,8 +1,9 @@
 import { Router } from "express";
-import { handleUserSearch } from "../controller/search.controller";
+import { handleUserProfile, handleUserSearch } from "../controller/search.controller";
 
-const searchRouter = Router()
+const searchRouter = Router();
 
-searchRouter.post('/search',handleUserSearch)
+searchRouter.post("/search", handleUserSearch);
+searchRouter.get(`/users/:userId`, handleUserProfile);
 
 export default searchRouter;

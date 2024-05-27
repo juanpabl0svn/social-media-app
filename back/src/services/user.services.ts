@@ -1,7 +1,6 @@
 import { SALT } from "../config";
 import { User } from "../db.mysql";
 import bcrypt from "bcrypt";
-import { IUSER } from "../model/types";
 import { Op } from "sequelize";
 
 export async function registerUser(
@@ -10,7 +9,7 @@ export async function registerUser(
   email: string,
   password: string,
   date: Date
-): Promise<Error | IUSER> {
+): Promise<Error | any> {
   password = await bcrypt.hash(password, +SALT);
   try {
     const createdUser = await User.create({
@@ -29,7 +28,7 @@ export async function registerUser(
 export async function logInUser(
   username: string,
   password: string
-): Promise<Error | IUSER> {
+): Promise<Error | any> {
   try {
     const user = await User.findOne({
       where: { username },

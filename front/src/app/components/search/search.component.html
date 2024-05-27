@@ -86,12 +86,8 @@
   </section>
   <section>
     <div class="relative overflow-x-auto">
-      <table
-        class="w-full text-sm text-left rtl:text-right text-gray-500"
-      >
-        <thead
-          class="text-xs text-gray-700 uppercase bg-gray-50"
-        >
+      <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
           <tr>
             <th scope="col" class="px-6 py-3">Name</th>
             <th scope="col" class="px-6 py-3">Username</th>
@@ -105,24 +101,30 @@
               scope="row"
               class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
             >
-              {{ user.name }}
+              <a [href]="'/users/' + user.id_user">
+                {{ user.name }}
+              </a>
             </th>
             <td class="px-6 py-4">
-              {{ user.username }}
+              <a [href]="'/users/' + user.id_user">
+                {{ user.username }}
+              </a>
             </td>
             <td class="px-6 py-4">
-              @for (follower of followingList; track $index) {
-                @if (user.id_user === follower.user_id && follower.status === 'pending') {
-                  <button>Pending</button>
-                }@else if (user.id_user === follower.user_id && follower.status === 'follow') {
-                  <button (click)="onFollow(user.id_user)">Follow</button>
-                }@else if (user.id_user === follower.user_id && follower.status === 'accepted') {
-                  <button>Accepted</button>
-                }@else if (user.id_user === follower.user_id && follower.status === 'rejected') {
-                  <button>Rejected</button>
-                }
-              }@empty {
-                <button (click)="onFollow(user.id_user)">Follow</button>
+              @for (follower of followingList; track $index) { @if (user.id_user
+              === follower.user_id && follower.status === 'pending') {
+              <button>Pending</button>
+              }@else if (user.id_user === follower.user_id && follower.status
+              === 'follow') {
+              <button (click)="onFollow(user.id_user)">Follow</button>
+              }@else if (user.id_user === follower.user_id && follower.status
+              === 'accepted') {
+              <button>Accepted</button>
+              }@else if (user.id_user === follower.user_id && follower.status
+              === 'rejected') {
+              <button>Rejected</button>
+              } }@empty {
+              <button (click)="onFollow(user.id_user)">Follow</button>
               }
             </td>
           </tr>
