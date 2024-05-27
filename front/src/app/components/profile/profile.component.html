@@ -1,8 +1,30 @@
+@if(editProfile){
+
+<app-modal (closeModal)="editProfile = false">
+  <section
+    class="w-[clamp(300px,60vw,1200px)] bg-white h-[clamp(500px,60vh,900px)] p-10 rounded-xl grid place-content-center"
+  >
+    Editar perfil
+  </section>
+</app-modal>
+} @if(uploadPost){
+<app-modal (closeModal)="uploadPost = false">
+  <section
+    class="w-[clamp(300px,60vw,1200px)] bg-white h-[clamp(500px,60vh,900px)] p-10 rounded-xl grid place-content-center"
+  >
+    No hay notificaciones
+  </section>
+</app-modal>
+}
+
 <main
   class="py-10 flex flex-col items-center gap-10 min-h-dvh h-full border max-w-[800px] overflow-hidden mx-auto bg-[rgba(255,242,104,0.8)]"
 >
   <header class="w-full">
-    <button class="bg-yellow-600 px-5 py-2 ml-7 text-white" [routerLink]="['/']">
+    <button
+      class="bg-yellow-600 px-5 py-2 ml-7 text-white"
+      [routerLink]="['/']"
+    >
       Volver
     </button>
   </header>
@@ -14,6 +36,7 @@
         class="w-full h-full rounded-full"
       />
       <button
+        (click)="uploadPost = true"
         class="bg-white w-14 aspect-square rounded-full text-xl font-bold absolute top-[10%] -right-[15%] -translate-x-1/2 z-10"
       >
         +
@@ -23,7 +46,10 @@
     <div class="flex flex-col gap-5 justify-center">
       <div class="flex items-end gap-8">
         <h1 class="text-4xl">{{ this.userService.username }}</h1>
-        <button class="text-sm bg-gray-300 text-white rounded-md p-1">
+        <button
+          class="text-sm bg-gray-300 text-white rounded-md p-1"
+          (click)="editProfile = true"
+        >
           Editar perfil
         </button>
       </div>
@@ -51,6 +77,7 @@
       <p>No hay publicaciones</p>
       <button
         class="bg-white w-14 aspect-square rounded-full text-xl font-bold"
+        (click)="uploadPost = true"
       >
         +
       </button>
