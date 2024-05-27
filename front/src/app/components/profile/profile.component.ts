@@ -11,9 +11,9 @@ import { RouterLink } from '@angular/router';
   styleUrl: './profile.component.css'
 })
 export class ProfileComponent {
-  constructor(private _userService:UserService){}
+  constructor(public userService:UserService){}
 
   signOut(){
-    this._userService.signOut()
+    this.userService.signOut()
   }
 }
