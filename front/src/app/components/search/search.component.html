@@ -111,7 +111,13 @@
               {{ user.username }}
             </td>
             <td class="px-6 py-4">
-              <button (click)="onFollow(user.id_user)">Follow</button>
+              @for (follower of followingList; track $index) {
+                @if (user.id_user === follower.user_id) {
+                  <button>{{follower.status}}</button>
+                }
+              }@empty {
+                <button (click)="onFollow(user.id_user)">Follow</button>
+              }
             </td>
           </tr>
 

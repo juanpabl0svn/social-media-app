@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { handleFollowReq } from "../controller/follower.controller";
+import { handleFollowReq, handleUserFollows } from "../controller/follower.controller";
 
 const followerRouter = Router();
 
 followerRouter.post("/followreq", handleFollowReq);
-followerRouter.post("/get_user_follows", handleFollowReq);
+followerRouter.post("/get_user_follows", handleUserFollows);
 
 export default followerRouter;
