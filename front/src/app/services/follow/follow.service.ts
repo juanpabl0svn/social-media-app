@@ -42,4 +42,34 @@ export class FollowService {
     };
     return this.http.post(url, body, headers);
   }
+
+  acceptFollow(followId: number){
+    const url: string = `${API}/acceptFollow`;
+    const headers = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        withCredentials: 'true',
+      }),
+    };
+
+    const body = {
+      followId,
+    };
+    return this.http.post(url, body, headers);
+  }
+
+  rejectFollow(followId: number){
+    const url: string = `${API}/rejectFollow`;
+    const headers = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        withCredentials: 'true',
+      }),
+    };
+
+    const body = {
+      followId,
+    };
+    return this.http.post(url, body, headers);
+  }  
 }
