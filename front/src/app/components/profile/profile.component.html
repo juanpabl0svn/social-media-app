@@ -1,11 +1,18 @@
 <header class="absolute top-0 left-0 w-full bg-white"></header>
-<main class="mt-20 flex flex-col items-center gap-20">
+<main class="my-20 flex flex-col items-center gap-20">
   <section class="flex flex-row gap-20 justify-center">
-    <img
-      src="/assets/user.jpg"
-      alt="user-image"
-      class="rounded-full w-1/5 aspect-square min-w-48"
-    />
+    <div class="rounded-full w-1/5 aspect-square min-w-48 relative">
+      <img
+        src="/assets/user.jpg"
+        alt="user-image"
+        class="w-full h-full rounded-full"
+      />
+      <button
+        class="bg-white w-14 aspect-square rounded-full text-xl font-bold absolute top-[10%] -right-[15%] -translate-x-1/2 z-10"
+      >
+        +
+      </button>
+    </div>
 
     <div class="flex flex-col gap-5 justify-center">
       <h1 class="text-4xl">Juan Camilo Sanchez</h1>
@@ -27,9 +34,15 @@
   </section>
   <section class="w-3/4 h-[400px] bg-[rgba(215,219,94,0.75)] relative">
     @if(this.userService.user?.posts){ }@else {
-    <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-5">
+    <div
+      class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-5"
+    >
       <p>No hay publicaciones</p>
-      <button class="bg-white w-14 aspect-square rounded-full text-xl font-bold">+</button>
+      <button
+        class="bg-white w-14 aspect-square rounded-full text-xl font-bold"
+      >
+        +
+      </button>
     </div>
     }
   </section>
