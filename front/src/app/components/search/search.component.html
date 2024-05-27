@@ -112,8 +112,14 @@
             </td>
             <td class="px-6 py-4">
               @for (follower of followingList; track $index) {
-                @if (user.id_user === follower.user_id) {
-                  <button>{{follower.status}}</button>
+                @if (user.id_user === follower.user_id && follower.status === 'pending') {
+                  <button>Pending</button>
+                }@else if (user.id_user === follower.user_id && follower.status === 'follow') {
+                  <button (click)="onFollow(user.id_user)">Follow</button>
+                }@else if (user.id_user === follower.user_id && follower.status === 'accepted') {
+                  <button>Accepted</button>
+                }@else if (user.id_user === follower.user_id && follower.status === 'rejected') {
+                  <button>Rejected</button>
                 }
               }@empty {
                 <button (click)="onFollow(user.id_user)">Follow</button>

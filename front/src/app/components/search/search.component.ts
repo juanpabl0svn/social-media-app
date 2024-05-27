@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import UserService from '../../services/user/user.service';
 import { FollowService } from '../../services/follow/follow.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search',
@@ -22,10 +23,12 @@ export class SearchComponent {
 
   constructor(
     private _userService: UserService,
-    private _followService: FollowService
+    private _followService: FollowService,
+    private router: Router
   ) {}
 
   getFollowData(
+    usersList: any,
     data: {
       id_follow: number;
       id_user: number;
@@ -38,22 +41,18 @@ export class SearchComponent {
     const { userId } = this._userService.getUser();
     const followingList = [];
     if (userId) {
-      for(let i:number = 0; i < this.usersList; i++){
-        const newObj:any = {}
-        if(data[i].id_user_follower === parseInt(userId)){
-          newObj['user_id'] = data[i].id_user
-          newObj['status'] = data[i].state
-        }else if(data[i].id_user === parseInt(userId) && data[i].state === 'pending'){
-          newObj['user_id'] = data[i].id_user_follower
-          newObj['status'] = 'pending_me'
-        }else if(data[i].id_user === parseInt(userId)){
-          newObj['user_id'] = data[i].id_user_follower
-          newObj['status'] = data[i].state
+      for (let i: number = 0; i < usersList.length; i++) {
+        const newObj: any = {};
+        if (data[i] && usersList[i].id_user === data[i].id_user) {
+          newObj['user_id'] = data[i].id_user;
+          newObj['status'] = data[i].state;
+        } else {
+          newObj['user_id'] = usersList[i].id_user;
+          newObj['status'] = 'follow';
         }
         followingList.push(newObj);
       }
-
-      return followingList
+      return followingList;
     } else {
       return [];
     }
@@ -63,12 +62,19 @@ export class SearchComponent {
     e.preventDefault();
     const { search_text } = this.searchForm.value;
     if (search_text) {
-      this._userService.searchUsers(search_text).subscribe((response: any) => {
-        this.usersList = response.users;
-      });
-      this._followService.getUserFollows().subscribe((response: any) => {
-        this.followingList = this.getFollowData(response.result);
-      });
+      this._userService
+        .searchUsers(search_text)
+        .subscribe((responseUsers: any) => {
+          this.usersList = responseUsers.users;
+          this._followService
+            .getUserFollows()
+            .subscribe((responseFollows: any) => {
+              this.followingList = this.getFollowData(
+                responseUsers.users,
+                responseFollows.result
+              );
+            });
+        });
     }
   }
 
@@ -78,9 +84,7 @@ export class SearchComponent {
       this._followService
         .followReq(parseInt(userId), userToFollow)
         .subscribe(() => {
-          this._followService.getUserFollows().subscribe((response: any) => {
-            this.followingList = this.getFollowData(response.result);
-          });
+          this.router.navigate(['/search'])
         });
     }
   }
