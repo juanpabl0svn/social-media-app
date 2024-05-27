@@ -1,16 +1,18 @@
 @if (searchUser) {
 <app-modal (closeModal)="searchUser = false"> hola mis Amigos </app-modal>
-
+} @if(notifications){
+<app-modal (closeModal)="notifications = false"> hola mis Amigos </app-modal>
 }
-
 <header class="flex flex-row justify-between items-center py-4 border bg-white">
   <span
     class="text-6xl font-bold bg-gradient-to-b from-yellow-300 to-yellow-100 bg-clip-text text-transparent"
     >Instapic</span
   >
   <div class="flex gap-7 justify-center items-center">
+    <button (click)="notifications = true">Notificaciones</button>
+
     <svg
-      (click)="searchUser = !searchUser"
+      (click)="searchUser = true"
       width="17"
       height="16"
       fill="none"

@@ -12,5 +12,6 @@ import { ModalComponent } from '../../modal/modal.component';
 })
 export class HeaderComponent {
   searchUser: boolean = false;
+  notifications: boolean = false;
   constructor(public userService: UserService) {}
 }
