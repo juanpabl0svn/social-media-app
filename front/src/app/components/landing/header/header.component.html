@@ -1,12 +1,43 @@
+@if (searchUser) {
+<app-modal (closeModal)="searchUser = false"> hola mis Amigos </app-modal>
+
+}
+
 <header class="flex flex-row justify-between items-center py-4 border bg-white">
   <span
     class="text-6xl font-bold bg-gradient-to-b from-yellow-300 to-yellow-100 bg-clip-text text-transparent"
     >Instapic</span
   >
-  <img
-    src="../../../assets/user.jpg"
-    class="h-14 rounded-full hover:cursor-pointer mr-5"
-    routerLink="/profile"
-    [routerLink]="['/profile']"
-  />
+  <div class="flex gap-7 justify-center items-center">
+    <svg
+      (click)="searchUser = !searchUser"
+      width="17"
+      height="16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      role="img"
+      aria-labelledby="search"
+      class="w-5 h-5 text-gray-700 cursor-pointer"
+    >
+      <path
+        d="M7.667 12.667A5.333 5.333 0 107.667 2a5.333 5.333 0 000 10.667zM14.334 14l-2.9-2.9"
+        stroke="currentColor"
+        stroke-width="1.333"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      ></path>
+    </svg>
+
+    <div
+      class="flex flex-col items-center justify-center mr-5"
+      [routerLink]="['/profile']"
+    >
+      <img
+        src="/assets/user.jpg"
+        class="h-14 rounded-full hover:cursor-pointer"
+        routerLink="/profile"
+      />
+      <p>{{ this.userService.username }}</p>
+    </div>
+  </div>
 </header>

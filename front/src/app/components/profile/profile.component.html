@@ -1,6 +1,11 @@
 <main
-  class="py-10 flex flex-col items-center gap-20 min-h-dvh h-full border max-w-[800px] overflow-hidden mx-auto bg-[rgba(255,242,104,0.8)]"
+  class="py-10 flex flex-col items-center gap-10 min-h-dvh h-full border max-w-[800px] overflow-hidden mx-auto bg-[rgba(255,242,104,0.8)]"
 >
+  <header class="w-full">
+    <button class="bg-yellow-600 px-5 py-2 ml-7" [routerLink]="['/']">
+      Volver
+    </button>
+  </header>
   <section class="flex flex-row gap-20 justify-center">
     <div class="rounded-full w-1/5 aspect-square min-w-48 relative">
       <img
@@ -16,7 +21,7 @@
     </div>
 
     <div class="flex flex-col gap-5 justify-center">
-      <h1 class="text-4xl">Juan Camilo Sanchez</h1>
+      <h1 class="text-4xl">{{ this.userService.username }}</h1>
       <div class="flex flex-row gap-10">
         <div>
           <p>Publicaciones</p>

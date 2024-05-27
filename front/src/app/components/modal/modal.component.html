@@ -1,0 +1,5 @@
+<aside class="modal-container" (click)="handleCloseModal()">
+  <article id="modal" (click)="$event.stopPropagation()">
+    <ng-content> </ng-content>
+  </article>
+</aside>
