@@ -1,5 +1,10 @@
 import { Request, Response } from "express";
-import { followReq, getUserFollows } from "../services/follower.services";
+import {
+  acceptFollowReq,
+  followReq,
+  getUserFollows,
+  rejectFollowReq,
+} from "../services/follower.services";
 
 export async function handleFollowReq(req: Request, res: Response) {
   const { userReq, userToFollow } = req.body;
@@ -10,5 +15,17 @@ export async function handleFollowReq(req: Request, res: Response) {
 export async function handleUserFollows(req: Request, res: Response) {
   const { userId } = req.body;
   const result = await getUserFollows(userId);
-  return res.status(200).json({ result:result });
+  return res.status(200).json({ result: result });
+}
+
+export async function handleAcceptFollow(req: Request, res: Response) {
+  const { followId } = req.body;
+  const result = await acceptFollowReq(followId);
+  return res.status(200).json(result);
+}
+
+export async function handleRejectFollow(req: Request, res: Response) {
+  const { followId } = req.body;
+  const result = await rejectFollowReq(followId);
+  return res.status(200).json(result);
 }
