@@ -82,4 +82,77 @@ export default class UserService {
     this._cookieService.delete('token');
     this.router.navigate(['/login']);
   }
+
+  fetchUser() {
+    const userId = this._cookieService.get('userId');
+    const url: string = `${API}/getUser`;
+
+    const headers = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        withCredentials: 'true',
+      }),
+    };
+
+    const body = {
+      userId,
+    };
+    return this.http.post(url, body, headers);
+  }
+
+  getUser() {
+    const username = this._cookieService.get('token');
+    const userId = this._cookieService.get('userId');
+    if (username && userId) {
+      return { username: username, userId: userId };
+    }
+    return {};
+  }
+
+  updateUser(userData: {
+    id_user: any;
+    name: any;
+    username: any;
+    email: any;
+    birth_date: any;
+  }) {
+    const url: string = `${API}/update_profile`;
+    const headers = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        withCredentials: 'true',
+      }),
+    };
+    const body = {
+      userData,
+    };
+    return this.http.post(url, body, headers)
+  }
+
+  searchUsers(searchString:string){
+    const url: string = `${API}/search`
+    const headers = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        withCredentials: 'true',
+      }),
+    };
+    const body = {
+      searchString
+    };
+    return this.http.post(url, body, headers);
+  }
+
+  getOtherUser(userId:number){
+    const url: string = `${API}/users/${userId}`;
+
+    const headers = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        withCredentials: 'true',
+      }),
+    };
+    return this.http.get(url, headers);
+  }
 }
+
