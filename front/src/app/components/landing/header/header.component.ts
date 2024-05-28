@@ -31,8 +31,9 @@ export class HeaderComponent {
     if (!username) return (this.users = []);
 
     return (this.timer = setTimeout(async () => {
-      // const users = await POST('/user/search', { username });
-      //   this.users = users ?? [];
+      const users = await POST('/search', { username });
+      this.users = users ?? [];
+      console.log(users);
     }, 400));
   }
 
