@@ -5,6 +5,7 @@ import { ModalComponent } from '../../modal/modal.component';
 import { POST } from '../../../utils/constants';
 
 import { NotificationsComponent } from './notifications/notifications.component';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-header',
@@ -21,7 +22,11 @@ export class HeaderComponent {
 
   timer = setTimeout(() => {}, 0);
 
-  constructor(public userService: UserService, private router: Router) {}
+  constructor(
+    public userService: UserService,
+    private router: Router,
+    private cookie: CookieService
+  ) {}
 
   handleChange(e: Event) {
     clearTimeout(this.timer);
@@ -40,8 +45,7 @@ export class HeaderComponent {
   logOut() {
     this.userService.user = null;
     this.userService.isAuth = false;
-    //Delete cookie token
-    // TODO: Delete cookie
+    this.cookie.delete('token');
     this.router.navigate(['/login']);
   }
 }

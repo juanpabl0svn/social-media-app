@@ -33,7 +33,7 @@ export class LoginComponent {
       return;
     }
 
-    // document.cookie = `token=${userData.token}`;
+    document.cookie = `token=${userData.token}`;
     userData.user = userData.user;
     this.user.isAuth = true;
     this.router.navigate(['/']);
