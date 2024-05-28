@@ -16,7 +16,10 @@ export class ProfileComponent {
   editProfile: boolean = false;
   uploadPost: boolean = false;
 
+  profileToEdit = { ...this.userService.user };
+
   constructor(public userService: UserService) {}
+
 
   signOut() {
     this.userService.signOut();

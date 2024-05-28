@@ -3,7 +3,7 @@
   <section
     class="w-[clamp(300px,60vw,1200px)] flex flex-col bg-white h-[clamp(500px,60vh,900px)] p-10 rounded-xl"
   >
-    <form class="form relative">
+    <form class="form relative" (submit)="$event.preventDefault()">
       <button class="absolute left-2 -translate-y-1/2 top-1/2 p-1">
         <svg
           width="17"
@@ -28,6 +28,7 @@
         placeholder="Search..."
         required=""
         type="text"
+        (input)="handleChange($event)"
       />
       <button
         type="reset"
@@ -97,7 +98,9 @@
         class="h-14 rounded-full hover:cursor-pointer [view-transition-name:user-img]"
         routerLink="/profile"
       />
-      <p class="[view-transition-name:user-username]" >{{ this.userService.username }}</p>
+      <p class="[view-transition-name:user-username]">
+        {{ this.userService.username }}
+      </p>
     </div>
     <button>Log out</button>
   </div>
