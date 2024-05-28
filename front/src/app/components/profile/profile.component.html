@@ -1,5 +1,4 @@
 @if(editProfile){
-
 <app-modal (closeModal)="editProfile = false">
   <section
     class="w-[clamp(300px,60vw,1200px)] bg-white h-[clamp(500px,60vh,900px)] p-10 rounded-xl grid place-content-center"
@@ -45,7 +44,9 @@
 
     <div class="flex flex-col gap-5 justify-center">
       <div class="flex items-end gap-8">
-        <h1 class="text-4xl [view-transition-name:user-username]">{{ this.userService.username }}</h1>
+        <h1 class="text-4xl [view-transition-name:user-username]">
+          {{ this.userService.username }}
+        </h1>
         <button
           class="text-sm bg-gray-300 text-white rounded-md p-1"
           (click)="editProfile = true"
