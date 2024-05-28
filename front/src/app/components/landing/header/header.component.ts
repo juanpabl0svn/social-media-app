@@ -4,10 +4,12 @@ import UserService from '../../../services/user/user.service';
 import { ModalComponent } from '../../modal/modal.component';
 import { POST } from '../../../utils/constants';
 
+import { NotificationsComponent } from './notifications/notifications.component';
+
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink, ModalComponent],
+  imports: [RouterLink, ModalComponent, NotificationsComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
 })
@@ -30,9 +32,7 @@ export class HeaderComponent {
 
     return (this.timer = setTimeout(async () => {
       // const users = await POST('/user/search', { username });
-      // if (users){
-      //   this.users = users;
-      // }
+      //   this.users = users ?? [];
     }, 400));
   }
 }

@@ -50,16 +50,24 @@
       </button>
     </form>
 
-    <div class="w-full h-full"></div>
+    <div class="w-full h-full">
+      <!-- @for(let user of users; let i = index){
+        <div class="flex items-center gap-5">
+          <img
+            src="/assets/user.jpg"
+            class="h-14 rounded-full"
+          />
+          <p>{{ user.username }}</p>
+
+        </div>
+
+      } -->
+    </div>
   </section>
 </app-modal>
 } @if(notifications){
 <app-modal (closeModal)="notifications = false">
-  <section
-    class="w-[clamp(300px,60vw,1200px)] bg-white h-[clamp(500px,60vh,900px)] p-10 rounded-xl grid place-content-center"
-  >
-    No hay notificaciones
-  </section>
+  <app-notifications />
 </app-modal>
 }
 <header class="flex flex-row justify-between items-center py-4 border bg-white">
