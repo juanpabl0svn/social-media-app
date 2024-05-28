@@ -6,9 +6,17 @@
       <label for="username">Usuario</label>
     </section>
     <section>
-      <input type="text" name="password" id="password" required />
+      <input [type]="passwordType" name="password" id="password" required />
       <label for="password">Contraseña</label>
+      <button
+        type="button"
+        (click)="passwordType = passwordType === 'password' ? 'text' : 'password'"
+        class="absolute right-3 -translate-y-1/2 top-1/2 p-1"
+      > Ojo</button>  
     </section>
+    <a routerLink="/register" class="text-blue-500 underline mb-5"
+      >No tienes una cuenta? Registrate</a
+    >
     <button>Ingresar</button>
   </form>
 </main>

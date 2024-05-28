@@ -16,6 +16,8 @@ export class LoginComponent {
     password: new FormControl(''),
   });
 
+  passwordType: string = 'password';
+
   constructor(private router: Router, public user: UserService) {}
 
   onSubmit() {
