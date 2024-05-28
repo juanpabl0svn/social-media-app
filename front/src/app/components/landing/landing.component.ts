@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IUSER } from '../../models/models';
-import { CookieService } from 'ngx-cookie-service';
 import UserService from '../../services/user/user.service';
 import { RouterLink } from '@angular/router';
 import { HeaderComponent } from './header/header.component';

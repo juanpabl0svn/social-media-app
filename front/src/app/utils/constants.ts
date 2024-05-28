@@ -1,17 +1,19 @@
+const API_URL = 'http://localhost:5000';
 
 export const POST = (endpoint: string, body: any) => {
-  return fetch(`http://localhost:3000/${endpoint}`, {
+  return fetch(`${API_URL}${endpoint}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(body),
-  }).then((res) => res.json());
+  })
+    .then((res) => res.json())
+    .catch(() => null);
 };
 
 export const GET = (endpoint: string) => {
-  return fetch(`http://localhost:3000/${endpoint}`).then((res) => res.json());
+  return fetch(`${API_URL}${endpoint}`)
+    .then((res) => res.json())
+    .catch(() => null);
 };
-
-
-

@@ -1,7 +1,8 @@
-import { SALT } from "../config";
+import { SALT, SECRET } from "../config";
 import { User } from "../db.mysql";
 import bcrypt from "bcrypt";
 import { Op } from "sequelize";
+import jwt from "jsonwebtoken";
 
 export async function registerUser(
   name: string,
@@ -102,8 +103,6 @@ export async function getUsers(searchString: string) {
   }
 }
 
-export const setToken = (username: string) => {
-
-  return jwt.sign({payload: username}, SECRET)
-
-}
+export const setToken = (payload: any) => {
+  return jwt.sign(payload, SECRET);
+};
