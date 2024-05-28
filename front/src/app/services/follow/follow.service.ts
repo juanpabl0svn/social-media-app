@@ -71,5 +71,9 @@ export class FollowService {
       followId,
     };
     return this.http.post(url, body, headers);
-  }  
+  } 
+
+  isFollowing(){
+    
+  }
 }

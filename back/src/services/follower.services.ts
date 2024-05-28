@@ -53,3 +53,7 @@ export async function getUserFollows(userId: number) {
     return false;
   }
 }
+
+export async function isFollowing(userId1:number, userId2:number) {
+  
+}
