@@ -10,12 +10,12 @@ export const routes: Routes = [
   {
     path: '',
     component: LandingComponent,
-    // canActivate: [isLoggedInGuard],
+    canActivate: [isLoggedInGuard],
   },
   {
     path: 'profile',
     component: ProfileComponent,
-    // canActivate: [isLoggedInGuard]
+    canActivate: [isLoggedInGuard],
   },
   {
     path: 'login',

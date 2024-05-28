@@ -1,7 +1,8 @@
-import { SALT } from "../config";
+import { SALT, SECRET } from "../config";
 import { User } from "../db.mysql";
 import bcrypt from "bcrypt";
 import { Op } from "sequelize";
+import jwt from "jsonwebtoken";
 
 export async function registerUser(
   name: string,
@@ -74,10 +75,10 @@ export async function updateProfile(
   }
 }
 
-export async function getUser(userId: number) {
+export async function getUser(id_user: number) {
   try {
     const user = await User.findOne({
-      where: { id_user: userId },
+      where: { id_user },
     });
     return user;
   } catch (err) {
@@ -102,8 +103,14 @@ export async function getUsers(searchString: string) {
   }
 }
 
-export const setToken = (username: string) => {
+export const setToken = (payload: any) => {
+  return jwt.sign(payload, SECRET);
+};
 
-  return jwt.sign({payload: username}, SECRET)
-
-}
+export const verifyUser = (token: string) => {
+  try {
+    return jwt.verify(token, SECRET);
+  } catch (err) {
+    return null;
+  }
+};

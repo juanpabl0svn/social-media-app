@@ -6,11 +6,11 @@ import { POST } from '../utils/constants';
 
 export const isLoggedInGuard: CanActivateFn = async (route, state) => {
   const userService = inject(UserService);
-  const cookieService = inject(CookieService)
+  const cookieService = inject(CookieService);
 
   if (userService.isAuth) return true;
 
-  const token = cookieService.get('token')
+  const token = cookieService.get('token');
 
   const router = inject(Router);
 
@@ -19,10 +19,11 @@ export const isLoggedInGuard: CanActivateFn = async (route, state) => {
     return false;
   }
 
+  const user = await POST('/verify', { token });
 
-  const user = await POST('/user/verify',{token})
+  console.log(user);
 
-  if (user){
+  if (user) {
     userService.user = user;
     userService.isAuth = true;
     return true;

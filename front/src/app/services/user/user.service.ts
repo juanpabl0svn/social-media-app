@@ -1,6 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, Inject } from '@angular/core';
-import { API } from '../../config';
 import { DOCUMENT } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
@@ -65,7 +64,7 @@ export default class UserService {
   }
 
   logIn(username: string, password: string) {
-    return POST('/user/login', { username, password });
+    return POST('/login', { username, password });
   }
 
   register(
@@ -85,7 +84,7 @@ export default class UserService {
 
   fetchUser() {
     const userId = this._cookieService.get('userId');
-    const url: string = `${API}/getUser`;
+    const url: string = `/getUser`;
 
     const headers = {
       headers: new HttpHeaders({
@@ -115,44 +114,9 @@ export default class UserService {
     username: any;
     email: any;
     birth_date: any;
-  }) {
-    const url: string = `${API}/update_profile`;
-    const headers = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        withCredentials: 'true',
-      }),
-    };
-    const body = {
-      userData,
-    };
-    return this.http.post(url, body, headers)
-  }
+  }) {}
 
-  searchUsers(searchString:string){
-    const url: string = `${API}/search`
-    const headers = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        withCredentials: 'true',
-      }),
-    };
-    const body = {
-      searchString
-    };
-    return this.http.post(url, body, headers);
-  }
+  searchUsers(searchString: string) {}
 
-  getOtherUser(userId:number){
-    const url: string = `${API}/users/${userId}`;
-
-    const headers = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        withCredentials: 'true',
-      }),
-    };
-    return this.http.get(url, headers);
-  }
+  getOtherUser(userId: number) {}
 }
-

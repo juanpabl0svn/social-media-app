@@ -22,18 +22,19 @@ export class LoginComponent {
 
   async handleSubmit(e: Event) {
     e.preventDefault();
+
     const { username, password } = this.loginForm.value;
 
     if (!username || !password) return;
 
     const userData = await this.user.logIn(username, password);
 
-    if (!userData){
-      return ;
+    if (!userData) {
+      return;
     }
 
-    document.cookie = `token=${userData.token}`;
-    userData.user = userData;
+    // document.cookie = `token=${userData.token}`;
+    userData.user = userData.user;
     this.user.isAuth = true;
     this.router.navigate(['/']);
   }
