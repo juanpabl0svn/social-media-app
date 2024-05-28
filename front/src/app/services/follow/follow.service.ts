@@ -72,7 +72,19 @@ export class FollowService {
     return this.http.post(url, body, headers);
   } 
 
-  isFollowing(){
-    
+  isFollowing(userId1:number, userId2:number){
+    const url: string = `${API}/isFollowing`;
+    const headers = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        withCredentials: 'true',
+      }),
+    };
+
+    const body = {
+      userId1,
+      userId2
+    };
+    return this.http.post(url, body, headers);
   }
 }

@@ -54,6 +54,24 @@ export async function getUserFollows(userId: number) {
   }
 }
 
-export async function isFollowing(userId1:number, userId2:number) {
-  
+export async function isFollowing(userId1: number, userId2: number) {
+  try {
+    const follow = await Follower.findOne({
+      where: {
+        state: "accepted",
+        [Op.or]: [
+          {
+            [Op.and]: [{ id_user: userId1 }, { id_user_follower: userId2 }],
+          },
+          {
+            [Op.and]: [{ id_user: userId2 }, { id_user_follower: userId1 }],
+          },
+        ],
+      },
+    });
+    return follow !== null;
+  } catch (err) {
+    console.error('Error finding follower relationship:', err);
+    throw err
+  }
 }

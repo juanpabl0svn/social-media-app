@@ -3,6 +3,7 @@ import {
   acceptFollowReq,
   followReq,
   getUserFollows,
+  isFollowing,
   rejectFollowReq,
 } from "../services/follower.services";
 
@@ -28,4 +29,10 @@ export async function handleRejectFollow(req: Request, res: Response) {
   const { followId } = req.body;
   const result = await rejectFollowReq(followId);
   return res.status(200).json(result);
+}
+
+export async function handleIsFollowing(req: Request, res: Response) {
+  const { userId1, userId2 } = req.body;
+  const result = await isFollowing(userId1, userId2);
+  return res.status(200).json(result)
 }
