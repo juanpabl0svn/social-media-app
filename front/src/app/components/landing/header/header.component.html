@@ -94,10 +94,10 @@
     >
       <img
         src="/assets/user.jpg"
-        class="h-14 rounded-full hover:cursor-pointer"
+        class="h-14 rounded-full hover:cursor-pointer [view-transition-name:user-img]"
         routerLink="/profile"
       />
-      <p>{{ this.userService.username }}</p>
+      <p class="[view-transition-name:user-username]" >{{ this.userService.username }}</p>
     </div>
     <button>Log out</button>
   </div>
