@@ -20,6 +20,10 @@ export class RegisterComponent {
     date: new FormControl(''),
   });
 
+  passwordType: string = 'password';
+
+  passwordType2: string = 'password';
+
   constructor(public user: UserService, private router: Router) {}
 
   async onSubmit(e: Event) {
