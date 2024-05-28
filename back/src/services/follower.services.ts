@@ -71,7 +71,7 @@ export async function isFollowing(userId1: number, userId2: number) {
     });
     return follow !== null;
   } catch (err) {
-    console.error('Error finding follower relationship:', err);
-    throw err
+    console.error("Error finding follower relationship:", err);
+    throw err;
   }
 }

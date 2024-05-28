@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { POST } from '../../../../utils/constants';
+import UserService from '../../../../services/user/user.service';
 
 @Component({
   selector: 'app-notifications',
@@ -8,5 +10,16 @@ import { Component } from '@angular/core';
   styleUrl: './notifications.component.css',
 })
 export class NotificationsComponent {
-  ngOnInit() {}
+  constructor(public userData: UserService) {}
+
+  async ngOnInit() {
+    const notifications = await POST('/get_user_follows', {
+      userId: this.userData.user.id_user,
+    });
+
+    console.log(this.userData.user)
+
+
+    console.log(notifications)
+  }
 }
