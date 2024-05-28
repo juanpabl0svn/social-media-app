@@ -23,7 +23,6 @@ export const isLoggedInGuard: CanActivateFn = async (route, state) => {
 
   const user = await POST('/verify', { token });
 
-
   if (user) {
     userService.user = user;
     userService.isAuth = true;

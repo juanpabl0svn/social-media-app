@@ -11,8 +11,6 @@ export const isLoggedOutGuard: CanActivateFn = async (route, state) => {
 
   const token = cookieService.get('token');
 
-  console.log(token)
-
   if (!token) return true;
 
   const user = await POST('/verify', { token });

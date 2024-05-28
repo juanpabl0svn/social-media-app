@@ -50,18 +50,15 @@
       </button>
     </form>
 
-    <div class="w-full h-full">
-      <!-- @for(let user of users; let i = index){
-        <div class="flex items-center gap-5">
-          <img
-            src="/assets/user.jpg"
-            class="h-14 rounded-full"
-          />
-          <p>{{ user.username }}</p>
+    <div class="w-full h-full overflow-y-scroll max-h-[300px]">
+      @for(user of users; track user.id_user;){
+      <div class="w-full flex items-center justify-between gap-5">
+        <img src="/assets/user.jpg" class="h-14 rounded-full" />
+        <p>{{ user.username }}</p>
+        <button (click)="handleFollow(user.id_user)">Follow</button>
+      </div>
 
-        </div>
-
-      } -->
+      }
     </div>
   </section>
 </app-modal>

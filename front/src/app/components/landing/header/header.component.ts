@@ -18,7 +18,7 @@ export class HeaderComponent {
   searchUser: boolean = false;
   notifications: boolean = false;
 
-  users = [];
+  users: any[] = [];
 
   timer = setTimeout(() => {}, 0);
 
@@ -36,11 +36,12 @@ export class HeaderComponent {
     if (!username) return (this.users = []);
 
     return (this.timer = setTimeout(async () => {
-      const users = await POST('/search', { username });
-      this.users = users ?? [];
-      console.log(users);
+      const { users } = await POST('/search', { username });
+      this.users = users;
     }, 400));
   }
+
+  handleFollow(id: number) {}
 
   logOut() {
     this.userService.user = null;

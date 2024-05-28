@@ -27,7 +27,7 @@ export async function handleLogInRoute(req: Request, res: Response) {
   return res
     .setHeader("Set-Cookie", `token=${token}`)
     .status(200)
-    .json({ message: "User logedIn", user: { ...user, token } });
+    .json({ ...user, token });
 }
 
 export async function handleVerifyRoute(req: Request, res: Response) {
