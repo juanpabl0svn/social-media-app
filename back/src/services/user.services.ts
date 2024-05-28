@@ -75,10 +75,10 @@ export async function updateProfile(
   }
 }
 
-export async function getUser(userId: number) {
+export async function getUser(id_user: number) {
   try {
     const user = await User.findOne({
-      where: { id_user: userId },
+      where: { id_user },
     });
     return user;
   } catch (err) {
@@ -105,4 +105,12 @@ export async function getUsers(searchString: string) {
 
 export const setToken = (payload: any) => {
   return jwt.sign(payload, SECRET);
+};
+
+export const verifyUser = (token: string) => {
+  try {
+    return jwt.verify(token, SECRET);
+  } catch (err) {
+    return null;
+  }
 };

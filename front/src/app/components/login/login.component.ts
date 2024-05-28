@@ -29,13 +29,12 @@ export class LoginComponent {
 
     const userData = await this.user.logIn(username, password);
 
-    console.log(userData);
     if (!userData) {
       return;
     }
 
     // document.cookie = `token=${userData.token}`;
-    userData.user = userData;
+    userData.user = userData.user;
     this.user.isAuth = true;
     this.router.navigate(['/']);
   }
