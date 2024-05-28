@@ -101,3 +101,9 @@ export async function getUsers(searchString: string) {
     return `${searchString} failed`;
   }
 }
+
+export const setToken = (username: string) => {
+
+  return jwt.sign({payload: username}, SECRET)
+
+}

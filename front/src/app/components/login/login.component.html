@@ -1,5 +1,5 @@
 <main class="main-log-in">
-  <form action=""class="[view-transition-name:form]">
+  <form (submit)="handleSubmit($event)" class="[view-transition-name:form]">
     <h1 class="[view-transition-name:title]">Log in</h1>
     <section class="[view-transition-name:user]">
       <input type="text" name="username" id="username" required />
@@ -10,13 +10,19 @@
       <label for="password">Contraseña</label>
       <button
         type="button"
-        (click)="passwordType = passwordType === 'password' ? 'text' : 'password'"
+        (click)="
+          passwordType = passwordType === 'password' ? 'text' : 'password'
+        "
         class="absolute right-3 -translate-y-1/2 top-1/2 p-1"
-      > Ojo</button>  
+      >
+        Ojo
+      </button>
     </section>
-    <a routerLink="/register" class="text-blue-500 underline mb-5 [view-transition-name:link]"
+    <a
+      routerLink="/register"
+      class="text-blue-500 underline mb-5 [view-transition-name:link]"
       >No tienes una cuenta? Registrate</a
     >
-    <button class="[view-transition-name:button]" >Ingresar</button>
+    <button class="[view-transition-name:button]">Ingresar</button>
   </form>
 </main>

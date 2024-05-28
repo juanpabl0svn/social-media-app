@@ -2,19 +2,33 @@ import { CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
 import UserService from '../services/user/user.service';
 import { CookieService } from 'ngx-cookie-service';
+import { POST } from '../utils/constants';
 
-export const isLoggedInGuard: CanActivateFn = (route, state) => {
-  const _userService = inject(UserService);
-  const _cookieService = inject(CookieService)
+export const isLoggedInGuard: CanActivateFn = async (route, state) => {
+  const userService = inject(UserService);
+  const cookieService = inject(CookieService)
 
-  if (_userService.isAuth) return true;
+  if (userService.isAuth) return true;
 
-  const token = _cookieService.get('token')
+  const token = cookieService.get('token')
+
+  const router = inject(Router);
 
   if (!token) {
-    inject(Router).navigate(['/login']);
+    router.navigate(['/login']);
     return false;
   }
 
-  return true;
+
+  const user = await POST('/user/verify',{token})
+
+  if (user){
+    userService.user = user;
+    userService.isAuth = true;
+    return true;
+  }
+
+  router.navigate(['/login']);
+
+  return false;
 };

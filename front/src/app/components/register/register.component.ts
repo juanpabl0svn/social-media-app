@@ -26,7 +26,7 @@ export class RegisterComponent {
 
   constructor(public user: UserService, private router: Router) {}
 
-  async onSubmit(e: Event) {
+  async handleSubmit(e: Event) {
     e.preventDefault();
 
     const { name, email, password, password2, date, username } =
@@ -40,13 +40,17 @@ export class RegisterComponent {
       return;
     }
 
-    return this.user
-      .register(name, username, email, password, date)
-      .subscribe(() => {
-        document.cookie = `token=${email}`;
-        this.user.setIsAuth = true;
-        this.user.setUsername = email;
-        this.router.navigate(['/']);
-      });
+    const userData = await this.user.register(
+      name,
+      username,
+      email,
+      password,
+      date
+    );
+
+    document.cookie = `token=${userData.token}`;
+    this.user.setIsAuth = true;
+    this.user.setUsername = userData;
+    this.router.navigate(['/']);
   }
 }

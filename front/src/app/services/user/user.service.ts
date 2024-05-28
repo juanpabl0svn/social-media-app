@@ -6,6 +6,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 
 import { ICOMMENT, IPOST } from '../../models/models';
+import { POST } from '../../utils/constants';
 
 @Injectable({
   providedIn: 'root',
@@ -64,19 +65,7 @@ export default class UserService {
   }
 
   logIn(username: string, password: string) {
-    const url: string = `${API}/login`;
-
-    const headers = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        withCredentials: 'true',
-      }),
-    };
-    const body = {
-      username,
-      password,
-    };
-    return this.http.post(url, body, headers);
+    return POST('/user/login', { username, password });
   }
 
   register(
@@ -86,23 +75,7 @@ export default class UserService {
     password: string,
     date: string
   ) {
-    const url: string = `${API}/register`;
-
-    const headers = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        withCredentials: 'true',
-      }),
-    };
-    const body = {
-      name,
-      email,
-      password,
-      date,
-      username,
-    };
-
-    return this.http.post(url, body, headers);
+    return POST('/register', { name, username, email, password, date });
   }
 
   signOut() {

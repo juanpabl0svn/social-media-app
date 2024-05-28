@@ -20,16 +20,21 @@ export class LoginComponent {
 
   constructor(private router: Router, public user: UserService) {}
 
-  onSubmit() {
+  async handleSubmit(e: Event) {
+    e.preventDefault();
     const { username, password } = this.loginForm.value;
 
     if (!username || !password) return;
 
-    return this.user.logIn(username, password).subscribe(() => {
-      document.cookie = `token=${username}`;
-      this.user.setIsAuth = true;
-      this.user.setUsername = username;
-      this.router.navigate(['/']);
-    });
+    const userData = await this.user.logIn(username, password);
+
+    if (!userData){
+      return ;
+    }
+
+    document.cookie = `token=${userData.token}`;
+    userData.user = userData;
+    this.user.isAuth = true;
+    this.router.navigate(['/']);
   }
 }

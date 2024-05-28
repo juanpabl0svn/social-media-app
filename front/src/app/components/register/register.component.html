@@ -1,6 +1,6 @@
 <main class="main-register">
-  <form action="" class="[view-transition-name:form]">  
-    <h1  class="[view-transition-name:title]">Registrarse</h1>
+  <form (submit)="handleSubmit($event)" class="[view-transition-name:form]">
+    <h1 class="[view-transition-name:title]">Registrarse</h1>
     <section>
       <input type="text" name="nit" id="nit" required />
       <label for="nit">NIT</label>
@@ -10,6 +10,10 @@
       <label for="username">Usuario</label>
     </section>
     <section>
+      <input type="email" name="email" id="email" required />
+      <label for="email">Email</label>
+    </section>
+    <section>
       <input type="text" name="name" id="name" required />
       <label for="name">Nombre</label>
     </section>
@@ -17,7 +21,7 @@
       <input type="date" name="date" placeholder="" id="date" required />
       <label for="date">Fecha nacimiento</label>
     </section>
-    <section class="[view-transition-name:password]" >
+    <section class="[view-transition-name:password]">
       <input [type]="passwordType" name="password" id="password" required />
       <label for="password">Contraseña</label>
       <button
@@ -43,7 +47,9 @@
         Ojo
       </button>
     </section>
-    <a routerLink="/login" class="text-blue-500 underline mb-5 [view-transition-name:link]"
+    <a
+      routerLink="/login"
+      class="text-blue-500 underline mb-5 [view-transition-name:link]"
       >¿Ya tienes una cuenta? Inicia sesión</a
     >
     <button class="[view-transition-name:button]">Ingresar</button>
