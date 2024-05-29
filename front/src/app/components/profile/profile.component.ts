@@ -18,8 +18,52 @@ export class ProfileComponent {
 
   profileToEdit = { ...this.userService.user };
 
+  image: File | null = null;
+
+  bg_img: string = '';
+
   constructor(public userService: UserService) {}
 
+  handleChangeImage(e: Event) {
+    const file = (e.target as HTMLInputElement)?.files?.[0];
+
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.readAsDataURL(file);
+
+    this.image = file;
+
+    reader.onload = () => {
+      this.bg_img = reader.result as string;
+
+      const container = document.querySelector('#image-box');
+
+      if (!container) return;
+
+      container.innerHTML = `<img src="${this.bg_img}" alt="profile-image" class='w-full aspect-square' />`;
+    };
+  }
+
+  handleSubmitPost(e: Event) {
+    e.preventDefault();
+
+    const { description } = e.target as HTMLFormElement;
+
+    if (!description.value) {
+      return;
+    }
+
+
+    const post = {
+      id_user: this.userService.user.id_user,
+      description: description.value,
+      image: this.image,
+    }
+
+
+  }
 
   signOut() {
     this.userService.signOut();
