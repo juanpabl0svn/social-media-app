@@ -16,6 +16,8 @@ export class ProfileComponent {
   editProfile: boolean = false;
   uploadPost: boolean = false;
 
+  passwordType: string = 'password';
+
   profileToEdit = { ...this.userService.user };
 
   image: File | null = null;
@@ -44,6 +46,11 @@ export class ProfileComponent {
 
       container.innerHTML = `<img src="${this.bg_img}" alt="profile-image" class='w-full aspect-square' />`;
     };
+  }
+
+
+  handleSubmitEdit(e: Event){
+
   }
 
   handleSubmitPost(e: Event) {
