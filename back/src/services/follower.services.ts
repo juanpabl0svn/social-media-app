@@ -46,6 +46,7 @@ export async function getUserFollows(userId: number) {
   try {
     const follows = await Follower.findAll({
       where: { [Op.or]: [{ id_user: userId }, { id_user_follower: userId }] },
+      include: ["user", "userFollower"],
     });
     return follows;
   } catch (err) {

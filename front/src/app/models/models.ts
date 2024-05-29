@@ -1,9 +1,4 @@
-
-
-export interface IUSER {
-  
-
-}
+export interface IUSER {}
 
 export interface ICOMMENT {
   id: string;
@@ -13,6 +8,7 @@ export interface ICOMMENT {
 }
 
 export interface IPOST {
+  id_post: number;
   name: {
     first: string;
     last: string;

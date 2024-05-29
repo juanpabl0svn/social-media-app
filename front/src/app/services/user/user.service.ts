@@ -20,6 +20,8 @@ export default class UserService {
 
   posts: IPOST[] = [];
 
+  id_post: number = 0;
+
   constructor(
     private http: HttpClient,
     private _cookieService: CookieService,

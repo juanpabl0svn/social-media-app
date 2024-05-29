@@ -17,12 +17,11 @@
   <img [src]="post.picture.large" class="w-full aspect-[7/8]" />
 
   <div class="flex">
-    <app-like [hasLiked]="post.hasLiked" (onClick)="toggleLike()
-    " />
-    <app-comment (onClick)="setComment()" />
+    <app-like [hasLiked]="post.hasLiked" (onClick)="toggleLike()" />
+    <app-comment (onClick)="setComment(post.id_post)" />
   </div>
   <article class="px-4">
-    <span>{{post.likes}} likes</span>
+    <span>{{ post.likes }} likes</span>
     <p>
       <span class="font-bold">
         {{ post.name.first }}

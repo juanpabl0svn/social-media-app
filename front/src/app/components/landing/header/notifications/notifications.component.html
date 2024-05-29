@@ -1,5 +1,21 @@
 <section
-    class="w-[clamp(300px,60vw,1200px)] bg-white h-[clamp(500px,60vh,900px)] p-10 rounded-xl grid place-content-center"
-  >
-    No hay notificaciones
-  </section>
+  class="w-[clamp(300px,60vw,1200px)] bg-white h-[clamp(500px,60vh,900px)] p-10 rounded-xl grid place-content-center"
+>
+  @for(request of requests; track $index;){
+  <div class="w-full flex items-center justify-between gap-5">
+    <img src="/assets/user.jpg" class="h-14 rounded-full" />
+    <p>{{ request.username }}</p>
+
+    @if(request.state === 'pending'){
+    <span>Pending</span>
+    }@else if (request.state === 'accepted'){
+    <span>Accepted</span>
+
+    }@else{
+
+    <button (click)="handleAccept(request.id_user)">Accept</button>
+    <button (click)="handleReject(request.id_user)">Reject</button>
+    }
+  </div>
+  }
+</section>

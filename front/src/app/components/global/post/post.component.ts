@@ -22,7 +22,8 @@ export class PostComponent {
     this.post.likes = value ? this.post.likes - 1 : this.post.likes + 1;
   }
 
-  setComment() {
+  setComment(id: number) {
+    this.userService.id_post = id;
     this.userService.showComments = this.post.comments;
   }
 }

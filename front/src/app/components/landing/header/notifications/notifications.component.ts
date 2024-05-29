@@ -10,6 +10,7 @@ import UserService from '../../../../services/user/user.service';
   styleUrl: './notifications.component.css',
 })
 export class NotificationsComponent {
+  requests: any = [];
   constructor(public userData: UserService) {}
 
   async ngOnInit() {
@@ -17,9 +18,12 @@ export class NotificationsComponent {
       userId: this.userData.user.id_user,
     });
 
-    console.log(this.userData.user)
+    console.log(notifications);
 
-
-    console.log(notifications)
+    this.requests = notifications;
   }
+
+  handleAccept(id: number) {}
+
+  handleReject(id: number) {}
 }
