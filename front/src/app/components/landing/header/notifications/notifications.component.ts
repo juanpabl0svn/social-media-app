@@ -14,11 +14,9 @@ export class NotificationsComponent {
   constructor(public userData: UserService) {}
 
   async ngOnInit() {
-    const notifications = await POST('/get_user_follows', {
+    const notifications = await POST('/getUserFollows', {
       userId: this.userData.user.id_user,
     });
-
-    console.log(notifications);
 
     this.requests = notifications;
   }

@@ -25,7 +25,7 @@
         </h1>
         @if(!this.state){
 
-        <button class="text-sm bg-gray-300 text-white rounded-md p-1">
+        <button (click)="follow()" class="text-sm bg-gray-300 text-white rounded-md p-1">
           Seguir
         </button>
         }@else if (this.state === 'pending'){

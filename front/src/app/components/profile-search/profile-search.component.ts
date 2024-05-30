@@ -21,6 +21,8 @@ export class ProfileSearchComponent {
 
   username: string = '';
 
+  id_user: number = 0;
+
   constructor(
     public path: ActivatedRoute,
     private userService: UserService,
@@ -31,7 +33,6 @@ export class ProfileSearchComponent {
     this.path.params.subscribe(async (params) => {
       if (params['id_user'] == this.userService.user.id_user)
         return this.router.navigate(['/profile']);
-
 
       const userData = await POST('/getUserData', {
         id_user: params['id_user'],
@@ -45,11 +46,24 @@ export class ProfileSearchComponent {
       this.followers = userData.followers;
       this.following = userData.following;
 
-      this.state = userData.isFollowing;
+      this.state = userData.state;
 
       this.username = userData.username;
 
+      this.id_user = params['id_user'];
+
       return;
     });
+  }
+
+  async follow() {
+    const isFollowing = await POST('/follow', {
+      id_user: this.id_user,
+      id_user_follower: this.userService.user.id_user,
+    });
+
+    if (!isFollowing) return;
+
+    this.state = 'pending';
   }
 }

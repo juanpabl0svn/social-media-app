@@ -50,12 +50,16 @@
       </button>
     </form>
 
-    <div class="w-full h-full overflow-y-auto max-h-[300px]">
+    <div
+      class="w-full h-full overflow-y-auto max-h-[300px] flex flex-col gap-5"
+    >
       @for(user of users; track user.id_user;){
-      <div class="w-full flex items-center justify-between gap-5">
+      <div
+        class="w-[200px] flex items-center justify-start gap-20 cursor-pointer mx-auto"
+        routerLink="/profile/{{ user.id_user }}"
+      >
         <img src="/assets/user.jpg" class="h-14 rounded-full" />
         <p>{{ user.username }}</p>
-        <button (click)="handleFollow(user.id_user)">Follow</button>
       </div>
 
       }

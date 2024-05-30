@@ -1,11 +1,10 @@
-import { Op } from "sequelize";
-import { Follower } from "../db.mysql";
+import { Follower, User } from "../db.mysql";
 
-export async function followReq(userReq: number, userToFollow: number) {
+export async function followReq(id_user: number, id_user_follower: number) {
   try {
     return await Follower.create({
-      id_user: userToFollow,
-      id_user_follower: userReq,
+      id_user,
+      id_user_follower,
       request_update_date: Date.now(),
     });
   } catch (err) {
@@ -39,11 +38,14 @@ export async function rejectFollowReq(followId: number) {
   }
 }
 
-export async function getUserFollows(userId: number) {
+export async function getUserFollows(id_user: number) {
   try {
     return await Follower.findAll({
-      where: { [Op.or]: [{ id_user: userId }, { id_user_follower: userId }] },
-      include: ["user", "userFollower"],
+      where: { id_user },
+      include: {
+        model: User,
+        attributes: ["username", "id_user"],
+      },
     });
   } catch (err) {
     console.error(err);

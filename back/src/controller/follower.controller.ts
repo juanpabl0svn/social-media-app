@@ -8,14 +8,14 @@ import {
 } from "../services/follower.services";
 
 export async function handleFollowReq(req: Request, res: Response) {
-  const { userReq, userToFollow } = req.body;
-  const result = followReq(userReq, userToFollow);
+  const { id_user, id_user_follower } = req.body;
+  const result = followReq(id_user, id_user_follower);
   return res.status(200).json({ result: result });
 }
 
 export async function handleUserFollows(req: Request, res: Response) {
-  const { userId } = req.body;
-  const result = await getUserFollows(userId);
+  const { id_user } = req.body;
+  const result = await getUserFollows(id_user);
   return res.status(200).json(result);
 }
 
