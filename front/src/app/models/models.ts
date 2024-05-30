@@ -2,9 +2,11 @@ export interface IUSER {}
 
 export interface ICOMMENT {
   id: string;
-  content: string;
+  comment: string;
   image: string;
-  username: string;
+  user: {
+    username: string;
+  };
 }
 
 export interface IPOST {

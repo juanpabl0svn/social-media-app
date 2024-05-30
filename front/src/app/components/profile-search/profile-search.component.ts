@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import UserService from '../../services/user/user.service';
-import { Router } from 'express';
 import { IPOST } from '../../models/models';
 import { POST } from '../../utils/constants';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-profile-search',
@@ -22,12 +21,21 @@ export class ProfileSearchComponent {
 
   username: string = '';
 
-  constructor(public path: ActivatedRoute, private userService: UserService) {}
+  constructor(
+    public path: ActivatedRoute,
+    private userService: UserService,
+    private router: Router
+  ) {}
 
   async ngOnInit() {
-    this.path.paramMap.subscribe(async (params) => {
+    this.path.params.subscribe(async (params) => {
+      if (params['id_user'] == this.userService.user.id_user)
+        return this.router.navigate(['/profile']);
+
+
       const userData = await POST('/getUserData', {
-        id_user: params,
+        id_user: params['id_user'],
+        id_user_follower: this.userService.user.id_user,
       });
 
       if (!userData) return;
@@ -40,6 +48,8 @@ export class ProfileSearchComponent {
       this.state = userData.isFollowing;
 
       this.username = userData.username;
+
+      return;
     });
   }
 }

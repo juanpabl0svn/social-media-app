@@ -7,7 +7,6 @@ import {
 
 export async function handlePostComment(req: Request, res: Response) {
   const { id_user, id_post, comment } = req.body;
-  console.log(id_user, id_post, comment)
   const result = await postComment(id_user, id_post, comment);
   return res.status(200).json(result);
 }

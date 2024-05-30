@@ -12,7 +12,7 @@ export async function getAllPosts() {
           attributes: ["username"],
         },
       ],
-      attributes: ["id_post", "imageSrc", "description"],
+      attributes: ["id_post", "imageSrc", "description", "id_user"],
     });
   } catch (err) {
     console.error(err);

@@ -37,7 +37,6 @@ export class CommentsComponent {
       comment,
     });
 
-    console.log(isCommented)
 
     if (!isCommented) return;
 

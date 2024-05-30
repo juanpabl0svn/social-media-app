@@ -49,7 +49,7 @@ export async function getMyDataRoute(req: Request, res: Response) {
 }
 
 export async function getUserDataRoute(req: Request, res: Response) {
-  const { id_user, id_user_follower } = req.params;
+  const { id_user, id_user_follower } = req.body;
 
   if (!id_user || !id_user_follower) {
     return res.status(400).json({ message: "Missing user(s)" });

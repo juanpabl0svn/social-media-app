@@ -180,4 +180,6 @@ export const Follower = sequelize.define(
 );
 
 User.hasMany(Post, { foreignKey: "id_user" });
+User.hasMany(Comment, { foreignKey: "id_user" });
+Comment.belongsTo(User, { foreignKey: "id_user" });
 Post.belongsTo(User, { foreignKey: "id_user" });

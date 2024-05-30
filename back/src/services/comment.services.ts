@@ -1,4 +1,4 @@
-import { Comment, Post } from "../db.mysql";
+import { Comment, Post, User } from "../db.mysql";
 import { isFollowing } from "./follower.services";
 
 export async function postComment(
@@ -29,6 +29,10 @@ export async function getPostComments(id_post: number) {
   try {
     return await Comment.findAll({
       where: { id_post },
+      include: {
+        model: User,
+        attributes: ["username"],
+      },
     });
   } catch (err) {
     console.error("Error getting post comments ", err);
