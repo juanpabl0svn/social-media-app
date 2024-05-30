@@ -14,4 +14,7 @@ export interface IPOST {
   imageSrc: string;
   hasLiked: boolean;
   likes: number;
+  user: {
+    username: string;
+  };
 }

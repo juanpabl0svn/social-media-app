@@ -5,6 +5,7 @@ import { LandingComponent } from './components/landing/landing.component';
 import { isLoggedInGuard } from './guards/is-logged-in.guard';
 import { isLoggedOutGuard } from './guards/is-logged-out.guard';
 import { ProfileComponent } from './components/profile/profile.component';
+import { ProfileSearchComponent } from './components/profile-search/profile-search.component';
 
 export const routes: Routes = [
   {
@@ -26,6 +27,11 @@ export const routes: Routes = [
     path: 'register',
     component: RegisterComponent,
     canActivate: [isLoggedOutGuard],
+  },
+  {
+    path: 'profile/:id_user',
+    component: ProfileSearchComponent,
+    canActivate: [isLoggedInGuard],
   },
   {
     path: '**',

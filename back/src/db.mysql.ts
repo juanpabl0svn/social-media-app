@@ -178,3 +178,6 @@ export const Follower = sequelize.define(
     tableName: "followers",
   }
 );
+
+User.hasMany(Post, { foreignKey: "id_user" });
+Post.belongsTo(User, { foreignKey: "id_user" });

@@ -15,8 +15,6 @@ import { POST } from '../../../utils/constants';
 export class PostComponent {
   @Input() post!: IPOST;
 
-  comments: any[] = [];
-
   constructor(public userService: UserService) {}
 
   toggleLike() {
@@ -29,7 +27,7 @@ export class PostComponent {
   async setComment(id_post: number) {
     this.userService.id_post = id_post;
 
-    const comments = await POST('getComments', { id_post });
+    const comments = await POST('/getComments', { id_post });
 
     this.userService.showComments = comments;
   }

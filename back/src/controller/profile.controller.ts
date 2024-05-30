@@ -1,5 +1,10 @@
 import { Request, Response } from "express";
-import { getMyData, getUser, updateProfile } from "../services/user.services";
+import {
+  getMyData,
+  getUser,
+  getUserData,
+  updateProfile,
+} from "../services/user.services";
 
 export async function handleUpdateProfile(req: Request, res: Response) {
   const {
@@ -36,8 +41,22 @@ export async function getMyDataRoute(req: Request, res: Response) {
 
   const userData = await getMyData(id_user);
 
-  console.log(userData);
-  
+  if (!userData) {
+    return res.status(404).json({ message: "User not found" });
+  }
+
+  return res.status(200).json(userData);
+}
+
+export async function getUserDataRoute(req: Request, res: Response) {
+  const { id_user, id_user_follower } = req.params;
+
+  if (!id_user || !id_user_follower) {
+    return res.status(400).json({ message: "Missing user(s)" });
+  }
+
+  const userData = await getUserData(+id_user, +id_user_follower);
+
   if (!userData) {
     return res.status(404).json({ message: "User not found" });
   }

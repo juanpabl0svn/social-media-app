@@ -1,0 +1,75 @@
+<main
+  class="py-10 flex flex-col items-center gap-10 min-h-dvh h-full border max-w-[800px] overflow-hidden mx-auto bg-[rgba(255,242,104,0.8)]"
+>
+  <header class="w-full">
+    <button
+      class="bg-yellow-600 px-5 py-2 ml-7 text-white"
+      [routerLink]="['/']"
+    >
+      Volver
+    </button>
+  </header>
+  <section class="flex flex-row gap-20 justify-center">
+    <div class="rounded-full w-1/5 aspect-square min-w-48 relative">
+      <img
+        src="/assets/user.jpg"
+        alt="user-image"
+        class="w-full h-full rounded-full [view-transition-name:user-img]"
+      />
+    </div>
+
+    <div class="flex flex-col gap-5 justify-center">
+      <div class="flex items-end gap-8">
+        <h1 class="text-4xl [view-transition-name:user-username]">
+          {{ this.username }}
+        </h1>
+        @if(!this.state){
+
+        <button class="text-sm bg-gray-300 text-white rounded-md p-1">
+          Seguir
+        </button>
+        }@else if (this.state === 'pending'){
+
+        <span class="text-sm bg-gray-300 text-white rounded-md p-1">
+          Pendiente
+        </span>
+
+        }@else {
+        <span class="text-sm bg-gray-300 text-white rounded-md p-1">
+          Siguiendo
+        </span>
+        }
+      </div>
+      <div class="flex flex-row gap-10 text-center">
+        <div>
+          <p>Publicaciones</p>
+          <span>{{ this.postsCount }}</span>
+        </div>
+        <div>
+          <p>Amigos</p>
+          <span>{{ this.followers }}</span>
+        </div>
+        <div>
+          <p>Solicitudes pendientes</p>
+          <span>{{ this.following }}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section
+    class="w-3/4 min-h-[400px] bg-[rgba(215,219,94,0.75)] relative flex flex-wrap h-full"
+  >
+    @for(post of this.posts; track post.id_post;) {
+
+    <img [src]="post.imageSrc" alt="" class="h-[12.45rem] aspect-square" />
+
+    }@empty {
+    <div
+      class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-5"
+    >
+      <p>No hay publicaciones</p>
+    </div>
+
+    }
+  </section>
+</main>

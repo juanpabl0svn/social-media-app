@@ -125,6 +125,37 @@ export const getMyData = async (id_user: number) => {
   }
 };
 
+export const getUserData = async (
+  id_user: number,
+  id_user_follower: number
+) => {
+  try {
+    const followers = await Follower.findAll({ where: { id_user } });
+
+    const following = await Follower.findAll({
+      where: { id_user_follower: id_user },
+    });
+    const posts = await Post.findAll({ where: { id_user } });
+
+    const user = await User.findOne({ where: { id_user } });
+
+    const isFollowing = await Follower.findOne({
+      where: { id_user, id_user_follower: id_user_follower },
+    });
+
+    return {
+      followers: followers.length,
+      following: following.length,
+      posts,
+      isFollowing,
+      ...user?.toJSON(),
+    };
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
 export const setToken = (payload: any) => {
   return jwt.sign(payload, SECRET);
 };

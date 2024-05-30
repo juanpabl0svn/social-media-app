@@ -6,17 +6,14 @@ export async function getAllPosts() {
   try {
     // const postsData = []
     return await Post.findAll({
-      order: [["create_date", "DESC"]],
-      limit: 10,
+      include: [
+        {
+          model: User,
+          attributes: ["username"],
+        },
+      ],
+      attributes: ["id_post", "imageSrc", "description"],
     });
-    // for (let post of posts){
-    //   const user = await User.findOne({where: {id_user: post.toJSON().user_id}})
-    //   postsData.push({
-    //     username: user?.toJSON().username,
-    //     imageSrc: post.toJSON().imageSrc,
-    //     description: post.toJSON().description
-    //   })
-    // }
   } catch (err) {
     console.error(err);
     return err;

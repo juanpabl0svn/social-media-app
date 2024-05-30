@@ -22,17 +22,16 @@
 
         }
       </article>
-      <form  class="flex w-full h-24" (submit)="handleSubmit($event)">
+      <form class="flex w-full h-24" (submit)="handleSubmit($event)">
         <textarea
-          name="content"
-          id="content"
-
+          name="comment"
+          id="comment"
           class="w-full h-14 border border-gray-300 rounded-md resize-none"
           placeholder="Write a comment..."
           (keydown)="handleKey($event)"
         ></textarea>
         <button
-          class=" bg-blue-500 text-white font-bold h-14 rounded-md px-2"
+          class="bg-blue-500 text-white font-bold h-14 rounded-md px-2"
           type="submit"
         >
           Comment

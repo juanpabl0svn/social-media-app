@@ -51,8 +51,8 @@ export class NewPostComponent {
     const formData = new FormData();
     formData.set('description', description.value);
     formData.set('file', this.image as File);
-    formData.set('user_id', this.userService.user.id_user);
-    const response = await POST_FORMDATA('/create_post', formData);
+    formData.set('id_user', this.userService.user.id_user);
+    const response = await POST_FORMDATA('/createPost', formData);
     this.router.navigate(['/profile']);
   }
 }
