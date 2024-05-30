@@ -46,24 +46,30 @@
           Editar perfil
         </button>
       </div>
-      <div class="flex flex-row gap-10">
+      <div class="flex flex-row gap-10 text-center">
         <div>
           <p>Publicaciones</p>
-          <span>0</span>
+          <span>{{ this.postsCount }}</span>
         </div>
         <div>
           <p>Amigos</p>
-          <span>0</span>
+          <span>{{ this.followers }}</span>
         </div>
         <div>
           <p>Solicitudes pendientes</p>
-          <span>0</span>
+          <span>{{ this.following }}</span>
         </div>
       </div>
     </div>
   </section>
-  <section class="w-3/4 h-[400px] bg-[rgba(215,219,94,0.75)] relative">
-    @if(this.userService.user?.posts){ }@else {
+  <section
+    class="w-3/4 min-h-[400px] bg-[rgba(215,219,94,0.75)] relative flex flex-wrap h-full"
+  >
+    @for(post of this.posts; track post.id_post;) {
+
+    <img [src]="post.imageSrc" alt="" class="h-[12.45rem] aspect-square" />
+
+    }@empty {
     <div
       class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-5"
     >
@@ -75,6 +81,7 @@
         +
       </button>
     </div>
+
     }
   </section>
 </main>

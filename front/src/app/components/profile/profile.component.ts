@@ -7,6 +7,7 @@ import { ModalComponent } from '../modal/modal.component';
 import { POST, POST_FORMDATA } from '../../utils/constants';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { NewPostComponent } from './new-post/new-post.component';
+import { IPOST } from '../../models/models';
 
 @Component({
   selector: 'app-profile',
@@ -26,15 +27,14 @@ export class ProfileComponent {
   editProfile: boolean = false;
   uploadPost: boolean = false;
 
-  posts: any[] = [];
-  followers: any[] = [];
-  followingReq: any[] = [];
+  posts: IPOST[] = [];
+  followers: number = 0;
+  following: number = 0;
   postsCount: number = 0;
 
   constructor(public userService: UserService, private router: Router) {}
 
   async ngOnInit() {
-    console.log(this.userService.user.id_user);
     const userData = await POST('/getMyData', {
       id_user: this.userService.user.id_user,
     });
@@ -44,7 +44,7 @@ export class ProfileComponent {
     this.posts = userData.posts;
     this.postsCount = userData.posts.length;
     this.followers = userData.followers;
-    this.followingReq = userData.followingReq;
+    this.following = userData.following;
   }
 
   signOut() {
