@@ -1,12 +1,11 @@
-.main-log-in {
-  min-height: 100dvh;
+.profile-edit {
   align-content: center;
 
   & > form {
     margin: 0 auto;
     width: fit-content;
     border: 1px solid var(--primary-color);
-    border-radius: 20px;
+    border-radius: inherit;
     padding: 20px 50px;
     display: grid;
     place-content: center;
@@ -67,3 +66,8 @@
   }
 }
 
+input[type="date"] + label {
+  top: -3px !important;
+  background-color: var(--primary-color);
+  color: white !important;
+}

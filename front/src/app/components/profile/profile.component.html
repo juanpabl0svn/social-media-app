@@ -1,102 +1,10 @@
 @if(editProfile){
 <app-modal (closeModal)="editProfile = false">
-  <section
-    class="profile-edit w-[clamp(300px,60vw,1200px)] bg-white h-[clamp(500px,60vh,900px)] p-10 rounded-xl grid place-content-center"
-  >
-    <form
-      (submit)="handleSubmitEdit($event)"
-      class="[view-transition-name:form]"
-    >
-      <h1 class="[view-transition-name:title]">Registrarse</h1>
-      <section>
-        <input type="text" name="nit" id="nit" required />
-        <label for="nit">NIT</label>
-      </section>
-      <section class="[view-transition-name:user]">
-        <input type="text" name="username" id="username" required />
-        <label for="username">Usuario</label>
-      </section>
-      <section>
-        <input type="email" name="email" id="email" required />
-        <label for="email">Email</label>
-      </section>
-      <section>
-        <input type="text" name="name" id="name" required />
-        <label for="name">Nombre</label>
-      </section>
-      <section>
-        <input type="date" name="date" placeholder="" id="date" required />
-        <label for="date">Fecha nacimiento</label>
-      </section>
-      <section class="[view-transition-name:password]">
-        <input [type]="passwordType" name="password" id="password" required />
-        <label for="password">Contraseña</label>
-        <button
-          type="button"
-          (click)="
-            passwordType = passwordType === 'password' ? 'text' : 'password'
-          "
-          class="absolute right-3 -translate-y-1/2 top-1/2 p-1"
-        >
-          Ojo
-        </button>
-      </section>
-
-      <a
-        routerLink="/login"
-        class="text-blue-500 underline mb-5 [view-transition-name:link]"
-        >¿Ya tienes una cuenta? Inicia sesión</a
-      >
-      <button class="[view-transition-name:button]">Ingresar</button>
-    </form>
-  </section>
+  <app-edit-profile />
 </app-modal>
 } @if(uploadPost){
 <app-modal (closeModal)="uploadPost = false">
-  <section
-    class="w-[clamp(300px,60vw,1200px)] bg-white h-[clamp(500px,60vh,900px)] p-10 rounded-xl grid place-content-center text-center"
-  >
-    <h2 class="text-2xl -translate-y-20 font-bold">Subir post</h2>
-    <form class="file-upload-form relative" (submit)="handleSubmitPost($event)">
-      <label for="file" class="file-upload-label flex-1">
-        <div id="image-box" class="file-upload-design">
-          <svg viewBox="0 0 640 512" height="1em">
-            <path
-              d="M144 480C64.5 480 0 415.5 0 336c0-62.8 40.2-116.2 96.2-135.9c-.1-2.7-.2-5.4-.2-8.1c0-88.4 71.6-160 160-160c59.3 0 111 32.2 138.7 80.2C409.9 102 428.3 96 448 96c53 0 96 43 96 96c0 12.2-2.3 23.8-6.4 34.6C596 238.4 640 290.1 640 352c0 70.7-57.3 128-128 128H144zm79-217c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l39-39V392c0 13.3 10.7 24 24 24s24-10.7 24-24V257.9l39 39c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-80-80c-9.4-9.4-24.6-9.4-33.9 0l-80 80z"
-            ></path>
-          </svg>
-          <p>Suelta tu imagen</p>
-          <p>o</p>
-          <span class="browse-button">Browse file</span>
-        </div>
-        <input
-          (change)="handleChangeImage($event)"
-          id="file"
-          type="file"
-          name="file"
-          required
-        />
-      </label>
-      <div class="flex flex-col w-full justify-center items-center flex-1">
-        <label for="">Descripción</label>
-
-        <textarea
-          type="text"
-          placeholder="Un lindo dia en la plata"
-          required
-          id="description"
-          name="description"
-          class="resize-none rounded-md outline-none p-3 border border-gray-400"
-        ></textarea>
-      </div>
-
-      <button
-        class="absolute left-1/2 -bottom-20 z-20 -translate-x-1/2 bg-blue-300 px-7 py-3 rounded-md text-white hover:bg-blue-400 transition-all duration-300"
-      >
-        Subir
-      </button>
-    </form>
-  </section>
+  <app-new-post />
 </app-modal>
 }
 

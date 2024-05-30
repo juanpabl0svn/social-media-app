@@ -6,6 +6,6 @@ const profileRouter = Router()
 profileRouter.post('/update_profile', handleUpdateProfile)
 profileRouter.post('/getUser', handleGetUser)
 
-profileRouter.post('/get-my-data', getMyDataRoute)
+profileRouter.post('/getMyData', getMyDataRoute)
 
 export default profileRouter;

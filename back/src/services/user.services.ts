@@ -111,12 +111,14 @@ export const getMyData = async (id_user: number) => {
     });
     const posts = await Post.findAll({ where: { id_user } });
 
+    console.log(followers, following, posts);
     return {
       followers: followers.length,
       following: following.length,
       posts,
     };
   } catch (error) {
+    console.log(error);
     return null;
   }
 };

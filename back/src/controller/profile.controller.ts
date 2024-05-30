@@ -36,6 +36,8 @@ export async function getMyDataRoute(req: Request, res: Response) {
 
   const userData = await getMyData(id_user);
 
+  console.log(userData);
+  
   if (!userData) {
     return res.status(404).json({ message: "User not found" });
   }
