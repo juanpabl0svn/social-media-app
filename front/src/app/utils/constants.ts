@@ -17,3 +17,12 @@ export const GET = (endpoint: string) => {
     .then((res) => res.json())
     .catch(() => null);
 };
+
+export const POST_FORMDATA = (endpoint: string, formData: FormData) => {
+  return fetch(`${API_URL}${endpoint}`, {
+    method: 'POST',
+    body: formData,
+  })
+    .then((res) => res.json())
+    .catch(() => null);
+};

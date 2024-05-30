@@ -1,7 +1,7 @@
 import { SALT, SECRET } from "../config";
-import { User } from "../db.mysql";
+import { Follower, Post, User } from "../db.mysql";
 import bcrypt from "bcrypt";
-import { Op } from "sequelize";
+import { Op, where } from "sequelize";
 import jwt from "jsonwebtoken";
 
 export async function registerUser(
@@ -102,6 +102,24 @@ export async function getUsers(searchString: string) {
     return `${searchString} failed`;
   }
 }
+
+export const getMyData = async (id_user: number) => {
+  try {
+    const followers = await Follower.findAll({ where: { id_user } });
+    const following = await Follower.findAll({
+      where: { id_user_follower: id_user },
+    });
+    const posts = await Post.findAll({ where: { id_user } });
+
+    return {
+      followers: followers.length,
+      following: following.length,
+      posts,
+    };
+  } catch (error) {
+    return null;
+  }
+};
 
 export const setToken = (payload: any) => {
   return jwt.sign(payload, SECRET);

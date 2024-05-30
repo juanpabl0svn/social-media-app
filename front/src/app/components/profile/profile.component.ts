@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import UserService from '../../services/user/user.service';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { HeaderComponent } from '../landing/header/header.component';
 import { ModalComponent } from '../modal/modal.component';
+import { POST_FORMDATA } from '../../utils/constants';
 
 @Component({
   selector: 'app-profile',
@@ -20,11 +21,24 @@ export class ProfileComponent {
 
   profileToEdit = { ...this.userService.user };
 
+  posts: any[] = [];
+
+  followers: any[] = [];
+
+  followingReq: any[] = [];
+
   image: File | null = null;
 
   bg_img: string = '';
 
-  constructor(public userService: UserService) {}
+  constructor(public userService: UserService, private router:Router) {}
+
+
+  async ngOnInit(){
+
+
+
+  }
 
   handleChangeImage(e: Event) {
     const file = (e.target as HTMLInputElement)?.files?.[0];
@@ -48,12 +62,7 @@ export class ProfileComponent {
     };
   }
 
-
-  handleSubmitEdit(e: Event){
-
-  }
-
-  handleSubmitPost(e: Event) {
+  async handleSubmitPost(e: Event) {
     e.preventDefault();
 
     const { description } = e.target as HTMLFormElement;
@@ -62,13 +71,17 @@ export class ProfileComponent {
       return;
     }
 
+    const formData = new FormData();
+    formData.set('description', description.value);
+    formData.set('file', this.image as File);
+    formData.set('user_id',this.userService.user.id_user);
+    const response = await POST_FORMDATA('/create_post',formData);
+    this.router.navigate(['/profile'])
 
-    const post = {
-      id_user: this.userService.user.id_user,
-      description: description.value,
-      image: this.image,
-    }
+  }
 
+
+  handleSubmitEdit(e: Event){
 
   }
 
