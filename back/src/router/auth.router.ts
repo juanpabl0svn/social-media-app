@@ -8,7 +8,6 @@ authRouter.post("/login", handleLogInRoute);
 
 authRouter.post("/register", handleRegisterRoute);
 
-
 authRouter.post('/verify', handleVerifyRoute)
 
 export default authRouter;

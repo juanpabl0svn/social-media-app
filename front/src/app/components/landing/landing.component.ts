@@ -7,11 +7,16 @@ import { PostsComponent } from '../global/posts/posts.component';
 import { StoriesComponent } from '../global/stories/stories.component';
 import { CommentsComponent } from '../comments/comments.component';
 
-
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [RouterLink,  HeaderComponent, PostsComponent, StoriesComponent, CommentsComponent],
+  imports: [
+    RouterLink,
+    HeaderComponent,
+    PostsComponent,
+    StoriesComponent,
+    CommentsComponent,
+  ],
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.css',
 })
@@ -19,18 +24,15 @@ export class LandingComponent {
   listOfPeople: IUSER[] = [];
   renderSkeleton: number[] = Array(10).fill(0);
 
-  constructor(
-    public userService: UserService
-  ) {}
+  constructor(public userService: UserService) {}
 
   toggleLike(index: number): void {
-    console.log(index)
+    console.log(index);
     const lastValue = this.userService.posts[index].hasLiked;
     this.userService.posts[index].hasLiked = !lastValue;
   }
 
   ngOnInit() {
-    this.userService.getPosts()
+    this.userService.getPosts();
   }
-  
 }

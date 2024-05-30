@@ -3,7 +3,7 @@ import { getMyDataRoute, handleGetUser, handleUpdateProfile } from "../controlle
 
 const profileRouter = Router()
 
-profileRouter.post('/update_profile', handleUpdateProfile)
+profileRouter.post('/updateProfile', handleUpdateProfile)
 profileRouter.post('/getUser', handleGetUser)
 
 profileRouter.post('/getMyData', getMyDataRoute)

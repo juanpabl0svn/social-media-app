@@ -10,7 +10,7 @@ import {
 const followerRouter = Router();
 
 followerRouter.post("/followreq", handleFollowReq);
-followerRouter.post("/get_user_follows", handleUserFollows);
+followerRouter.post("/getUserFollows", handleUserFollows);
 followerRouter.post("/acceptFollow", handleAcceptFollow);
 followerRouter.post("/rejectFollow", handleRejectFollow);
 followerRouter.post("/isFollowing", handleIsFollowing)

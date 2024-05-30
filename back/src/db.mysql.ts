@@ -69,7 +69,7 @@ export const Post = sequelize.define(
       autoIncrement: true,
       primaryKey: true,
     },
-    user_id: {
+    id_user: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {

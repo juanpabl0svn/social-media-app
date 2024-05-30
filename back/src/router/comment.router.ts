@@ -8,7 +8,7 @@ import {
 const commentRouter = Router();
 
 commentRouter.post("/comment", handlePostComment);
-commentRouter.post("/get_post_comments", handleGetPostComments);
-commentRouter.post("/canComment", handleCanComment)
+commentRouter.post("/getComments", handleGetPostComments);
+commentRouter.post("/canComment", handleCanComment);
 
 export default commentRouter;

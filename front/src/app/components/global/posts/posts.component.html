@@ -1,7 +1,7 @@
 <aside
   class="w-full min-h-[calc(100vh-14rem) pt-8 flex flex-col items-center bg-[rgba(236,234,103,0.9)]"
 >
-  @for (post of this.userService.posts; track post.login.uuid;) {
+  @for (post of this.userService.posts; track post.id_post;) {
   <app-post [post]="post" />
 
   } @empty {

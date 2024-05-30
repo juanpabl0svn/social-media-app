@@ -3,12 +3,11 @@ import { Follower } from "../db.mysql";
 
 export async function followReq(userReq: number, userToFollow: number) {
   try {
-    await Follower.create({
+    return await Follower.create({
       id_user: userToFollow,
       id_user_follower: userReq,
       request_update_date: Date.now(),
     });
-    return true;
   } catch (err) {
     console.error(err);
     return false;
@@ -21,8 +20,7 @@ export async function acceptFollowReq(followId: number) {
       where: { id_follow: followId },
     });
     follow?.set({ state: "accepted" });
-    const savedFollow = await follow?.save();
-    return savedFollow;
+    return await follow?.save();
   } catch (err) {
     console.error(err);
     return;
@@ -34,8 +32,7 @@ export async function rejectFollowReq(followId: number) {
     const follow = await Follower.findOne({
       where: { id_follow: followId },
     });
-    await follow?.destroy();
-    return true;
+    return await follow?.destroy();
   } catch (err) {
     console.log(err);
     return false;
@@ -44,11 +41,10 @@ export async function rejectFollowReq(followId: number) {
 
 export async function getUserFollows(userId: number) {
   try {
-    const follows = await Follower.findAll({
+    return await Follower.findAll({
       where: { [Op.or]: [{ id_user: userId }, { id_user_follower: userId }] },
       include: ["user", "userFollower"],
     });
-    return follows;
   } catch (err) {
     console.error(err);
     return false;
@@ -57,7 +53,7 @@ export async function getUserFollows(userId: number) {
 
 export async function isFollowing(userId1: number, userId2: number) {
   try {
-    const follow = await Follower.findOne({
+    return await Follower.findOne({
       where: {
         state: "accepted",
         [Op.or]: [
@@ -70,7 +66,6 @@ export async function isFollowing(userId1: number, userId2: number) {
         ],
       },
     });
-    return follow !== null;
   } catch (err) {
     console.error("Error finding follower relationship:", err);
     throw err;

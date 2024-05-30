@@ -9,12 +9,11 @@ export async function postComment(
   try {
     const userCanComment = canComment(id_post, id_user);
     if (!userCanComment) return "Cant comment";
-    const comment = await Comment.create({
+    return await Comment.create({
       id_user: id_user,
       id_post: id_post,
       comment: commentString,
     });
-    return comment;
   } catch (err) {
     console.log("Error posting comment ", err);
     throw err;
@@ -23,10 +22,9 @@ export async function postComment(
 
 export async function getPostComments(id_post: number) {
   try {
-    const comments = await Comment.findAll({
-      where: { id_post: id_post },
+    return await Comment.findAll({
+      where: { id_post },
     });
-    return comments;
   } catch (err) {
     console.error("Error getting post comments ", err);
     throw err;
@@ -35,18 +33,17 @@ export async function getPostComments(id_post: number) {
 
 export async function canComment(id_post: number, id_user: number) {
   try {
-    const post = await Post.findOne({
+    const post: any = await Post.findOne({
       where: { id_post: id_post },
     });
+
     if (!post) {
       return false;
     }
 
-    const postAuthorId = post.user_id;
+    const postAuthorId = post.id_user;
 
-    const isFollowingRes = await isFollowing(postAuthorId, id_user);
-
-    return isFollowingRes;
+    return await isFollowing(postAuthorId, id_user);
   } catch (err) {
     console.error("Error validating if can comment ", err);
     throw err;

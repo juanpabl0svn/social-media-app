@@ -4,6 +4,6 @@ import { handleUserProfile, handleUserSearch } from "../controller/search.contro
 const searchRouter = Router();
 
 searchRouter.post("/search", handleUserSearch);
-searchRouter.get(`/users/:userId`, handleUserProfile);
+searchRouter.get(`/users/:id_user`, handleUserProfile);
 
 export default searchRouter;

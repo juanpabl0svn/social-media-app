@@ -3,6 +3,7 @@ import { IPOST, IUSER } from '../../../models/models';
 import { LikeComponent } from '../svg/likes/like.component';
 import { CommentComponent } from '../svg/comment/comment.component';
 import UserService from '../../../services/user/user.service';
+import { POST } from '../../../utils/constants';
 
 @Component({
   selector: 'app-post',
@@ -14,16 +15,22 @@ import UserService from '../../../services/user/user.service';
 export class PostComponent {
   @Input() post!: IPOST;
 
+  comments: any[] = [];
+
   constructor(public userService: UserService) {}
 
   toggleLike() {
-    const value = this.post.hasLiked;
+    let value = this.post?.hasLiked ?? false;
+
     this.post.hasLiked = !value;
     this.post.likes = value ? this.post.likes - 1 : this.post.likes + 1;
   }
 
-  setComment(id: number) {
-    this.userService.id_post = id;
-    this.userService.showComments = this.post.comments;
+  async setComment(id_post: number) {
+    this.userService.id_post = id_post;
+
+    const comments = await POST('getComments', { id_post });
+
+    this.userService.showComments = comments;
   }
 }

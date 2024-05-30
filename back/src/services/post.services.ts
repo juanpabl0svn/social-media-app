@@ -4,27 +4,28 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 export async function getAllPosts() {
   try {
-    const postsData = []
-    const posts = await Post.findAll({ order: [["create_date", "DESC"]], limit: 10 });
-    for (let post of posts){
-      const user = await User.findOne({where: {id_user: post.toJSON().user_id}})
-      postsData.push({
-        username: user?.toJSON().username,
-        imageSrc: post.toJSON().imageSrc,
-        description: post.toJSON().description
-      })
-    }
-    return postsData;
+    // const postsData = []
+    return await Post.findAll({
+      order: [["create_date", "DESC"]],
+      limit: 10,
+    });
+    // for (let post of posts){
+    //   const user = await User.findOne({where: {id_user: post.toJSON().user_id}})
+    //   postsData.push({
+    //     username: user?.toJSON().username,
+    //     imageSrc: post.toJSON().imageSrc,
+    //     description: post.toJSON().description
+    //   })
+    // }
   } catch (err) {
     console.error(err);
     return err;
   }
 }
 
-export async function getAllUserPosts(userId: any) {
+export async function getAllUserPosts(id_user: any) {
   try {
-    const posts = await Post.findAll({ where: { user_id: userId } });
-    return posts;
+    return await Post.findAll({ where: { id_user } });
   } catch (err) {
     console.error(err);
     return err;
@@ -39,13 +40,15 @@ export async function createNewPost(file: any, postData: any) {
   };
   try {
     const storageRef = ref(storage, `posts/${Date.now()}_${file.originalname}`);
-    const snapshot = await uploadBytes(storageRef,file.buffer, {contentType: file.mimetype});
-    const downloadURL = await getDownloadURL(storageRef)
+    await uploadBytes(storageRef, file.buffer, {
+      contentType: file.mimetype,
+    });
+    const downloadURL = await getDownloadURL(storageRef);
     data.imageSrc = downloadURL;
     const newPost = await Post.create(data);
-    return newPost.toJSON()
+    return newPost.toJSON();
   } catch (err) {
     console.error(err);
-    return 
+    return;
   }
 }

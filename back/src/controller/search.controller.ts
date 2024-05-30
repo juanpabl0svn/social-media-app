@@ -8,7 +8,7 @@ export async function handleUserSearch(req: Request, res: Response) {
 }
 
 export async function handleUserProfile(req: Request, res: Response) {
-  const { userId } = req.params;
-  const user = await getUser(parseInt(userId));
+  const { id_user } = req.params;
+  const user = await getUser(parseInt(id_user));
   return res.status(200).json({ user: user });
 }

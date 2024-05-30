@@ -5,7 +5,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 
 import { ICOMMENT, IPOST } from '../../models/models';
-import { POST } from '../../utils/constants';
+import { GET, POST } from '../../utils/constants';
 
 @Injectable({
   providedIn: 'root',
@@ -44,25 +44,10 @@ export default class UserService {
     this.username = username;
   }
 
-  getPosts() {
-    this.http
-      .get<{ results: any }>('https://randomuser.me/api/?results=10')
-      .subscribe((posts) => {
-        const postsFixed = posts.results.map((result: any) => ({
-          ...result,
-          hasLiked: false,
-          likes: 0,
-          comments: [
-            {
-              id: 1,
-              image: '',
-              username: 'mi mami',
-              content: 'Este es un comentario de prueba',
-            },
-          ],
-        }));
-        this.posts = postsFixed as IPOST[];
-      });
+  async getPosts() {
+    this.posts = await GET(`/getPosts`);
+
+    console.log(this.posts);
   }
 
   logIn(username: string, password: string) {
