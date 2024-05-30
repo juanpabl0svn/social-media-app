@@ -11,6 +11,6 @@ const upload = multer({ storage: memoryStorage() });
 
 postRouter.get("/getPosts", handleGetAllPosts);
 postRouter.get("/getPosts/:userId", handleGetUserPosts);
-postRouter.post("/createPosts", upload.single("file"), createPost);
+postRouter.post("/createPost", upload.single("file"), createPost);
 
 export default postRouter;

@@ -34,7 +34,7 @@ export async function getAllUserPosts(id_user: any) {
 
 export async function createNewPost(file: any, postData: any) {
   const data = {
-    user_id: postData.user_id,
+    id_user: postData.id_user,
     description: postData.description,
     imageSrc: "",
   };
