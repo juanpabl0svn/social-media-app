@@ -13,16 +13,16 @@ export async function followReq(id_user: number, id_user_follower: number) {
   }
 }
 
-export async function acceptFollowReq(followId: number) {
+export async function acceptFollowReq(id_follow: number) {
   try {
     const follow = await Follower.findOne({
-      where: { id_follow: followId },
+      where: { id_follow },
     });
     follow?.set({ state: "accepted" });
     return await follow?.save();
   } catch (err) {
     console.error(err);
-    return;
+    return null;
   }
 }
 
