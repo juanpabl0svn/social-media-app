@@ -6,7 +6,6 @@ export async function getAllPosts() {
   try {
     // const postsData = []
     return await Post.findAll({
-      order: [["createdAt", "DESC"]],
       include: [
         {
           model: User,

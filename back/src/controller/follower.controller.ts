@@ -15,13 +15,20 @@ export async function handleFollowReq(req: Request, res: Response) {
 
 export async function handleUserFollows(req: Request, res: Response) {
   const { id_user } = req.body;
+  console.log(id_user);
   const result = await getUserFollows(id_user);
+  console.log(result);
+  if (!result)
+    return res.status(400).json({ message: "Error getting follows" });
   return res.status(200).json(result);
 }
 
 export async function handleAcceptFollow(req: Request, res: Response) {
   const { id_follow } = req.body;
   const result = await acceptFollowReq(id_follow);
+  console.log({
+    result,
+  });
   if (!result)
     return res.status(400).json({ message: "Error accepting follow" });
   return res.status(200).json(result);

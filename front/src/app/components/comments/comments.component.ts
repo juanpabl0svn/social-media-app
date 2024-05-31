@@ -38,7 +38,9 @@ export class CommentsComponent {
     });
 
 
-    if (!isCommented) return;
+    if (!isCommented){
+      return alert('Error comentando, no sigues esta persona');
+    }
 
     this.userService.showComments?.push(isCommented);
 

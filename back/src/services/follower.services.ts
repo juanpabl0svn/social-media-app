@@ -1,4 +1,4 @@
-import { Follower, User } from "../db.mysql";
+import { Follower, User, Post } from "../db.mysql";
 
 export async function followReq(id_user: number, id_user_follower: number) {
   try {
@@ -15,23 +15,21 @@ export async function followReq(id_user: number, id_user_follower: number) {
 
 export async function acceptFollowReq(id_follow: number) {
   try {
-    const follow = await Follower.findOne({
-      where: { id_follow },
-    });
-    follow?.set({ state: "accepted" });
-    return await follow?.save();
+    return await Follower.update(
+      { state: "accepted" },
+      { where: { id_follow } }
+    );
   } catch (err) {
     console.error(err);
     return null;
   }
 }
 
-export async function rejectFollowReq(followId: number) {
+export async function rejectFollowReq(id_follow: number) {
   try {
-    const follow = await Follower.findOne({
-      where: { id_follow: followId },
+    return await Follower.destroy({
+      where: { id_follow },
     });
-    return await follow?.destroy();
   } catch (err) {
     console.log(err);
     return false;

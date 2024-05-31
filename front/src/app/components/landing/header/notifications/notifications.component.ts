@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { POST } from '../../../../utils/constants';
 import UserService from '../../../../services/user/user.service';
+import { find } from 'rxjs';
 
 @Component({
   selector: 'app-notifications',
@@ -14,18 +15,28 @@ export class NotificationsComponent {
   constructor(public userData: UserService) {}
 
   async ngOnInit() {
+    const id_user = this.userData.user.id_user;
     const notifications = await POST('/getUserFollows', {
-      userId: this.userData.user.id_user,
+      id_user,
     });
-
-    console.log(notifications)
 
     this.requests = notifications;
   }
 
-  
+  async handleAccept(id_follow: number) {
+    const isAccepted = await POST('/acceptFollow', { id_follow });
+    if (!isAccepted) return;
 
-  handleAccept(id: number) {}
+    const request = this.requests.find(
+      (req: any) => req.id_follow === id_follow
+    );
+  }
 
-  handleReject(id: number) {}
+  async handleReject(id_follow: number) {
+    const isRejected = await POST('/rejectFollow', { id_follow });
+    if (isRejected) {
+      this.requests.find((req: any) => req.id_follow === id_follow).state =
+        'rejected';
+    }
+  }
 }
