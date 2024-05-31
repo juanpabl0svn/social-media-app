@@ -133,7 +133,7 @@ export const getUserData = async (
     const followers = await Follower.findAll({ where: { id_user } });
 
     const following = await Follower.findAll({
-      where: { id_user_follower: id_user },
+      where: { id_user_follower: id_user, state: "accepted" },
     });
     const posts = await Post.findAll({ where: { id_user } });
 

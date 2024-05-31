@@ -38,9 +38,6 @@ export class CommentsComponent {
       return alert('Error comentando, no sigues esta persona');
     }
 
-    console.log(isCommented);
-    console.log(this.userService.showComments);
-
     const username = this.userService.user.username;
 
     this.userService.showComments?.push({ ...isCommented, user: { username } });
