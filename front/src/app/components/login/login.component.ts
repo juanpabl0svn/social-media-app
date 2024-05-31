@@ -30,10 +30,9 @@ export class LoginComponent {
     const userData = await this.user.logIn(username, password);
 
     if (!userData) {
-      return;
+      return alert('Usuario o contraseña incorrectos');
     }
 
-    console.log(userData);
 
     document.cookie = `token=${userData.token}`;
     userData.user = userData;

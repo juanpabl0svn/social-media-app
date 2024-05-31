@@ -3,18 +3,32 @@
 >
   @for(request of requests; track $index;){
   <div class="w-full flex items-center justify-between gap-5">
-    <img src="/assets/user.jpg" class="h-14 rounded-full" />
-    <p>{{ request.username }}</p>
-
+    <div
+      routerLink="/profile/{{ request.user.id_user }}"
+      class="flex items-center gap-3"
+    >
+      <img src="/assets/user.jpg" class="h-14 rounded-full" />
+      <p>{{ request.user.username }}</p>
+    </div>
     @if(request.state === 'rejected'){
-    <span>rejected</span>
+    <span>Rejected</span>
     }@else if (request.state === 'accepted'){
     <span>Accepted</span>
 
     }@else{
 
-    <button (click)="handleAccept(request.id_user)" class="bg-green-400 rounded-md py-2 px-1" >Accept</button>
-    <button class="bg-red-400 rounded-md py-2 px-1" (click)="handleReject(request.id_user)">Reject</button>
+    <button
+      (click)="handleAccept(request.id_follow)"
+      class="bg-green-400 rounded-md py-2 px-2 text-white"
+    >
+      Accept
+    </button>
+    <button
+      class="bg-red-400 rounded-md py-2 px-2 text-white"
+      (click)="handleReject(request.id_follow)"
+    >
+      Reject
+    </button>
     }
   </div>
   }

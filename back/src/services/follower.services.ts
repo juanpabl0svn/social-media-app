@@ -56,8 +56,8 @@ export async function isFollowing(userId1: number, userId2: number) {
     return await Follower.findOne({
       where: {
         state: "accepted",
-        id_user: userId2,
-        id_user_follower: userId1,
+        id_user: userId1,
+        id_user_follower: userId2,
       },
     });
   } catch (err) {

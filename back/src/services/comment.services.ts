@@ -52,9 +52,8 @@ export async function canComment(id_post: number, id_user: number) {
 
     if (post.id_user === id_user) return true;
 
-    const postAuthorId = post.id_user;
 
-    return await isFollowing(postAuthorId, id_user);
+    return await isFollowing(post.id_user, id_user);
   } catch (err) {
     console.error("Error validating if can comment ", err);
     throw err;

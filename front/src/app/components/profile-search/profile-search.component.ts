@@ -41,7 +41,7 @@ export class ProfileSearchComponent {
 
       if (!userData) return;
 
-      this.posts = userData.posts;
+      this.posts = userData.posts.reverse();
       this.postsCount = userData.posts.length;
       this.followers = userData.followers;
       this.following = userData.following;

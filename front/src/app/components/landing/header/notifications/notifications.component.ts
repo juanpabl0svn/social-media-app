@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { POST } from '../../../../utils/constants';
 import UserService from '../../../../services/user/user.service';
-import { find } from 'rxjs';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-notifications',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './notifications.component.html',
   styleUrl: './notifications.component.css',
 })
@@ -20,6 +20,7 @@ export class NotificationsComponent {
       id_user,
     });
 
+
     this.requests = notifications;
   }
 
@@ -30,6 +31,7 @@ export class NotificationsComponent {
     const request = this.requests.find(
       (req: any) => req.id_follow === id_follow
     );
+    request.state = 'accepted';
   }
 
   async handleReject(id_follow: number) {

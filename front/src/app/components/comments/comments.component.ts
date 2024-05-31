@@ -24,12 +24,9 @@ export class CommentsComponent {
   async handleSubmit(e: any) {
     e.preventDefault();
 
-
     const comment = e.target.comment.value;
 
     if (!comment) return alert('Please enter a comment');
-
-
 
     const isCommented = await POST('/comment', {
       id_user: this.userService.user.id_user,
@@ -37,13 +34,16 @@ export class CommentsComponent {
       comment,
     });
 
-
-    if (!isCommented){
+    if (!isCommented) {
       return alert('Error comentando, no sigues esta persona');
     }
 
-    this.userService.showComments?.push(isCommented);
+    console.log(isCommented);
+    console.log(this.userService.showComments);
 
+    const username = this.userService.user.username;
+
+    this.userService.showComments?.push({ ...isCommented, user: { username } });
   }
 
   closeComments() {
