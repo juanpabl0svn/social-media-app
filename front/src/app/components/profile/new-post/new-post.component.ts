@@ -1,7 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import UserService from '../../../services/user/user.service';
 import { POST_FORMDATA } from '../../../utils/constants';
 import { Router } from '@angular/router';
+
+import { IPOST } from '../../../models/models';
+
+
 
 @Component({
   selector: 'app-new-post',
@@ -15,7 +19,11 @@ export class NewPostComponent {
 
   bg_img: string = '';
 
-  constructor(private userService: UserService, private router: Router) {}
+  @Output() addNewPost: EventEmitter<any> = new EventEmitter();
+
+  @Output() close: EventEmitter<any> = new EventEmitter();
+
+  constructor(private userService: UserService) {}
 
   handleChangeImage(e: Event) {
     const file = (e.target as HTMLInputElement)?.files?.[0];
@@ -53,6 +61,11 @@ export class NewPostComponent {
     formData.set('file', this.image as File);
     formData.set('id_user', this.userService.user.id_user);
     const response = await POST_FORMDATA('/createPost', formData);
-    this.router.navigate(['/profile']);
+
+    if (!response) return;
+
+    this.addNewPost.emit(response as IPOST);
+
+    this.close.emit(null);
   }
 }

@@ -26,3 +26,15 @@ export const POST_FORMDATA = (endpoint: string, formData: FormData) => {
     .then((res) => res.json())
     .catch(() => null);
 };
+
+export function handleCloseModal(callback: Function) {
+  const modal = document.getElementById('modal') as HTMLElement;
+
+  if (!modal) return;
+
+  modal.classList.add('hide-modal');
+
+  setTimeout(() => {
+    callback();
+  }, 300);
+}

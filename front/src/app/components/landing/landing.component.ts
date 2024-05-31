@@ -4,7 +4,6 @@ import UserService from '../../services/user/user.service';
 import { RouterLink } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { PostsComponent } from '../global/posts/posts.component';
-import { StoriesComponent } from '../global/stories/stories.component';
 import { CommentsComponent } from '../comments/comments.component';
 
 @Component({
@@ -14,7 +13,6 @@ import { CommentsComponent } from '../comments/comments.component';
     RouterLink,
     HeaderComponent,
     PostsComponent,
-    StoriesComponent,
     CommentsComponent,
   ],
   templateUrl: './landing.component.html',

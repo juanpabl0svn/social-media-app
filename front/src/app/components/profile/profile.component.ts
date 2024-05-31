@@ -4,7 +4,7 @@ import UserService from '../../services/user/user.service';
 import { Router, RouterLink } from '@angular/router';
 import { HeaderComponent } from '../landing/header/header.component';
 import { ModalComponent } from '../modal/modal.component';
-import { POST, POST_FORMDATA } from '../../utils/constants';
+import { POST, POST_FORMDATA, handleCloseModal } from '../../utils/constants';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { NewPostComponent } from './new-post/new-post.component';
 import { IPOST } from '../../models/models';
@@ -45,6 +45,17 @@ export class ProfileComponent {
     this.postsCount = userData.posts.length;
     this.followers = userData.followers;
     this.following = userData.following;
+  }
+
+  close() {
+    handleCloseModal(() => {
+      this.uploadPost = false;
+    });
+  }
+
+  addNewPost(post: IPOST) {
+    this.posts.unshift(post);
+    this.postsCount++;
   }
 
   signOut() {
