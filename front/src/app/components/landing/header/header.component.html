@@ -108,7 +108,7 @@
         routerLink="/profile"
       />
       <p class="[view-transition-name:user-username]">
-        {{ this.userService.username }}
+        {{ this.userService.user.username }}
       </p>
     </div>
     <button (click)="logOut()">Log out</button>

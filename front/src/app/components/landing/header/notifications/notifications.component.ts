@@ -18,8 +18,12 @@ export class NotificationsComponent {
       userId: this.userData.user.id_user,
     });
 
+    console.log(notifications)
+
     this.requests = notifications;
   }
+
+  
 
   handleAccept(id: number) {}
 

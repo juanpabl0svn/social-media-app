@@ -24,7 +24,7 @@ export class RegisterComponent {
 
   passwordType2: string = 'password';
 
-  constructor(public user: UserService, private router: Router) {}
+  constructor(public userService: UserService, private router: Router) {}
 
   async handleSubmit(e: Event) {
     e.preventDefault();
@@ -40,7 +40,7 @@ export class RegisterComponent {
       return;
     }
 
-    const userData = await this.user.register(
+    const userData = await this.userService.register(
       name,
       username,
       email,
@@ -49,8 +49,8 @@ export class RegisterComponent {
     );
 
     document.cookie = `token=${userData.token}`;
-    this.user.setIsAuth = true;
-    this.user.setUsername = userData;
+    this.userService.setIsAuth = true;
+    this.userService.user = userData;
     this.router.navigate(['/']);
   }
 }

@@ -46,7 +46,7 @@ export class ProfileSearchComponent {
       this.followers = userData.followers;
       this.following = userData.following;
 
-      this.state = userData.state;
+      this.state = userData.isFollowing.state;
 
       this.username = userData.username;
 

@@ -11,7 +11,6 @@ import { GET, POST } from '../../utils/constants';
   providedIn: 'root',
 })
 export default class UserService {
-  username: string = 'Juan pablo';
   isAuth: boolean = false;
 
   user: any = {};
@@ -28,9 +27,6 @@ export default class UserService {
     private router: Router
   ) {}
 
-  get getUsername() {
-    return this.username;
-  }
 
   get getIsAuth() {
     return this.isAuth;
@@ -40,9 +36,6 @@ export default class UserService {
     this.isAuth = isAuth;
   }
 
-  set setUsername(username: string) {
-    this.username = username;
-  }
 
   async getPosts() {
     this.posts = await GET(`/getPosts`);

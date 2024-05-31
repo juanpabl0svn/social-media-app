@@ -4,7 +4,7 @@
 </app-modal>
 } @if(uploadPost){
 <app-modal (closeModal)="uploadPost = false">
-  <app-new-post (close)="close()" (addNewPost)="addNewPost"/>
+  <app-new-post (close)="close()" (addNewPost)="(addNewPost)" />
 </app-modal>
 }
 
@@ -37,7 +37,10 @@
     <div class="flex flex-col gap-5 justify-center">
       <div class="flex items-end gap-8">
         <h1 class="text-4xl [view-transition-name:user-username]">
-          {{ this.userService.username }}
+          {{ this.userService.user.username }}
+          <span class="block text-sm text-white">
+            {{ this.userService.user.name }}
+          </span>
         </h1>
         <button
           class="text-sm bg-gray-300 text-white rounded-md p-1"
