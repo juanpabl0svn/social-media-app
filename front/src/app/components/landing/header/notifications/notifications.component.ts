@@ -20,6 +20,7 @@ export class NotificationsComponent {
       id_user,
     });
 
+    console.log(notifications)
 
     this.requests = notifications;
   }

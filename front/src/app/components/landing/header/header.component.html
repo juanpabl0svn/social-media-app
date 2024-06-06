@@ -4,7 +4,7 @@
     class="w-[clamp(300px,60vw,1200px)] flex flex-col bg-white h-[clamp(500px,60vh,900px)] p-10 rounded-xl"
   >
     <form class="relative" (submit)="$event.preventDefault()">
-      <button class="absolute left-2 -translate-y-1/2 top-1/2 ">
+      <button class="absolute left-2 -translate-y-1/2 top-1/2">
         <svg
           width="17"
           height="16"
@@ -32,7 +32,8 @@
       />
       <button
         type="reset"
-        class="absolute right-3 -translate-y-1/2 top-1/2  p-1"
+        class="absolute right-3 -translate-y-1/2 top-1/2 p-1"
+        (click)="this.users = []"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -51,14 +52,14 @@
     </form>
 
     <div
-      class="w-full h-full overflow-y-auto max-h-[300px] flex flex-col gap-5"
+      class="w-full h-full overflow-y-auto max-h-[300px] flex flex-col gap-5 pt-6"
     >
       @for(user of users; track user.id_user;){
       <div
-        class="w-[200px] flex items-center justify-start gap-20 cursor-pointer mx-auto"
+        class="w-[200px] flex items-center justify-center gap-20 cursor-pointer mx-auto border border-yellow-500 rounded-lg px-5"
         routerLink="/profile/{{ user.id_user }}"
       >
-        <img src="/assets/user.jpg" class="h-14 rounded-full" />
+        <img src="/assets/incognito.png" class="h-14 rounded-full" />
         <p>{{ user.username }}</p>
       </div>
 

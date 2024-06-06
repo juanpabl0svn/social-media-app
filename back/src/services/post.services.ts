@@ -51,7 +51,7 @@ export async function createNewPost(
     const downloadURL = await getDownloadURL(storageRef);
     data.imageSrc = downloadURL;
 
-    const post = await supabase
+    const { data: post } = await supabase
       .from("posts")
       .insert({
         id_user: data.id_user,

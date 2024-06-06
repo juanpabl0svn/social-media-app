@@ -57,10 +57,12 @@ export async function getUserFollows(id_user: number) {
       state,
       request_date,
       request_update_date,
-      users!inner (username, id_user)
+      users (username, id_user)
     `
       )
       .eq("id_user", id_user);
+
+    console.log({data});
 
     return data;
   } catch (err) {

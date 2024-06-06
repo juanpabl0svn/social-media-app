@@ -38,7 +38,7 @@ export class HeaderComponent {
     return (this.timer = setTimeout(async () => {
       const { users } = await POST('/search', { username });
       this.users = users;
-    }, 400));
+    }, 250));
   }
 
   handleFollow(id: number) {}

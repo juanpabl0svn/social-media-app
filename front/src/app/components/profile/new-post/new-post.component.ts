@@ -5,8 +5,6 @@ import { Router } from '@angular/router';
 
 import { IPOST } from '../../../models/models';
 
-
-
 @Component({
   selector: 'app-new-post',
   standalone: true,
@@ -66,6 +64,8 @@ export class NewPostComponent {
 
     this.addNewPost.emit(response as IPOST);
 
-    this.close.emit(null);
+    setTimeout(() => {
+      this.close.emit(null);
+    }, 1000);
   }
 }

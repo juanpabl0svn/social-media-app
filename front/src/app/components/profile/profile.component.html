@@ -4,7 +4,7 @@
 </app-modal>
 } @if(uploadPost){
 <app-modal (closeModal)="uploadPost = false">
-  <app-new-post (close)="close()" (addNewPost)="(addNewPost)" />
+  <app-new-post (close)="close()" (addNewPost)="addNewPost($event)" />
 </app-modal>
 }
 
