@@ -3,8 +3,8 @@
   <section
     class="w-[clamp(300px,60vw,1200px)] flex flex-col bg-white h-[clamp(500px,60vh,900px)] p-10 rounded-xl"
   >
-    <form class="form relative" (submit)="$event.preventDefault()">
-      <button class="absolute left-2 -translate-y-1/2 top-1/2 p-1">
+    <form class="relative" (submit)="$event.preventDefault()">
+      <button class="absolute left-2 -translate-y-1/2 top-1/2 ">
         <svg
           width="17"
           height="16"
@@ -24,7 +24,7 @@
         </svg>
       </button>
       <input
-        class="input rounded-full px-8 py-3 border-2 border-transparent focus:outline-none focus:border-blue-500 placeholder-gray-400 transition-all duration-300 shadow-md w-full mb-5"
+        class="input rounded-full px-8 py-3 border-2 border-transparent focus:outline-none focus:border-blue-500 placeholder-gray-400 transition-all duration-300 shadow-md w-full"
         placeholder="Search..."
         required=""
         type="text"
@@ -32,7 +32,7 @@
       />
       <button
         type="reset"
-        class="absolute right-3 -translate-y-1/2 top-1/2 p-1"
+        class="absolute right-3 -translate-y-1/2 top-1/2  p-1"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
