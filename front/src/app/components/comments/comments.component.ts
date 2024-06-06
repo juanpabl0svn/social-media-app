@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import UserService from '../../services/user/user.service';
 import { POST } from '../../utils/constants';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-comments',
@@ -10,9 +11,9 @@ import { POST } from '../../utils/constants';
   styleUrl: './comments.component.css',
 })
 export class CommentsComponent {
-  timer: NodeJS.Timeout = setTimeout(() => {}, 200);
+  timer: NodeJS.Timeout = setTimeout(() => { }, 200);
 
-  constructor(public userService: UserService) {}
+  constructor(public userService: UserService, private toast: ToastrService) { }
 
   handleKey(e: any) {
     if (e.key === 'Enter') {
@@ -21,12 +22,18 @@ export class CommentsComponent {
     }
   }
 
+  ngOnInit() {
+    console.log(this.userService.showComments);
+  }
+
   async handleSubmit(e: any) {
     e.preventDefault();
 
     const comment = e.target.comment.value;
 
-    if (!comment) return alert('Please enter a comment');
+    console.log(comment);
+
+    if (!comment.trim()) return this.toast.error('Ingrese un comentario');
 
     const isCommented = await POST('/comment', {
       id_user: this.userService.user.id_user,
@@ -35,12 +42,14 @@ export class CommentsComponent {
     });
 
     if (!isCommented) {
-      return alert('Error comentando, no sigues esta persona');
+      return this.toast.error('No sigues a esta persona');
     }
 
     const username = this.userService.user.username;
 
-    this.userService.showComments?.push({ ...isCommented, user: { username } });
+    this.userService.showComments?.push({ ...isCommented, users: { username } })
+
+
   }
 
   closeComments() {

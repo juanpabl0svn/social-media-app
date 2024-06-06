@@ -7,8 +7,8 @@ export async function postComment(
   comment: string
 ) {
   try {
-    console.log(id_post, id_user, comment);
     const userCanComment = await canComment(id_post, id_user);
+    console.log(userCanComment);
 
     if (!userCanComment) return null;
 
@@ -53,16 +53,17 @@ export async function getPostComments(id_post: number) {
 
 export async function canComment(id_post: number, id_user: number) {
   try {
-    const post: any = await supabase
+    const { data: post } = await supabase
       .from("posts")
       .select("*")
-      .eq("id_post", id_post);
-
+      .eq("id_post", id_post)
+      .single();
+      
     if (!post) {
       return false;
     }
 
-    if (post.id_user === id_user) return true;
+    if (post.id_user == id_user) return true;
 
     return await isFollowing(post.id_user, id_user);
   } catch (err) {

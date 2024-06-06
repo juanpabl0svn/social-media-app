@@ -37,7 +37,6 @@ export default class UserService {
 
   async getPosts() {
     this.posts = ((await GET(`/getPosts`)) as Array<IPOST>)?.reverse();
-    console.log(this.posts)
   }
 
   logIn(username: string, password: string) {

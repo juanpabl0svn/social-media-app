@@ -4,7 +4,7 @@ export interface ICOMMENT {
   id: string;
   comment: string;
   image: string;
-  user: {
+  users: {
     username: string;
   };
 }
