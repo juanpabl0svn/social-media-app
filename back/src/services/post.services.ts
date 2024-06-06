@@ -1,19 +1,20 @@
 import { storage } from "../db.firebase";
-import { Post, User } from "../db.mysql";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import supabase from "../db.postgres";
 
 export async function getAllPosts() {
   try {
-    // const postsData = []
-    return await Post.findAll({
-      include: [
-        {
-          model: User,
-          attributes: ["username"],
-        },
-      ],
-      attributes: ["id_post", "imageSrc", "description", "id_user"],
-    });
+    const { data } = await supabase.from("posts").select(`
+    id_post,
+    image_src,
+    description,
+    id_user,
+    users (
+      username
+    )
+  `);
+
+    return data;
   } catch (err) {
     console.error(err);
     return err;
@@ -22,14 +23,21 @@ export async function getAllPosts() {
 
 export async function getAllUserPosts(id_user: any) {
   try {
-    return await Post.findAll({ where: { id_user } });
+    const { data } = await supabase
+      .from("posts")
+      .select("*")
+      .eq("id_user", id_user);
+    return data;
   } catch (err) {
     console.error(err);
-    return err;
+    return null;
   }
 }
 
-export async function createNewPost(file: any, postData: any) {
+export async function createNewPost(
+  file: any,
+  postData: { id_user: number; description: string }
+) {
   const data = {
     id_user: postData.id_user,
     description: postData.description,
@@ -42,8 +50,17 @@ export async function createNewPost(file: any, postData: any) {
     });
     const downloadURL = await getDownloadURL(storageRef);
     data.imageSrc = downloadURL;
-    const newPost = await Post.create(data);
-    return newPost.toJSON();
+
+    const post = await supabase
+      .from("posts")
+      .insert({
+        id_user: data.id_user,
+        description: data.description,
+        image_src: data.imageSrc,
+      })
+      .select();
+
+    return post;
   } catch (err) {
     console.error(err);
     return;

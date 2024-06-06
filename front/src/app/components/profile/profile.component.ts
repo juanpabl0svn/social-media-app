@@ -39,6 +39,7 @@ export class ProfileComponent {
       id_user: this.userService.user.id_user,
     });
 
+    console.log(userData);
     if (!userData) return;
 
     this.posts = (userData.posts as Array<any>).reverse();

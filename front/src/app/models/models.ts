@@ -13,10 +13,10 @@ export interface IPOST {
   id_post: number;
   description: string;
   id_user: number;
-  imageSrc: string;
+  image_src: string;
   hasLiked: boolean;
   likes: number;
-  user: {
+  users: {
     username: string;
   };
 }

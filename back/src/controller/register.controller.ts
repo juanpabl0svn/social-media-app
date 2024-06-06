@@ -13,7 +13,7 @@ export async function handleRegisterRoute(req: Request, res: Response) {
     username: string;
     email: string;
     password: string;
-    date: Date;
+    date: string;
   } = req.body;
 
   if (
@@ -33,11 +33,11 @@ export async function handleRegisterRoute(req: Request, res: Response) {
 
   const user = await registerUser(name, username, email, password, date);
 
-  if (user instanceof Error) {
+  if (!user || user instanceof Error) {
     return res.status(400).json({ message: user.message });
   }
   return res
     .setHeader("Set-Cookie", `token=${username}`)
     .status(200)
-    .json({ message: "User registered", userData: user});
+    .json({ message: "User registered", userData: user });
 }

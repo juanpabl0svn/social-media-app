@@ -22,7 +22,7 @@
   <section class="flex flex-row gap-20 justify-center">
     <div class="rounded-full w-1/5 aspect-square min-w-48 relative">
       <img
-        src="/assets/user.jpg"
+        src="/assets/incognito.png"
         alt="user-image"
         class="w-full h-full rounded-full [view-transition-name:user-img]"
       />
@@ -38,7 +38,7 @@
       <div class="flex items-end gap-8">
         <h1 class="text-4xl [view-transition-name:user-username]">
           {{ this.userService.user.username }}
-          <span class="block text-sm text-white">
+          <span class="block text-sm text-white mt-2">
             {{ this.userService.user.name }}
           </span>
         </h1>
@@ -70,7 +70,7 @@
   >
     @for(post of this.posts; track post.id_post;) {
 
-    <img [src]="post.imageSrc" alt="" class="h-[12.45rem] aspect-square" />
+    <img [src]="post.image_src" alt="" class="h-[12.45rem] aspect-square" />
 
     }@empty {
     <div

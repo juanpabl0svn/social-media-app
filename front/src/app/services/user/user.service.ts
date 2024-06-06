@@ -27,7 +27,6 @@ export default class UserService {
     private router: Router
   ) {}
 
-
   get getIsAuth() {
     return this.isAuth;
   }
@@ -36,10 +35,9 @@ export default class UserService {
     this.isAuth = isAuth;
   }
 
-
   async getPosts() {
-    this.posts = ((await GET(`/getPosts`)) as Array<IPOST>).reverse();
-
+    this.posts = ((await GET(`/getPosts`)) as Array<IPOST>)?.reverse();
+    console.log(this.posts)
   }
 
   logIn(username: string, password: string) {
@@ -94,8 +92,4 @@ export default class UserService {
     email: any;
     birth_date: any;
   }) {}
-
-  searchUsers(searchString: string) {}
-
-  getOtherUser(userId: number) {}
 }

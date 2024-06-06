@@ -25,7 +25,6 @@ export class LandingComponent {
   constructor(public userService: UserService) {}
 
   toggleLike(index: number): void {
-    console.log(index);
     const lastValue = this.userService.posts[index].hasLiked;
     this.userService.posts[index].hasLiked = !lastValue;
   }

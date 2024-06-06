@@ -1,22 +1,41 @@
 <main class="main-log-in">
-  <form (submit)="handleSubmit($event)" class="[view-transition-name:form]" [formGroup]="loginForm">
+  <form
+    (submit)="handleSubmit($event)"
+    class="[view-transition-name:form]"
+    [formGroup]="loginForm"
+  >
     <h1 class="[view-transition-name:title]">Log in</h1>
     <section class="[view-transition-name:user]">
-      <input type="text" name="username" id="username" formControlName="username" required />
+      <input
+        type="text"
+        name="username"
+        id="username"
+        formControlName="username"
+        required
+      />
       <label for="username">Usuario</label>
     </section>
     <section class="[view-transition-name:password]">
-      <input [type]="passwordType" name="password" id="password" formControlName="password"  required />
+      <input
+        [type]="passwordType"
+        name="password"
+        id="password"
+        formControlName="password"
+        required
+      />
       <label for="password">Contraseña</label>
       <button
         type="button"
-      
         (click)="
           passwordType = passwordType === 'password' ? 'text' : 'password'
         "
         class="absolute right-3 -translate-y-1/2 top-1/2 p-1"
       >
-        Ojo
+        @if(passwordType === 'password'){
+        <app-eye-open />
+        }@else {
+        <app-eye-close />
+        }
       </button>
     </section>
     <a
@@ -24,6 +43,8 @@
       class="text-blue-500 underline mb-5 [view-transition-name:link]"
       >No tienes una cuenta? Registrate</a
     >
-    <button class="[view-transition-name:button]" type="submit">Ingresar</button>
+    <button class="[view-transition-name:button]" type="submit">
+      Ingresar
+    </button>
   </form>
 </main>

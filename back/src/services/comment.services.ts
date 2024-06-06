@@ -1,4 +1,4 @@
-import { Comment, Post, User } from "../db.mysql";
+import supabase from "../db.postgres";
 import { isFollowing } from "./follower.services";
 
 export async function postComment(
@@ -12,13 +12,16 @@ export async function postComment(
 
     if (!userCanComment) return null;
 
-    console.log("se fue mi papa");
+    const { data } = await supabase
+      .from("comments")
+      .insert({
+        id_user,
+        id_post,
+        comment,
+      })
+      .select();
 
-    return await Comment.create({
-      id_user,
-      id_post,
-      comment,
-    });
+    return data;
   } catch (err) {
     console.log("Error posting comment ", err);
     return null;
@@ -27,13 +30,21 @@ export async function postComment(
 
 export async function getPostComments(id_post: number) {
   try {
-    return await Comment.findAll({
-      where: { id_post },
-      include: {
-        model: User,
-        attributes: ["username"],
-      },
-    });
+    const { data } = await supabase
+      .from("comments")
+      .select(
+        `
+      id_comment,
+      id_user,
+      id_post,
+      comment,
+      comment_date,
+      users!inner (username)
+    `
+      )
+      .eq("id_post", id_post);
+
+    return data;
   } catch (err) {
     console.error("Error getting post comments ", err);
     throw err;
@@ -42,16 +53,16 @@ export async function getPostComments(id_post: number) {
 
 export async function canComment(id_post: number, id_user: number) {
   try {
-    const post: any = await Post.findOne({
-      where: { id_post },
-    });
+    const post: any = await supabase
+      .from("posts")
+      .select("*")
+      .eq("id_post", id_post);
 
     if (!post) {
       return false;
     }
 
     if (post.id_user === id_user) return true;
-
 
     return await isFollowing(post.id_user, id_user);
   } catch (err) {

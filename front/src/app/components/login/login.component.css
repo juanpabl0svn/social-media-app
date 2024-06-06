@@ -44,6 +44,7 @@
         border-radius: 5px;
         font-size: 0.9rem;
         transition: all 200ms ease-in-out;
+        padding-left: 20px;
 
         &:is(:focus, :valid) + label {
           top: -3px;
@@ -66,4 +67,3 @@
     }
   }
 }
-

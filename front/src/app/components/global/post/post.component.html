@@ -11,20 +11,18 @@
       />
     </div>
     <h2 class="text-md cursor-pointer" routerLink="/profile/{{ post.id_user }}">
-      {{ post.user.username }}
+      {{ post.users.username }}
     </h2>
   </article>
-  <img [src]="post.imageSrc" class="w-full aspect-[7/8]" />
+  <img [src]="post.image_src" class="w-full aspect-[7/8]" />
 
-  <div class="flex">
-    <app-like [hasLiked]="post.hasLiked" (onClick)="toggleLike()" />
+  <div class="ml-2">
     <app-comment (onClick)="setComment(post.id_post)" />
   </div>
   <article class="px-4">
-    <span>{{ post.likes || 0 }} likes</span>
     <p>
       <span class="font-bold">
-        {{ post.user.username }}
+        {{ post.users.username }}
       </span>
       {{ post.description }}
     </p>

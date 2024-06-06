@@ -1,12 +1,15 @@
-import { Follower, User, Post } from "../db.mysql";
+import supabase from "../db.postgres";
 
 export async function followReq(id_user: number, id_user_follower: number) {
   try {
-    return await Follower.create({
-      id_user,
-      id_user_follower,
-      request_update_date: Date.now(),
-    });
+    const { data } = await supabase
+      .from("followers")
+      .insert({
+        id_user,
+        id_user_follower,
+      })
+      .select();
+    return data;
   } catch (err) {
     console.error(err);
     return false;
@@ -15,10 +18,13 @@ export async function followReq(id_user: number, id_user_follower: number) {
 
 export async function acceptFollowReq(id_follow: number) {
   try {
-    return await Follower.update(
-      { state: "accepted" },
-      { where: { id_follow } }
-    );
+    const { data } = await supabase
+      .from("followers")
+      .update({ state: "accepted" })
+      .eq("id_follow", id_follow)
+      .select();
+
+    return data;
   } catch (err) {
     console.error(err);
     return null;
@@ -27,9 +33,12 @@ export async function acceptFollowReq(id_follow: number) {
 
 export async function rejectFollowReq(id_follow: number) {
   try {
-    return await Follower.destroy({
-      where: { id_follow },
-    });
+    const { data } = await supabase
+      .from("followers")
+      .delete()
+      .eq("id_follow", id_follow)
+      .select();
+    return data;
   } catch (err) {
     console.log(err);
     return false;
@@ -38,13 +47,22 @@ export async function rejectFollowReq(id_follow: number) {
 
 export async function getUserFollows(id_user: number) {
   try {
-    return await Follower.findAll({
-      where: { id_user },
-      include: {
-        model: User,
-        attributes: ["username", "id_user"],
-      },
-    });
+    const { data } = await supabase
+      .from("followers")
+      .select(
+        `
+      id_follow,
+      id_user,
+      id_user_follower,
+      state,
+      request_date,
+      request_update_date,
+      users!inner (username, id_user)
+    `
+      )
+      .eq("id_user", id_user);
+
+    return data;
   } catch (err) {
     console.error(err);
     return false;
@@ -53,13 +71,13 @@ export async function getUserFollows(id_user: number) {
 
 export async function isFollowing(userId1: number, userId2: number) {
   try {
-    return await Follower.findOne({
-      where: {
-        state: "accepted",
-        id_user: userId1,
-        id_user_follower: userId2,
-      },
-    });
+    const { data } = await supabase
+      .from("followers")
+      .select("*")
+      .eq("id_user", userId1)
+      .eq("id_user_follower", userId2);
+
+    return data;
   } catch (err) {
     console.error("Error finding follower relationship:", err);
     throw err;

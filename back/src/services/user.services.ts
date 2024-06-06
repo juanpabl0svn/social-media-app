@@ -1,26 +1,29 @@
 import { SALT, SECRET } from "../config";
-import { Follower, Post, User } from "../db.mysql";
 import bcrypt from "bcrypt";
-import { Op } from "sequelize";
 import jwt from "jsonwebtoken";
+import supabase from "../db.postgres";
 
 export async function registerUser(
   name: string,
   username: string,
   email: string,
   password: string,
-  date: Date
+  date: string
 ): Promise<Error | any> {
   password = await bcrypt.hash(password, +SALT);
   try {
-    const createdUser = await User.create({
-      username: username,
-      name: name,
-      email: email,
-      password: password,
-      birth_date: date,
-    });
-    return createdUser.toJSON();
+    const { data } = await supabase
+      .from("users")
+      .insert({
+        username: username,
+        name: name,
+        email: email,
+        password: password,
+        birth_date: date,
+      })
+      .select();
+
+    return data;
   } catch (err) {
     return err as Error;
   }
@@ -31,19 +34,19 @@ export async function logInUser(
   password: string
 ): Promise<Error | any> {
   try {
-    const user = await User.findOne({
-      where: { username },
-    });
+    const { data } = await supabase
+      .from("users")
+      .select("*")
+      .eq("username", username)
+      .single();
 
-    if (!user) throw new Error("User not found");
-    const isValidPassword = await bcrypt.compare(
-      password,
-      user.dataValues.password
-    );
+    if (!data) return null;
 
-    if (!isValidPassword) throw new Error("Invalid password");
+    const isValidPassword = await bcrypt.compare(password, data.password);
 
-    return user.toJSON();
+    if (!isValidPassword) return null;
+
+    return data;
   } catch (err) {
     return err as Error;
   }
@@ -54,50 +57,49 @@ export async function updateProfile(
   name: string,
   username: string,
   email: string,
-  date: Date
+  date: string
 ) {
   try {
-    const user = await User.findOne({
-      where: { id_user },
-    });
+    await supabase
+      .from("users")
+      .update({
+        name,
+        username,
+        email,
+        birth_date: date,
+      })
+      .eq("id_user", id_user);
 
-    user?.set({
-      name: name,
-      username: username,
-      email: email,
-      date: date,
-    });
-    const savedUser = await user?.save();
-    return savedUser;
+    return true;
   } catch (err) {
     console.error(err);
-    return new Error(`${err}`);
+    return false;
   }
 }
 
 export async function getUser(id_user: number) {
   try {
-    const user = await User.findOne({
-      where: { id_user },
-    });
-    return user;
+    const { data } = await supabase
+      .from("users")
+      .select("*")
+      .eq("id_user", id_user)
+      .single();
+
+    return data;
   } catch (err) {
     console.error(err);
-    return;
+    return null;
   }
 }
 
 export async function getUsers(searchString: string) {
   try {
-    const users = await User.findAll({
-      where: {
-        [Op.or]: [
-          { username: { [Op.iLike]: `%${searchString}%` } },
-          { name: { [Op.iLike]: `%${searchString}%` } },
-        ],
-      },
-    });
-    return users;
+    const { data } = await supabase
+      .from("users")
+      .select("*")
+      .or(`username.ilike.%${searchString}%,name.ilike.%${searchString}%`);
+
+    return data;
   } catch (err) {
     console.log({ err });
     return null;
@@ -106,14 +108,27 @@ export async function getUsers(searchString: string) {
 
 export const getMyData = async (id_user: number) => {
   try {
-    const followers = await Follower.findAll({ where: { id_user } });
+    const { data: followers, error: errorFollowers } = await supabase
+      .from("followers")
+      .select("*")
+      .eq("id_user", id_user);
 
-    const following = await Follower.findAll({
-      where: { id_user_follower: id_user },
-    });
-    const posts = await Post.findAll({ where: { id_user } });
+    if (errorFollowers) throw errorFollowers;
 
-    console.log(followers, following, posts);
+    const { data: following, error: errorFollowing } = await supabase
+      .from("followers")
+      .select("*")
+      .eq("id_user_follower", id_user);
+
+    if (errorFollowing) throw errorFollowing;
+
+    const { data: posts, error: errorPost } = await supabase
+      .from("posts")
+      .select("*")
+      .eq("id_user", id_user);
+
+    if (errorPost) throw errorPost;
+
     return {
       followers: followers.length,
       following: following.length,
@@ -130,25 +145,46 @@ export const getUserData = async (
   id_user_follower: number
 ) => {
   try {
-    const followers = await Follower.findAll({ where: { id_user } });
+    const { data: followers, error: errorFollowers } = await supabase
+      .from("followers")
+      .select("*")
+      .eq("id_user", id_user);
 
-    const following = await Follower.findAll({
-      where: { id_user_follower: id_user, state: "accepted" },
-    });
-    const posts = await Post.findAll({ where: { id_user } });
+    if (errorFollowers) throw errorFollowers;
 
-    const user = await User.findOne({ where: { id_user } });
+    const { data: following, error: errorFollowing } = await supabase
+      .from("followers")
+      .select("*")
+      .eq("id_user_follower", id_user);
 
-    const isFollowing = await Follower.findOne({
-      where: { id_user, id_user_follower: id_user_follower },
-    });
+    if (errorFollowing) throw errorFollowing;
+
+    const { data: posts, error: errorPost } = await supabase
+      .from("posts")
+      .select("*")
+      .eq("id_user", id_user);
+
+    if (errorPost) throw errorPost;
+
+    const { data: user, error: errorUser } = await supabase
+      .from("users")
+      .select("*")
+      .eq("id_user", id_user)
+      .single();
+    if (errorUser) throw errorUser;
+
+    const { data: isFollowing } = await supabase
+      .from("followers")
+      .select("*")
+      .eq("id_user", id_user)
+      .eq("id_user_follower", id_user_follower);
 
     return {
       followers: followers.length,
       following: following.length,
       posts,
       isFollowing,
-      ...user?.toJSON(),
+      ...user,
     };
   } catch (error) {
     console.log(error);

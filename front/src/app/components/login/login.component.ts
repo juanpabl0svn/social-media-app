@@ -2,11 +2,15 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import UserService from '../../services/user/user.service';
+import { ToastrService } from 'ngx-toastr';
+import { POST } from '../../utils/constants';
+import { EyeOpenComponent } from '../global/svg/eye-open/eye-open.component';
+import { EyeCloseComponent } from '../global/svg/eye-close/eye-close.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, EyeOpenComponent, EyeCloseComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
@@ -18,25 +22,37 @@ export class LoginComponent {
 
   passwordType: string = 'password';
 
-  constructor(private router: Router, public user: UserService) {}
+  constructor(
+    private router: Router,
+    public user: UserService,
+    private toast: ToastrService
+  ) {}
+
+  ngOnInit() {}
 
   async handleSubmit(e: Event) {
     e.preventDefault();
 
     const { username, password } = this.loginForm.value;
 
-    if (!username || !password) return;
+    if (!username || !password)
+      return this.toast.error('Rellena todos los campos');
 
-    const userData = await this.user.logIn(username, password);
+    const userData = await POST('/login', { username, password });
 
-    if (!userData) {
-      return alert('Usuario o contraseña incorrectos');
+    if (!userData || userData.error) {
+      return this.toast.error('Usuario o contraseña incorrectos');
     }
 
-
     document.cookie = `token=${userData.token}`;
-    userData.user = userData;
+    this.user.user = userData;
     this.user.isAuth = true;
-    this.router.navigate(['/']);
+    setTimeout(() => {
+      this.router.navigate(['/']);
+    }, 1500);
+
+    this.toast.success(`Bienvenido ${userData.name}`);
+
+    return;
   }
 }
