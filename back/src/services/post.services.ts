@@ -58,7 +58,9 @@ export async function createNewPost(
         description: data.description,
         image_src: data.imageSrc,
       })
-      .select();
+      .select()
+      .single()
+      ;
 
     return post;
   } catch (err) {

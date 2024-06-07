@@ -12,7 +12,7 @@ export async function registerUser(
 ): Promise<Error | any> {
   password = await bcrypt.hash(password, +SALT);
   try {
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from("users")
       .insert({
         username,
@@ -21,7 +21,13 @@ export async function registerUser(
         password,
         birth_date,
       })
-      .select();
+      .select().single();
+
+    if (error) {
+      console.log(error)
+      return { error: error.details };
+
+    }
 
     return data;
   } catch (err) {

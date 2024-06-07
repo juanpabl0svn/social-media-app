@@ -26,9 +26,13 @@ export class LoginComponent {
     private router: Router,
     public user: UserService,
     private toast: ToastrService
-  ) {}
+  ) { }
 
-  ngOnInit() {}
+
+  handleSpaces(e: Event) {
+    (e.target as HTMLInputElement).value = (e.target as HTMLInputElement).value.trim()
+  }
+
 
   async handleSubmit(e: Event) {
     e.preventDefault();

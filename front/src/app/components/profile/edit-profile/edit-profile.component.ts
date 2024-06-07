@@ -26,6 +26,11 @@ export class EditProfileComponent {
   profileToEdit = { ...this.userService.user }
 
 
+  handleSpaces(e: Event) {
+    (e.target as HTMLInputElement).value = (e.target as HTMLInputElement).value.trim()
+  }
+
+
 
   async handleSubmitEdit(e: Event) {
 

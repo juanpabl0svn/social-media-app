@@ -11,6 +11,7 @@
         name="username"
         id="username"
         formControlName="username"
+        (input)="handleSpaces($event)"
         required
       />
       <label for="username">Usuario</label>

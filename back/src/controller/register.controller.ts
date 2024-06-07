@@ -1,5 +1,5 @@
 import { Response, Request } from "express";
-import { registerUser } from "../services/user.services";
+import { registerUser, setToken } from "../services/user.services";
 
 export async function handleRegisterRoute(req: Request, res: Response) {
   const {
@@ -7,37 +7,42 @@ export async function handleRegisterRoute(req: Request, res: Response) {
     username,
     email,
     password,
-    date,
+    birth_date,
   }: {
     name: string;
     username: string;
     email: string;
     password: string;
-    date: string;
+    birth_date: string;
   } = req.body;
 
+  console.log(req.body)
+
   if (
-    !username ||
-    username == null ||
-    !email ||
-    email == null ||
-    !password ||
-    password == null ||
     !name ||
-    name == null ||
-    !date ||
-    date == null
+    !username ||
+    !email ||
+    !password ||
+    !birth_date
   ) {
     return res.status(400).json({ message: "Not enougth data" });
   }
 
-  const user = await registerUser(name, username, email, password, date);
+  const user = await registerUser(name, username, email, password, birth_date);
 
-  if (!user || user instanceof Error) {
-    return res.status(400).json({ message: user.message });
+  if (user.error) {
+    return res.status(400).json({ error: user.error });
   }
+
+  const token = setToken(user.id_user);
+
+  return res
+    .setHeader("Set-Cookie", `token=${token}`)
+    .status(200)
+    .json({ ...user, token });
+
   return res
     .setHeader("Set-Cookie", `token=${username}`)
     .status(200)
-    .json({ message: "User registered", userData: user });
+    .json(user);
 }

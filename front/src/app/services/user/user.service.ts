@@ -25,7 +25,7 @@ export default class UserService {
     private http: HttpClient,
     private _cookieService: CookieService,
     private router: Router
-  ) {}
+  ) { }
 
   get getIsAuth() {
     return this.isAuth;
@@ -48,9 +48,9 @@ export default class UserService {
     username: string,
     email: string,
     password: string,
-    date: string
+    birth_date: string
   ) {
-    return POST('/register', { name, username, email, password, date });
+    return POST('/register', { name, username, email, password, birth_date });
   }
 
   signOut() {
@@ -90,5 +90,5 @@ export default class UserService {
     username: any;
     email: any;
     birth_date: any;
-  }) {}
+  }) { }
 }
