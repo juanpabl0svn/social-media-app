@@ -204,7 +204,7 @@ export const getUserData = async (
       .from("followers")
       .select("*")
       .eq("id_user", id_user)
-      .eq("id_user_follower", id_user_follower);
+      .eq("id_user_follower", id_user_follower).single();
 
     return {
       followers: followers.length,

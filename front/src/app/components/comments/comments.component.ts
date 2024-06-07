@@ -19,6 +19,7 @@ export class CommentsComponent {
     if (e.key === 'Enter') {
       e.target.nextElementSibling.click();
       e.target.value = '';
+      e.preventDefault()
     }
   }
 

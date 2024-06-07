@@ -26,6 +26,7 @@ export class ModalPostComponent {
     if (e.key === 'Enter') {
       e.target.nextElementSibling.click();
       e.target.value = '';
+      e.preventDefault()
     }
   }
 
@@ -44,9 +45,15 @@ export class ModalPostComponent {
 
     const isCommented = await POST('/comment', {
       id_user: this.userService.user.id_user,
-      id_post: this.userService.id_post,
+      id_post: this.post.id_post,
       comment,
     });
+
+
+    if (!isCommented) {
+      return this.toast.error('No sigues a esta persona');
+    }
+
 
     const username = this.userService.user.username;
 

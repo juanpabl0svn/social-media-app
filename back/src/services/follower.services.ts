@@ -55,7 +55,7 @@ export async function getUserFollows(id_user: number) {
       id_user,
       id_user_follower,
       state,
-      users!followers_id_user_fkey (id_user, username)
+      users!followers_id_user_follower_fkey (id_user, username)
     `
       )
       .eq("id_user", id_user);

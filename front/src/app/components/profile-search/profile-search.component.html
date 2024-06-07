@@ -1,3 +1,10 @@
+@if(showPost){
+<app-modal (closeModal)="showPost = null">
+  <app-modal-post [post]="showPost" />
+</app-modal>
+
+}
+
 <main
   class="py-10 flex flex-col items-center gap-10 min-h-dvh h-full border max-w-[800px] overflow-hidden mx-auto bg-[rgba(255,242,104,0.8)]"
 >
@@ -14,28 +21,35 @@
       <img
         src="/assets/incognito.png"
         alt="user-image"
-        class="w-full h-full rounded-full [view-transition-name:img-{{this.username}}]"
+        class="w-full h-full rounded-full [view-transition-name:img-{{
+          this.username
+        }}]"
       />
     </div>
 
     <div class="flex flex-col gap-5 justify-center">
       <div class="flex items-end gap-8">
-        <h1 class="text-4xl [view-transition-name:username-{{this.username}}]">
+        <h1
+          class="text-4xl [view-transition-name:username-{{ this.username }}]"
+        >
           {{ this.username }}
         </h1>
         @if(!this.state){
 
-        <button (click)="follow()" class="text-sm bg-gray-300 text-white rounded-md p-1">
+        <button
+          (click)="follow()"
+          class="text-sm bg-gray-300 text-white rounded-md p-1"
+        >
           Seguir
         </button>
         }@else if (this.state === 'pending'){
 
-        <span class="text-sm bg-gray-300 text-white rounded-md p-1">
+        <span class="text-sm bg-blue-300 text-white rounded-md p-1">
           Pendiente
         </span>
 
         }@else {
-        <span class="text-sm bg-gray-300 text-white rounded-md p-1">
+        <span class="text-sm bg-green-400 text-white rounded-md p-1">
           Siguiendo
         </span>
         }
@@ -61,7 +75,12 @@
   >
     @for(post of this.posts; track post.id_post;) {
 
-    <img [src]="post.image_src" alt="" class="h-[12.45rem] aspect-square" />
+    <img
+      [src]="post.image_src"
+      alt=""
+      class="h-[12.45rem] aspect-square"
+      (click)="showPost = post"
+    />
 
     }@empty {
     <div

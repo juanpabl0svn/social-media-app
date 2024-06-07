@@ -48,5 +48,6 @@ export class HeaderComponent {
     this.userService.isAuth = false;
     this.cookie.delete('token');
     this.router.navigate(['/login']);
+    window.location.reload();
   }
 }

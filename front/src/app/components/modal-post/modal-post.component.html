@@ -1,8 +1,8 @@
-<div class="bg-white p-5 flex">
-  <img src="{{ post.image_src }}" alt="" class="w-[350px] aspect-square" />
+<div class="bg-white p-2 flex w-[clamp(300px,60vw,700px)] justify-between">
+  <img src="{{ post.image_src }}" alt="" class="w-[270px] aspect-square" />
 
   <form
-    class="w-[200px] h-full flex flex-col justify-between"
+    class="w-full h-full flex flex-col justify-between"
     (submit)="handleSubmit($event)"
   >
     <div class="h-[300px] overflow-y-auto">

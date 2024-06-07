@@ -3,11 +3,13 @@ import UserService from '../../services/user/user.service';
 import { IPOST } from '../../models/models';
 import { POST } from '../../utils/constants';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ModalComponent } from '../modal/modal.component';
+import { ModalPostComponent } from '../modal-post/modal-post.component';
 
 @Component({
   selector: 'app-profile-search',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, ModalComponent, ModalPostComponent],
   templateUrl: './profile-search.component.html',
   styleUrl: './profile-search.component.css',
 })
@@ -23,11 +25,14 @@ export class ProfileSearchComponent {
 
   id_user: number = 0;
 
+  showPost: IPOST | null = null;
+
+
   constructor(
     public path: ActivatedRoute,
     private userService: UserService,
     private router: Router
-  ) {}
+  ) { }
 
   async ngOnInit() {
     this.path.params.subscribe(async (params) => {
@@ -41,12 +46,13 @@ export class ProfileSearchComponent {
 
       if (!userData) return;
 
+
       this.posts = userData.posts.reverse();
       this.postsCount = userData.posts.length;
       this.followers = userData.followers;
       this.following = userData.following;
 
-      this.state = userData.isFollowing.state;
+      this.state = userData.isFollowing?.state || false;
 
       this.username = userData.username;
 
