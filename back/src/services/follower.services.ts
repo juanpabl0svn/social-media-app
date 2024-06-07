@@ -55,14 +55,11 @@ export async function getUserFollows(id_user: number) {
       id_user,
       id_user_follower,
       state,
-      request_date,
-      request_update_date,
-      users (username, id_user)
+      users!followers_id_user_fkey (id_user, username)
     `
       )
       .eq("id_user", id_user);
 
-    console.log({data});
 
     return data;
   } catch (err) {
@@ -77,11 +74,18 @@ export async function isFollowing(userId1: number, userId2: number) {
       .from("followers")
       .select("*")
       .eq("id_user", userId1)
-      .eq("id_user_follower", userId2);
+      .eq("id_user_follower", userId2)
+      .single()
+      ;
 
-    return data;
+
+
+    if (!data) return false
+
+
+    return true;
   } catch (err) {
     console.error("Error finding follower relationship:", err);
-    throw err;
+    throw false;
   }
 }

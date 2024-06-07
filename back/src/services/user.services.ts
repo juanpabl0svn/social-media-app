@@ -111,7 +111,8 @@ export const getMyData = async (id_user: number) => {
     const { data: followers, error: errorFollowers } = await supabase
       .from("followers")
       .select("*")
-      .eq("id_user", id_user);
+      .eq("id_user", id_user)
+      .eq("state", "accepted");
 
     if (errorFollowers) throw errorFollowers;
 
@@ -149,14 +150,16 @@ export const getUserData = async (
     const { data: followers, error: errorFollowers } = await supabase
       .from("followers")
       .select("*")
-      .eq("id_user", id_user);
+      .eq("id_user", id_user)
+      .eq("state", "accepted");
 
     if (errorFollowers) throw errorFollowers;
 
     const { data: following, error: errorFollowing } = await supabase
       .from("followers")
       .select("*")
-      .eq("id_user_follower", id_user);
+      .eq("id_user_follower", id_user)
+      .eq("state", "accepted");
 
     if (errorFollowing) throw errorFollowing;
 

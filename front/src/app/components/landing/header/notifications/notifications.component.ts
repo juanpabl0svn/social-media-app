@@ -3,6 +3,7 @@ import { POST } from '../../../../utils/constants';
 import UserService from '../../../../services/user/user.service';
 import { RouterLink } from '@angular/router';
 
+
 @Component({
   selector: 'app-notifications',
   standalone: true,
@@ -11,8 +12,17 @@ import { RouterLink } from '@angular/router';
   styleUrl: './notifications.component.css',
 })
 export class NotificationsComponent {
-  requests: any = [];
-  constructor(public userData: UserService) {}
+  requests: {
+    id_follow: number;
+    id_user: number;
+    username: string;
+    state: string;
+    users: {
+      id_user: string;
+      username: string
+    }
+  }[] = [];
+  constructor(public userData: UserService) { }
 
   async ngOnInit() {
     const id_user = this.userData.user.id_user;
@@ -32,14 +42,23 @@ export class NotificationsComponent {
     const request = this.requests.find(
       (req: any) => req.id_follow === id_follow
     );
+
+    if (!request) return;
+
     request.state = 'accepted';
   }
 
   async handleReject(id_follow: number) {
     const isRejected = await POST('/rejectFollow', { id_follow });
     if (isRejected) {
-      this.requests.find((req: any) => req.id_follow === id_follow).state =
-        'rejected';
+      const requestObj = this.requests.find((req) => req.id_follow === id_follow)
+
+      if (requestObj) {
+        requestObj.state = 'rejected';
+
+      }
+
+
     }
   }
 }

@@ -20,13 +20,13 @@ export class HeaderComponent {
 
   users: any[] = [];
 
-  timer = setTimeout(() => {}, 0);
+  timer = setTimeout(() => { }, 0);
 
   constructor(
     public userService: UserService,
     private router: Router,
     private cookie: CookieService
-  ) {}
+  ) { }
 
   handleChange(e: Event) {
     clearTimeout(this.timer);
@@ -38,10 +38,10 @@ export class HeaderComponent {
     return (this.timer = setTimeout(async () => {
       const { users } = await POST('/search', { username });
       this.users = users;
-    }, 250));
+    }, 100));
   }
 
-  handleFollow(id: number) {}
+  handleFollow(id: number) { }
 
   logOut() {
     this.userService.user = null;

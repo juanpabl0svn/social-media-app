@@ -16,7 +16,6 @@ export async function handleFollowReq(req: Request, res: Response) {
 export async function handleUserFollows(req: Request, res: Response) {
   const { id_user } = req.body;
   const result = await getUserFollows(id_user);
-  console.log(result);
 
   return res.status(200).json(result);
 }

@@ -18,7 +18,7 @@ export async function handleUpdateProfile(req: Request, res: Response) {
     name: string;
     username: string;
     email: string;
-    date: Date;
+    date: string;
   } = req.body.userData;
 
   const user = await updateProfile(id_user, name, username, email, date);

@@ -45,9 +45,11 @@ export class CommentsComponent {
       return this.toast.error('No sigues a esta persona');
     }
 
+    console.log(isCommented)
+
     const username = this.userService.user.username;
 
-    this.userService.showComments?.push({ ...isCommented, users: { username } })
+    return this.userService.showComments?.push({ ...isCommented, users: { username } })
 
 
   }

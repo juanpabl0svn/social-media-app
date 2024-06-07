@@ -8,7 +8,6 @@ export async function postComment(
 ) {
   try {
     const userCanComment = await canComment(id_post, id_user);
-    console.log(userCanComment);
 
     if (!userCanComment) return null;
 
@@ -19,7 +18,8 @@ export async function postComment(
         id_post,
         comment,
       })
-      .select();
+      .select()
+      .single();
 
     return data;
   } catch (err) {
@@ -58,12 +58,14 @@ export async function canComment(id_post: number, id_user: number) {
       .select("*")
       .eq("id_post", id_post)
       .single();
-      
+
     if (!post) {
       return false;
     }
 
     if (post.id_user == id_user) return true;
+
+
 
     return await isFollowing(post.id_user, id_user);
   } catch (err) {

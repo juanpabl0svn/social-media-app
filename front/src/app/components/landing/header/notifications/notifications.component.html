@@ -4,11 +4,11 @@
   @for(request of requests; track $index;){
   <div class="w-full flex items-center justify-between gap-5">
     <div
-      routerLink="/profile/{{ request.user.id_user }}"
+      routerLink="/profile/{{ request.users.id_user }}"
       class="flex items-center gap-3"
     >
-      <img src="/assets/user.jpg" class="h-14 rounded-full" />
-      <p>{{ request.user.username }}</p>
+      <img src="/assets/incognito.png" class="h-14 rounded-full" />
+      <p>{{ request.users.username }}</p>
     </div>
     @if(request.state === 'rejected'){
     <span>Rejected</span>
