@@ -3,28 +3,49 @@
 >
   <form (submit)="handleSubmitEdit($event)" class="[view-transition-name:form]">
     <h1 class="[view-transition-name:title]">Editar</h1>
-    <section>
-      <input type="text" name="nit" id="nit" required />
-      <label for="nit">NIT</label>
-    </section>
+
     <section class="[view-transition-name:user]">
-      <input type="text" name="username" id="username" required />
+      <input
+        type="text"
+        name="username"
+        id="username"
+        [value]="profileToEdit.username"
+        required
+      />
       <label for="username">Usuario</label>
     </section>
     <section>
-      <input type="email" name="email" id="email" required />
+      <input
+        type="email"
+        name="email"
+        id="email"
+        [value]="profileToEdit.email"
+        required
+      />
       <label for="email">Email</label>
     </section>
     <section>
-      <input type="text" name="name" id="name" required />
+      <input
+        type="text"
+        name="name"
+        id="name"
+        [value]="profileToEdit.name"
+        required
+      />
       <label for="name">Nombre</label>
     </section>
     <section>
-      <input type="date" name="date" placeholder="" id="date" required />
+      <input
+        type="date"
+        name="birth_date"
+        placeholder=""
+        [value]="profileToEdit.birth_date.split('T')[0]"
+        id="date"
+      />
       <label for="date">Fecha nacimiento</label>
     </section>
     <section class="[view-transition-name:password]">
-      <input [type]="passwordType" name="password" id="password" required />
+      <input [type]="passwordType" name="password" id="password" />
       <label for="password">Contraseña</label>
       <button
         type="button"
@@ -33,7 +54,11 @@
         "
         class="absolute right-3 -translate-y-1/2 top-1/2 p-1"
       >
-        Ojo
+        @if(passwordType === 'password'){
+        <app-eye-open />
+        }@else {
+        <app-eye-close />
+        }
       </button>
     </section>
 

@@ -4,13 +4,22 @@
   <article class="flex items-center pl-2 gap-3 pb-2">
     <div
       class="w-10 aspect-square bg-black p-[2px] rounded-[50%] bg-gradient-to-r from-yellow-200 via-orange-200 to-yellow-500 text-center [&:hover>img]:scale-[0.98] cursor-pointer"
+      routerLink="/profile/{{ post.id_user }}"
     >
       <img
-        src="/assets/user.jpg"
-        class="rounded-[inherit] transition-all duration-200 ease-in-out"
+        src="/assets/incognito.png"
+        class="rounded-[inherit] transition-all duration-200 ease-in-out [view-transition-name:img-{{
+          post.users.username
+        }}]"
+        routerLink="/profile/{{ post.id_user }}"
       />
     </div>
-    <h2 class="text-md cursor-pointer" routerLink="/profile/{{ post.id_user }}">
+    <h2
+      routerLink="/profile/{{ post.id_user }}"
+      class="text-md cursor-pointer [view-transition-name:username-{{
+        this.userService.user.username
+      }}] "
+    >
       {{ post.users.username }}
     </h2>
   </article>

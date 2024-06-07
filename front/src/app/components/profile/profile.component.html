@@ -1,6 +1,6 @@
 @if(editProfile){
 <app-modal (closeModal)="editProfile = false">
-  <app-edit-profile />
+  <app-edit-profile (closeModal)="this.editProfile = false" />
 </app-modal>
 } @if(uploadPost){
 <app-modal (closeModal)="uploadPost = false">
@@ -24,7 +24,9 @@
       <img
         src="/assets/incognito.png"
         alt="user-image"
-        class="w-full h-full rounded-full [view-transition-name:user-img]"
+        class="w-full h-full rounded-full [view-transition-name:{{
+          this.userService.user.id_user
+        }}]"
       />
       <button
         (click)="uploadPost = true"
@@ -36,7 +38,11 @@
 
     <div class="flex flex-col gap-5 justify-center">
       <div class="flex items-end gap-8">
-        <h1 class="text-4xl [view-transition-name:user-username]">
+        <h1
+          class="text-4xl capitalize [view-transition-name:username-{{
+            this.userService.user.id_user
+          }}]"
+        >
           {{ this.userService.user.username }}
           <span class="block text-sm text-white mt-2">
             {{ this.userService.user.name }}

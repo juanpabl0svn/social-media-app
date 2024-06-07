@@ -105,10 +105,16 @@
     >
       <img
         src="/assets/incognito.png"
-        class="w-14 h-14 rounded-full hover:cursor-pointer [view-transition-name:user-img] border border-black"
+        class="w-14 h-14 rounded-full hover:cursor-pointer  border border-black [view-transition-name:img-{{
+          this.userService.user.username
+        }}]"
         routerLink="/profile"
       />
-      <p class="[view-transition-name:user-username]">
+      <p
+        class="[view-transition-name:username-{{
+          this.userService.user.username
+        }}]"
+      >
         {{ this.userService.user.username }}
       </p>
     </div>

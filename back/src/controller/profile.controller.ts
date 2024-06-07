@@ -12,18 +12,24 @@ export async function handleUpdateProfile(req: Request, res: Response) {
     name,
     username,
     email,
-    date,
+    birth_date,
+    password
   }: {
     id_user: number;
     name: string;
     username: string;
     email: string;
-    date: string;
-  } = req.body.userData;
+    birth_date: string;
+    password: string;
+  } = req.body;
 
-  const user = await updateProfile(id_user, name, username, email, date);
+  const user = await updateProfile(id_user, name, username, email, birth_date, password);
 
-  return res.status(201).json({ message: "User updated", userData: user });
+  if (!user) {
+    return res.status(400).json({ message: "Username already in use, pick another" });
+  }
+
+  return res.status(201).json(user)
 }
 
 export async function handleGetUser(req: Request, res: Response) {

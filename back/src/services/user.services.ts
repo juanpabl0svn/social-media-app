@@ -8,18 +8,18 @@ export async function registerUser(
   username: string,
   email: string,
   password: string,
-  date: string
+  birth_date: string
 ): Promise<Error | any> {
   password = await bcrypt.hash(password, +SALT);
   try {
     const { data } = await supabase
       .from("users")
       .insert({
-        username: username,
-        name: name,
-        email: email,
-        password: password,
-        birth_date: date,
+        username,
+        name,
+        email,
+        password,
+        birth_date,
       })
       .select();
 
@@ -57,20 +57,37 @@ export async function updateProfile(
   name: string,
   username: string,
   email: string,
-  date: string
+  birth_date: string,
+  password: string
 ) {
   try {
-    await supabase
+
+
+    const { data } = await supabase.from("users").select("*").eq("id_user", id_user).single();
+
+
+    if (data?.username !== username) {
+      const { data: usernameExists } = await supabase.from("users").select("*").eq("username", username).single();
+      if (usernameExists) return false;
+    }
+
+    if (data?.password !== password) {
+      console.log(password)
+      password = await bcrypt.hash(password, +SALT);
+    }
+
+    const { data: newUser } = await supabase
       .from("users")
       .update({
         name,
         username,
         email,
-        birth_date: date,
+        birth_date,
+        password
       })
-      .eq("id_user", id_user);
+      .eq("id_user", id_user).select().single();
 
-    return true;
+    return newUser;
   } catch (err) {
     console.error(err);
     return false;

@@ -32,7 +32,7 @@ export class ProfileComponent {
   following: number = 0;
   postsCount: number = 0;
 
-  constructor(public userService: UserService, private router: Router) {}
+  constructor(public userService: UserService, private router: Router) { }
 
   async ngOnInit() {
     const userData = await POST('/getMyData', {
@@ -47,6 +47,7 @@ export class ProfileComponent {
     this.following = userData.following;
   }
 
+
   close() {
     handleCloseModal(() => {
       this.uploadPost = false;
@@ -56,7 +57,6 @@ export class ProfileComponent {
   addNewPost(post: IPOST) {
     this.posts.unshift(post);
     this.postsCount++;
-    console.log(this.posts);
   }
 
   signOut() {
