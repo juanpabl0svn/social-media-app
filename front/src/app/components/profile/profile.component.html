@@ -6,6 +6,11 @@
 <app-modal (closeModal)="uploadPost = false">
   <app-new-post (close)="close()" (addNewPost)="addNewPost($event)" />
 </app-modal>
+} @if(showPost){
+<app-modal (closeModal)="showPost = null">
+  <app-modal-post [post]="showPost" />
+</app-modal>
+
 }
 
 <main
@@ -76,7 +81,12 @@
   >
     @for(post of this.posts; track post.id_post;) {
 
-    <img [src]="post.image_src" alt="" class="h-[12.45rem] aspect-square" />
+    <img
+      [src]="post.image_src"
+      alt=""
+      class="h-[12.45rem] aspect-square"
+      (click)="showPost = post"
+    />
 
     }@empty {
     <div

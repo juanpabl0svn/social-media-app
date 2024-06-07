@@ -22,16 +22,12 @@ export class CommentsComponent {
     }
   }
 
-  ngOnInit() {
-    console.log(this.userService.showComments);
-  }
 
   async handleSubmit(e: any) {
     e.preventDefault();
 
     const comment = e.target.comment.value;
 
-    console.log(comment);
 
     if (!comment.trim()) return this.toast.error('Ingrese un comentario');
 
@@ -45,7 +41,6 @@ export class CommentsComponent {
       return this.toast.error('No sigues a esta persona');
     }
 
-    console.log(isCommented)
 
     const username = this.userService.user.username;
 

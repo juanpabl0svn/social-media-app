@@ -8,6 +8,7 @@ import { POST, handleCloseModal } from '../../utils/constants';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { NewPostComponent } from './new-post/new-post.component';
 import { IPOST } from '../../models/models';
+import { ModalPostComponent } from '../modal-post/modal-post.component';
 
 @Component({
   selector: 'app-profile',
@@ -19,6 +20,7 @@ import { IPOST } from '../../models/models';
     ModalComponent,
     EditProfileComponent,
     NewPostComponent,
+    ModalPostComponent
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css',
@@ -33,6 +35,8 @@ export class ProfileComponent {
   postsCount: number = 0;
 
   constructor(public userService: UserService, private router: Router) { }
+
+  showPost: IPOST | null = null;
 
   async ngOnInit() {
     const userData = await POST('/getMyData', {

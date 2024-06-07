@@ -1,0 +1,42 @@
+<div class="bg-white p-5 flex">
+  <img src="{{ post.image_src }}" alt="" class="w-[350px] aspect-square" />
+
+  <form
+    class="w-[200px] h-full flex flex-col justify-between"
+    (submit)="handleSubmit($event)"
+  >
+    <div class="h-[300px] overflow-y-auto">
+      @for(comment of this.comments; track comment.id;) {
+      <div class="flex">
+        <img
+          [src]="comment.image || '/assets/incognito.png'"
+          alt=""
+          class="h-20 aspect-square rounded-full"
+        />
+        <div class="flex flex-col gap-2 ml-5">
+          <h3 class="font-bold text-xl">&#64;{{ comment.users.username }}</h3>
+          <h3>{{ comment.comment }}</h3>
+        </div>
+      </div>
+
+      }@empty {
+      <p>No comments</p>
+      }
+    </div>
+    <div class="flex">
+      <textarea
+        name="comment"
+        id="comment"
+        class="w-full h-14 border border-gray-300 rounded-md resize-none p-2"
+        placeholder="Write a comment..."
+        (keydown)="handleKey($event)"
+      ></textarea>
+      <button
+        class="bg-blue-500 text-white font-bold h-10 rounded-md px-2"
+        type="submit"
+      >
+        Comment
+      </button>
+    </div>
+  </form>
+</div>
