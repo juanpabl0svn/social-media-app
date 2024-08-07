@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/register/register.component';
-import { LandingComponent } from './components/landing/landing.component';
+import { LoginComponent } from './views/login/login.component';
+import { RegisterComponent } from './views/register/register.component';
+import { LandingComponent } from './views/landing/landing.component';
 import { isLoggedInGuard } from './guards/is-logged-in.guard';
 import { isLoggedOutGuard } from './guards/is-logged-out.guard';
-import { ProfileComponent } from './components/profile/profile.component';
-import { ProfileSearchComponent } from './components/profile-search/profile-search.component';
+import { ProfileComponent } from './views/profile/profile.component';
+import { ProfileSearchComponent } from './views/profile-search/profile-search.component';
 
 export const routes: Routes = [
   {

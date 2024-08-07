@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:5000';
+const API_URL = 'http://localhost:3000';
 
 export const POST = (endpoint: string, body: any) => {
   return fetch(`${API_URL}${endpoint}`, {

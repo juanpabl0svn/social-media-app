@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import UserService from '../../services/user/user.service';
-import { POST } from '../../utils/constants';
+import UserService from '../../../services/user/user.service';
+import { POST } from '../../../utils/constants';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({

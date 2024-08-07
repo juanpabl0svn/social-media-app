@@ -5,22 +5,5 @@
 @tailwind utilities;
 
 :root {
-  --primary-color: #c8a81b;
-  --secondary-color: #a98f1b;
-
-  --primary-color-light: #eee29b;
-
-  --primary-font: "Roboto", sans-serif;
-  --secondary-font: "Open Sans", sans-serif;
-
-  --primary-font-color: #333;
-  --secondary-font-color: #555;
-
-  --header-height: 60px;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  --blue: #1e90ff;
 }
