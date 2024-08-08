@@ -1,0 +1,72 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model comments {
+  id_comment   Int       @id @default(autoincrement())
+  id_user      Int?
+  id_post      Int?
+  comment      String    @db.VarChar(255)
+  comment_date DateTime? @default(now()) @db.Timestamp(6)
+  posts        posts?    @relation(fields: [id_post], references: [id_post], onDelete: NoAction, onUpdate: NoAction)
+  users        users?    @relation(fields: [id_user], references: [id_user], onDelete: NoAction, onUpdate: NoAction)
+}
+
+enum State {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+model followers {
+  id_follow                              Int       @id @default(autoincrement())
+  id_user_request                        Int?
+  id_user_follow                         Int?
+  state                                  State @default(PENDING)
+  request_date                           DateTime? @default(now()) @db.Timestamp(6)
+  request_update_date                    DateTime? @db.Timestamp(6)
+  users_followers_id_user_followTousers  users?    @relation("followers_id_user_followTousers", fields: [id_user_follow], references: [id_user], onDelete: NoAction, onUpdate: NoAction)
+  users_followers_id_user_requestTousers users?    @relation("followers_id_user_requestTousers", fields: [id_user_request], references: [id_user], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model likes {
+  id_like    Int       @id @default(autoincrement())
+  id_user    Int?
+  id_post    Int?
+  like_date  DateTime? @default(now()) @db.Timestamp(6)
+  posts      posts?    @relation(fields: [id_post], references: [id_post], onDelete: NoAction, onUpdate: NoAction)
+  users      users?    @relation(fields: [id_user], references: [id_user], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model posts {
+  id_post      Int        @id @default(autoincrement())
+  id_user      Int?
+  image_url String     @db.VarChar(255)
+  post_date    DateTime?  @default(now()) @db.Timestamp(6)
+  title        String?    @db.VarChar(255)
+  post         DateTime?  @db.Timestamp(6)
+  comments     comments[]
+  likes        likes[]
+  users        users?     @relation(fields: [id_user], references: [id_user], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model users {
+  id_user                                             Int               @id @default(autoincrement())
+  username                                            String            @unique @db.VarChar(255)
+  name                                                String            @db.VarChar(255)
+  last_name                                           String            @db.VarChar(255)
+  password                                            String            @db.VarChar(255)
+  email                                               String            @unique @db.VarChar(255)
+  create_date                                         DateTime?         @default(now()) @db.Timestamp(6)
+  birth_date                                          DateTime          @db.Date
+  comments                                            comments[]
+  followers_followers_id_user_followTousers           followers[]       @relation("followers_id_user_followTousers")
+  followers_followers_id_user_requestTousers          followers[]       @relation("followers_id_user_requestTousers")
+  likes                                               likes[]
+  posts                                               posts[]
+}
