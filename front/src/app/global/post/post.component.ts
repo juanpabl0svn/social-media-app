@@ -1,10 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { IPOST, IUSER } from '../../../models/models';
 import { LikeComponent } from '../svg/likes/like.component';
 import { CommentComponent } from '../svg/comment/comment.component';
-import UserService from '../../../services/user/user.service';
-import { POST } from '../../../utils/constants';
 import { RouterLink } from '@angular/router';
+import { IPOST } from '../../models/models';
+import UserService from '../../services/user/user.service';
+import { POST } from '../../utils/constants';
+
 
 @Component({
   selector: 'app-post',

@@ -5,17 +5,18 @@
   & > form {
     margin: 0 auto;
     width: fit-content;
-    border: 1px solid var(--primary-color);
+    border: 1px solid white;
     border-radius: 20px;
     padding: 20px 50px;
     display: grid;
     place-content: center;
-    box-shadow: 5px 5px 15px 5px rgba(243, 201, 51, 0.3);
+    box-shadow: 5px 5px 30px 5px rgba(255, 255, 255, 0.6);
+    background: var(--secondary-color);
 
     & > h1 {
       font-size: 2rem;
       margin-bottom: 20px;
-      color: var(--primary-color);
+      color: var(--fourth-color);
     }
 
     & > button {
@@ -23,13 +24,14 @@
       border: none;
       border-radius: 5px;
       background-color: var(--primary-color);
+      border: 1px solid var(--third-color);
       color: white;
       font-size: 1.2rem;
       cursor: pointer;
       transition: all 200ms ease-in-out;
 
       &:hover {
-        background-color: var(--secondary-color);
+        background-color: rgb(81, 111, 188);
       }
     }
 
@@ -45,6 +47,7 @@
         font-size: 0.9rem;
         transition: all 200ms ease-in-out;
         padding-left: 20px;
+        outline: 1px solid var(--primary-color);
 
         &:is(:focus, :valid) + label {
           top: -3px;

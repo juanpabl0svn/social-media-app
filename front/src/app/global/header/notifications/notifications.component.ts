@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { POST } from '../../../../utils/constants';
-import UserService from '../../../../services/user/user.service';
 import { RouterLink } from '@angular/router';
+import UserService from '../../../services/user/user.service';
+import { POST } from '../../../utils/constants';
+
 
 
 @Component({

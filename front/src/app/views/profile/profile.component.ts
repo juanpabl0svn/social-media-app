@@ -2,13 +2,15 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import UserService from '../../services/user/user.service';
 import { Router, RouterLink } from '@angular/router';
-import { HeaderComponent } from '../landing/header/header.component';
-import { ModalComponent } from '../modal/modal.component';
 import { POST, handleCloseModal } from '../../utils/constants';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { NewPostComponent } from './new-post/new-post.component';
 import { IPOST } from '../../models/models';
-import { ModalPostComponent } from '../modal-post/modal-post.component';
+
+import { HeaderComponent } from '../../global/header/header.component';
+import { ModalComponent } from '../../global/modal/modal.component';
+import { ModalPostComponent } from '../../components/modal-post/modal-post.component';
+
 
 @Component({
   selector: 'app-profile',

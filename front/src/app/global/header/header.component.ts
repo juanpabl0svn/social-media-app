@@ -1,11 +1,15 @@
 import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import UserService from '../../../services/user/user.service';
-import { ModalComponent } from '../../modal/modal.component';
-import { POST } from '../../../utils/constants';
 
 import { NotificationsComponent } from './notifications/notifications.component';
 import { CookieService } from 'ngx-cookie-service';
+import { ModalComponent } from '../modal/modal.component';
+import UserService from '../../services/user/user.service';
+import { POST } from '../../utils/constants';
+
+
+
+
 
 @Component({
   selector: 'app-header',

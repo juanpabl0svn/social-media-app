@@ -1,12 +1,10 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import UserService from '../../../services/user/user.service';
-import { EyeCloseComponent } from '../../global/svg/eye-close/eye-close.component';
-import { EyeOpenComponent } from '../../global/svg/eye-open/eye-open.component';
 import { FormsModule } from '@angular/forms';
 import { POST } from '../../../utils/constants';
 import { ToastrService } from 'ngx-toastr';
-
-
+import { EyeCloseComponent } from '../../../global/svg/eye-close/eye-close.component';
+import { EyeOpenComponent } from '../../../global/svg/eye-open/eye-open.component';
 
 
 @Component({

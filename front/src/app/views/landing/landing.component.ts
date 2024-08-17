@@ -2,9 +2,12 @@ import { Component } from '@angular/core';
 import { IUSER } from '../../models/models';
 import UserService from '../../services/user/user.service';
 import { RouterLink } from '@angular/router';
-import { HeaderComponent } from './header/header.component';
-import { PostsComponent } from '../global/posts/posts.component';
-import { CommentsComponent } from '../comments/comments.component';
+import { HeaderComponent } from '../../global/header/header.component';
+import { PostsComponent } from '../../global/posts/posts.component';
+import { CommentsComponent } from '../../components/landing/comments/comments.component';
+
+
+
 
 @Component({
   selector: 'app-landing',
@@ -13,7 +16,7 @@ import { CommentsComponent } from '../comments/comments.component';
     RouterLink,
     HeaderComponent,
     PostsComponent,
-    CommentsComponent,
+    CommentsComponent
   ],
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.css',

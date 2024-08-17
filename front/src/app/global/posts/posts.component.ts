@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import UserService from '../../../services/user/user.service';
 import { PostsSkeletonComponent } from '../skeletons/posts/posts.component';
 import { PostComponent } from '../post/post.component';
+import UserService from '../../services/user/user.service';
+
+
 @Component({
   selector: 'app-posts',
   standalone: true,

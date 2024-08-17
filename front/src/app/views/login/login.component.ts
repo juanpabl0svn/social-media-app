@@ -4,8 +4,10 @@ import { Router, RouterLink } from '@angular/router';
 import UserService from '../../services/user/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { POST } from '../../utils/constants';
-import { EyeOpenComponent } from '../global/svg/eye-open/eye-open.component';
-import { EyeCloseComponent } from '../global/svg/eye-close/eye-close.component';
+import { EyeOpenComponent } from '../../global/svg/eye-open/eye-open.component';
+import { EyeCloseComponent } from '../../global/svg/eye-close/eye-close.component';
+
+
 
 @Component({
   selector: 'app-login',

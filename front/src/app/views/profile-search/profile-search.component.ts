@@ -3,8 +3,10 @@ import UserService from '../../services/user/user.service';
 import { IPOST } from '../../models/models';
 import { POST } from '../../utils/constants';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { ModalComponent } from '../modal/modal.component';
 import { ModalPostComponent } from '../../components/modal-post/modal-post.component';
+import { ModalComponent } from '../../global/modal/modal.component';
+
+
 
 @Component({
   selector: 'app-profile-search',
