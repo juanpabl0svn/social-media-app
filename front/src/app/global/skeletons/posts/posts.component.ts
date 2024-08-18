@@ -8,6 +8,6 @@ import { Component } from '@angular/core';
   styleUrl: './posts.component.css'
 })
 export class PostsSkeletonComponent {
-  skeleton: any[] = Array.from({ length: 10 });
+  skeleton: any[] = Array.from({ length: 2 });
 
 }
