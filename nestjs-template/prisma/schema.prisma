@@ -58,10 +58,10 @@ model posts {
 model users {
   id_user                                             Int               @id @default(autoincrement())
   username                                            String            @unique @db.VarChar(255)
-  first_name                                                String            @db.VarChar(255)
+  first_name                                          String            @db.VarChar(255)
   last_name                                           String            @db.VarChar(255)
   password                                            String            @db.VarChar(255)
-  email                                               String            @unique @db.VarChar(255)
+  email                                               String            @unique  @db.VarChar(255)
   create_date                                         DateTime?         @default(now()) @db.Timestamp(6)
   birth_date                                          DateTime          @db.Date
   comments                                            comments[]

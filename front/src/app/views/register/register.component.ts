@@ -5,6 +5,7 @@ import UserService from '../../services/user/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { EyeCloseComponent } from '../../global/svg/eye-close/eye-close.component';
 import { EyeOpenComponent } from '../../global/svg/eye-open/eye-open.component';
+import { POST } from '../../utils/constants';
 
 
 
@@ -22,7 +23,7 @@ import { EyeOpenComponent } from '../../global/svg/eye-open/eye-open.component';
 })
 export class RegisterComponent {
   registerForm = new FormGroup({
-    name: new FormControl(''),
+    first_name: new FormControl(''),
     email: new FormControl(''),
     password: new FormControl(''),
     password2: new FormControl(''),
@@ -45,10 +46,10 @@ export class RegisterComponent {
 
     e.preventDefault();
 
-    const { name, email, password, password2, birth_date, username } = Object.fromEntries(new FormData(e.target as HTMLFormElement) as any)
+    const { first_name, last_name, email, password, password2, birth_date, username } = Object.fromEntries(new FormData(e.target as HTMLFormElement) as any)
 
 
-    if (!name || !email || !password || !password2 || !birth_date || !username) {
+    if (!first_name || !last_name || !email || !password || !password2 || !birth_date || !username) {
 
       return this.toast.error('Por favor llene todos los campos')
     }
@@ -59,25 +60,15 @@ export class RegisterComponent {
     }
 
 
+    const newUser = await POST('/user/register', { first_name, last_name, email, password, birth_date, username });
 
-    const userData = await this.userService.register(
-      name,
-      username,
-      email,
-      password,
-      birth_date
-    );
-
-
-    if (userData.error) {
-      return this.toast.error(userData.error)
-
+    if (newUser?.error) {
+      return this.toast.error(newUser.error)
     }
 
-
-    document.cookie = `token=${userData.token}`;
+    document.cookie = `token=${newUser.token}`;
     this.userService.setIsAuth = true;
-    this.userService.user = userData;
+    this.userService.user = newUser;
 
 
     this.router.navigate(['/']);

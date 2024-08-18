@@ -4,7 +4,6 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'prisma/prisma.service';
 
 import * as bcrypt from 'bcrypt';
-import { SALT } from 'src/config';
 import { JwtService } from '@nestjs/jwt';
 
 
@@ -14,6 +13,10 @@ export class UserService {
   constructor(private readonly prisma: PrismaService, private jwt: JwtService) { }
 
   findOneByUsername(username: string) {
+
+    if (username.trim().length == 0) return [];
+
+
     return this.prisma.users.findMany({
       where: {
         username: {
@@ -24,12 +27,29 @@ export class UserService {
   }
 
   async register(createUserDto: CreateUserDto) {
-    createUserDto.password = await bcrypt.hash(createUserDto.password, SALT);
-    return this.prisma.users.create({
+    createUserDto.password = await bcrypt.hash(createUserDto.password, 10);
+    const user = await this.prisma.users.create({
       data: createUserDto
     });
-  }
 
+    const token = this.jwt.sign({
+      id_user: user.id_user,
+      email: user.email,
+      username: user.username
+    }, {
+      secret: process.env.JWT_SECRET ?? '',
+      expiresIn: '1d'
+    });
+
+    const { password: _, ...userWithoutPassword } = user;
+
+    return {
+      token,
+      ...userWithoutPassword
+
+    }
+
+  }
 
   async login(email: string, password: string) {
     try {
@@ -53,6 +73,9 @@ export class UserService {
         id_user: user.id_user,
         email: user.email,
         username: user.username
+      }, {
+        secret: process.env.JWT_SECRET ?? '',
+        expiresIn: '1d'
       });
 
       const { password: _, ...userWithoutPassword } = user;

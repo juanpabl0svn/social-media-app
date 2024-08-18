@@ -18,7 +18,7 @@ import { EyeCloseComponent } from '../../global/svg/eye-close/eye-close.componen
 })
 export class LoginComponent {
   loginForm = new FormGroup({
-    username: new FormControl(''),
+    email: new FormControl(''),
     password: new FormControl(''),
   });
 
@@ -39,16 +39,17 @@ export class LoginComponent {
   async handleSubmit(e: Event) {
     e.preventDefault();
 
-    const { username, password } = this.loginForm.value;
+    const { email, password } = this.loginForm.value;
 
-    if (!username || !password)
+    if (!email || !password)
       return this.toast.error('Rellena todos los campos');
 
-    const userData = await POST('/login', { username, password });
+    const userData = await POST('/user/login', { email, password });
 
-    if (!userData || userData.error) {
+    if (userData?.error) {
       return this.toast.error('Usuario o contraseña incorrectos');
     }
+
 
     document.cookie = `token=${userData.token}`;
     this.user.user = userData;
