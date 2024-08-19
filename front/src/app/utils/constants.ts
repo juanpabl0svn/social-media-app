@@ -27,6 +27,8 @@ export const POST = async (endpoint: string, body: any) => {
 export const GET = async (endpoint: string) => {
   try {
     const req = await axios.get(`${API_URL}${endpoint}`)
+
+
     return req.data;
   } catch (e) {
     const error = e as IError;
