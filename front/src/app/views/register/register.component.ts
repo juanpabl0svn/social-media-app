@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import UserService from '../../services/user/user.service';
 import { ToastrService } from 'ngx-toastr';
@@ -22,17 +22,8 @@ import { POST } from '../../utils/constants';
   styleUrl: './register.component.css',
 })
 export class RegisterComponent {
-  registerForm = new FormGroup({
-    first_name: new FormControl(''),
-    email: new FormControl(''),
-    password: new FormControl(''),
-    password2: new FormControl(''),
-    username: new FormControl(''),
-    date: new FormControl(''),
-  });
 
   passwordType: string = 'password';
-
   passwordType2: string = 'password';
 
   constructor(public userService: UserService, private router: Router, private toast: ToastrService) { }
@@ -54,11 +45,22 @@ export class RegisterComponent {
       return this.toast.error('Por favor llene todos los campos')
     }
 
+    const regex = /^[a-zA-Z\s'-]+$/
+
+    const hasSpecialCharacter = (string: string) => !regex.test(string);
+
+
+    if (hasSpecialCharacter(first_name) || hasSpecialCharacter(last_name) ) {
+      return this.toast.error('Nombre y apellido no pueden tener caracteres especiales')
+    }
+
+
+
     if (password !== password2) {
       this.toast.error('Contraseñas no son iguales')
       return;
     }
-
+    
 
     const newUser = await POST('/user/register', { first_name, last_name, email, password, birth_date, username });
 
@@ -75,4 +77,6 @@ export class RegisterComponent {
 
     return this.toast.success('Usuario registrado correctamente')
   }
+
+  
 }
