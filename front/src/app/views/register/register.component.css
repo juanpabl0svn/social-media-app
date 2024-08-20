@@ -80,3 +80,9 @@ input[type="date"] + label {
   background-color: var(--primary-color);
   color: white !important;
 }
+
+input[type="email"] + label {
+  top: -3px !important;
+  background-color: var(--primary-color);
+  color: white !important;
+}
