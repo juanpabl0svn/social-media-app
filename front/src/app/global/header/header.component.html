@@ -56,14 +56,12 @@
     >
       @for(user of users; track user.id_user;){
       <div
-        class="w-[200px] flex items-center justify-center gap-20 cursor-pointer mx-auto border border-yellow-500 rounded-lg px-8"
+        class="w-full flex items-center justify-between cursor-pointer mx-auto border border-fourth-color rounded-lg px-8"
         routerLink="/profile/{{ user.id_user }}"
       >
         <img src="/assets/incognito.png" class="h-14 rounded-full" />
         <p>{{ user.username }}</p>
       </div>
-      } @empty {
-        No hay usuarios
       }
     </div>
   </section>

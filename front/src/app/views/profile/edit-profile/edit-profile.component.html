@@ -29,12 +29,22 @@
     <section>
       <input
         type="text"
-        name="name"
-        id="name"
-        [value]="profileToEdit.name"
+        name="first_name"
+        id="first_name"
+        [value]="profileToEdit.first_name"
         required
       />
-      <label for="name">Nombre</label>
+      <label for="name">Nombre(s)</label>
+    </section>
+    <section>
+      <input
+        type="text"
+        name="last_name"
+        id="last_name"
+        [value]="profileToEdit.last_name"
+        required
+      />
+      <label for="name">Apellido(s)</label>
     </section>
     <section>
       <input

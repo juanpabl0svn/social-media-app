@@ -42,12 +42,9 @@ export class HeaderComponent {
       return;
     }
 
-    console.log(this.users)
-
     this.timer = setTimeout(async () => {
-      const { users } = await GET(`/user/${username}`);
+      const users = await GET(`/user/${username}`);
       this.users = users;
-      console.log(users)
     }, 100);
   }
 

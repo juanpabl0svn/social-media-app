@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import UserService from '../../../services/user/user.service';
-import { POST } from '../../../utils/constants';
+import { GET, POST } from '../../../utils/constants';
 
 
 
@@ -27,17 +27,12 @@ export class NotificationsComponent {
 
   async ngOnInit() {
     const id_user = this.userData.user.id_user;
-    const notifications = await POST('/getUserFollows', {
-      id_user,
-    });
-
-    console.log(notifications)
-
+    const notifications = await GET(`/notification/${id_user}`);
     this.requests = notifications;
   }
 
   async handleAccept(id_follow: number) {
-    const isAccepted = await POST('/acceptFollow', { id_follow });
+    const isAccepted = await POST('/notification/accept_follow', { id_follow });
     if (!isAccepted) return;
 
     const request = this.requests.find(
@@ -50,16 +45,12 @@ export class NotificationsComponent {
   }
 
   async handleReject(id_follow: number) {
-    const isRejected = await POST('/rejectFollow', { id_follow });
+    const isRejected = await POST('/notification/reject_follow', { id_follow });
     if (isRejected) {
       const requestObj = this.requests.find((req) => req.id_follow === id_follow)
-
       if (requestObj) {
         requestObj.state = 'rejected';
-
       }
-
-
     }
   }
 }
