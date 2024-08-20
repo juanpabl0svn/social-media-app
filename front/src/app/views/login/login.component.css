@@ -1,25 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Edu+VIC+WA+NT+Beginner:wght@400..700&display=swap');
+
+
 .main-log-in {
   min-height: 100dvh;
   align-content: center;
 
-  & > form {
+  &>form {
     margin: 0 auto;
     width: fit-content;
-    border: 1px solid white;
-    border-radius: 20px;
+    border: 3px solid white;
+    border-radius: 15px;
     padding: 20px 50px;
     display: grid;
     place-content: center;
-    box-shadow: 5px 5px 30px 5px rgba(255, 255, 255, 0.6);
+    box-shadow: 0px 0px 10px 2.5px rgba(255, 255, 255, 0.6);
     background: var(--secondary-color);
 
-    & > h1 {
+    &>h1 {
       font-size: 2rem;
       margin-bottom: 20px;
+      font-family: 'Edu VIC WA NT Beginner', sans-serif;
+      text-align: center;
+      font-weight: bold;
       color: var(--fourth-color);
     }
 
-    & > button {
+    &>button {
       padding: 10px 20px;
       border: none;
       border-radius: 5px;
@@ -35,11 +41,11 @@
       }
     }
 
-    & > section {
+    &>section {
       position: relative;
       margin: 10px 0;
 
-      & > input {
+      &>input {
         width: 100%;
         padding: 10px;
         border: 1px solid var(--primary-color);
@@ -50,7 +56,7 @@
         outline: 1px solid var(--primary-color);
         padding-right: 45px;
 
-        &:is(:focus, :valid) + label {
+        &:is(:focus, :valid)+label {
           top: -3px;
           background-color: var(--primary-color);
           color: white;
@@ -59,7 +65,7 @@
 
 
 
-      & > label {
+      &>label {
         position: absolute;
         left: 10px;
         top: 50%;

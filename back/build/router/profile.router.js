@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const profile_controller_1 = require("../controller/profile.controller");
+const profileRouter = (0, express_1.Router)();
+profileRouter.post("/updateProfile", profile_controller_1.handleUpdateProfile);
+profileRouter.post("/getUser", profile_controller_1.handleGetUser);
+profileRouter.post("/getMyData", profile_controller_1.getMyDataRoute);
+profileRouter.post("/getUserData", profile_controller_1.getUserDataRoute);
+exports.default = profileRouter;
