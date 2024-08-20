@@ -19,6 +19,11 @@ export class UserController {
     return this.userService.login(body.email, body.password);
   }
 
+  @Post('/verify')
+  verify(@Body() body: { token: string }) {
+    return this.userService.verify(body.token);
+  }
+
   @Get(':username')
   findOneByUsername(@Param('username') username: string) {
     return this.userService.findOneByUsername(username);

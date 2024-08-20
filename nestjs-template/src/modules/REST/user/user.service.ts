@@ -12,6 +12,24 @@ export class UserService {
 
   constructor(private readonly prisma: PrismaService, private jwt: JwtService) { }
 
+
+  async verify(token: string) {
+    try {
+      const { id_user } = this.jwt.verify(token, {
+        secret: process.env.JWT_SECRET ?? ''
+      })
+
+      return await this.prisma.users.findUnique({
+        where: {
+          id_user
+        }
+      })
+
+    } catch (e) {
+      throw new HttpException(e.message, 401)
+    }
+  }
+
   findOneByUsername(username: string) {
 
     if (username.trim().length == 0) return [];

@@ -5,7 +5,7 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { CookieService } from 'ngx-cookie-service';
 import { ModalComponent } from '../modal/modal.component';
 import UserService from '../../services/user/user.service';
-import { POST } from '../../utils/constants';
+import { GET, POST } from '../../utils/constants';
 
 
 
@@ -37,12 +37,18 @@ export class HeaderComponent {
 
     const username = (e.target as HTMLInputElement).value;
 
-    if (!username) return (this.users = []);
+    if (!username) {
+      this.users = [];
+      return;
+    }
 
-    return (this.timer = setTimeout(async () => {
-      const { users } = await POST('/search', { username });
+    console.log(this.users)
+
+    this.timer = setTimeout(async () => {
+      const { users } = await GET(`/user/${username}`);
       this.users = users;
-    }, 100));
+      console.log(users)
+    }, 100);
   }
 
   handleFollow(id: number) { }

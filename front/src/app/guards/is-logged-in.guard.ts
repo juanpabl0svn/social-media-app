@@ -12,8 +12,6 @@ export const isLoggedInGuard: CanActivateFn = async (route, state) => {
 
   const token = cookieService.get('token');
 
-  console.log(token);
-
   const router = inject(Router);
 
   if (!token) {
@@ -21,7 +19,7 @@ export const isLoggedInGuard: CanActivateFn = async (route, state) => {
     return false;
   }
 
-  const user = await POST('/verify', { token });
+  const user = await POST('/user/verify', { token });
 
   if (user) {
     userService.user = user;

@@ -38,7 +38,7 @@ export async function createNewPost(
   file: any,
   postData: { id_user: number; description: string }
 ) {
-  const data = {
+  const data = {  
     id_user: postData.id_user,
     description: postData.description,
     imageSrc: "",

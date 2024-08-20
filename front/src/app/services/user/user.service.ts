@@ -36,7 +36,7 @@ export default class UserService {
   }
 
   async getPosts() {
-    this.posts = ((await GET(`/getPosts`)) as Array<IPOST>)?.reverse();
+    this.posts = ((await GET(`/post`)) as Array<IPOST>)?.reverse();
   }
 
   logIn(username: string, password: string) {
