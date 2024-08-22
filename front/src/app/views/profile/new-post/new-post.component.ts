@@ -2,23 +2,18 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import UserService from '../../../services/user/user.service';
 import { POST } from '../../../utils/constants';
 import { Router } from '@angular/router';
-
 import { IPOST } from '../../../models/models';
 
 @Component({
   selector: 'app-new-post',
   standalone: true,
-  imports: [],
   templateUrl: './new-post.component.html',
-  styleUrl: './new-post.component.css',
+  styleUrls: ['./new-post.component.css'],
 })
 export class NewPostComponent {
-  image: File | null = null;
-
-  bg_img: string = '';
+  file: File | null = null;
 
   @Output() addNewPost: EventEmitter<any> = new EventEmitter();
-
   @Output() close: EventEmitter<any> = new EventEmitter();
 
   constructor(private userService: UserService) {}
@@ -28,20 +23,16 @@ export class NewPostComponent {
 
     if (!file) return;
 
+    this.file = file;  // Guardamos el archivo
+
     const reader = new FileReader();
 
     reader.readAsDataURL(file);
 
-    this.image = file;
-
     reader.onload = () => {
-      this.bg_img = reader.result as string;
-
       const container = document.querySelector('#image-box');
-
       if (!container) return;
-
-      container.innerHTML = `<img src="${this.bg_img}" alt="profile-image" class='w-full aspect-square' />`;
+      container.innerHTML = `<img src="${reader.result as string}" alt="profile-image" class='w-full aspect-square' />`;
     };
   }
 
@@ -50,15 +41,12 @@ export class NewPostComponent {
 
     const { description } = e.target as HTMLFormElement;
 
-    if (!description.value) {
-      return;
-    }
-
     const formData = new FormData();
-    formData.set('description', description.value);
-    formData.set('file', this.image as File);
-    formData.set('id_user', this.userService.user.id_user);
-    const response = await POST('/createPost', formData);
+    formData.append('description', description.value ?? '');
+    formData.append('image', this.file!);  // Añadimos la imagen como archivo
+    formData.append('id_user', this.userService.user.id_user.toString());
+
+    const response = await POST('/post', formData);
 
     if (!response) return;
 

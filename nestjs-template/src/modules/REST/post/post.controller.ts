@@ -1,34 +1,21 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { PostService } from './post.service';
-import { CreatePostDto } from './dto/create-post.dto';
-import { UpdatePostDto } from './dto/update-post.dto';
+import { Controller, Post, UploadedFile, UseInterceptors, Body } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { Express } from 'express'; // Asegúrate de importar Express correctamente
+import { PostsService } from './post.service';
 
 @Controller('post')
-export class PostController {
-  constructor(private readonly postService: PostService) {}
+export class PostsController {
+
+
+    constructor(private postService: PostsService){}
 
   @Post()
-  create(@Body() createPostDto: CreatePostDto) {
-    return this.postService.create(createPostDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.postService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.postService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
-    return this.postService.update(+id, updatePostDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.postService.remove(+id);
+  @UseInterceptors(FileInterceptor('image'))
+  async createPost(
+    @UploadedFile() file: Express.Multer.File,
+    @Body('description') description: string,
+    @Body('id_user') id_user: string,
+  ) {
+    return this.postService.createPost({ id_user: +id_user, image: file, description });
   }
 }

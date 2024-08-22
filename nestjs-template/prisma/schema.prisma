@@ -12,7 +12,7 @@ model comments {
   id_user      Int?
   id_post      Int?
   comment      String    @db.VarChar(255)
-  comment_date DateTime? @default(now()) @db.Timestamp(6)
+  created_at   DateTime? @default(now()) @db.Timestamp(6)
   posts        posts?    @relation(fields: [id_post], references: [id_post], onDelete: NoAction, onUpdate: NoAction)
   users        users?    @relation(fields: [id_user], references: [id_user], onDelete: NoAction, onUpdate: NoAction)
 }
@@ -47,9 +47,10 @@ model posts {
   id_post      Int        @id @default(autoincrement())
   id_user      Int
   image_url    String     @db.VarChar(255)
-  post_date    DateTime?  @default(now()) @db.Timestamp(6)
-  title        String?    @db.VarChar(255)
-  post         DateTime?  @db.Timestamp(6)
+  created_at   DateTime?  @default(now()) @db.Timestamp(6)
+  description  String?    @db.VarChar(255)
+  public       Boolean    @default(true)
+  likes_count  Int        @default(0)
   comments     comments[]
   likes        likes[]
   users        users     @relation(fields: [id_user], references: [id_user])
@@ -62,36 +63,12 @@ model users {
   last_name                                           String            @db.VarChar(255)
   password                                            String            @db.VarChar(255)
   email                                               String            @unique  @db.VarChar(255)
-  create_date                                         DateTime?         @default(now()) @db.Timestamp(6)
+  created_at                                          DateTime?         @default(now()) @db.Timestamp(6)
   birth_date                                          DateTime          @db.Date
   comments                                            comments[]
   followers_followers_id_user_followTousers           followers[]       @relation("followers_id_user_followTousers")
   followers_followers_id_user_requestTousers          followers[]       @relation("followers_id_user_requestTousers")
   likes                                               likes[]
   posts                                               posts[]
-  messages                                            messages[]
-
-  chats chats[]
 }
 
-model chats{
-  id_chat    Int @id @default(autoincrement())
-  id_user    Int
-  updated_at DateTime @default(now()) @db.Timestamp(6)
-  created_at DateTime @default(now()) @db.Timestamp(6)
-  users      users @relation(fields: [id_user], references: [id_user])
-  messages   messages[]
-}
-
-
-model messages{
-  id_message   Int @id @default(autoincrement())
-  id_chat      Int
-  id_user      Int
-  message      String @db.VarChar(255)
-  message_date DateTime @default(now()) @db.Timestamp(6)
-  created_at   DateTime @default(now()) @db.Timestamp(6)
-  users        users @relation(fields: [id_user], references: [id_user])
-  chats        chats @relation(fields: [id_chat], references: [id_chat])
-
-}

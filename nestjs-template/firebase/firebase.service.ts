@@ -19,15 +19,16 @@ export class FirebaseService {
       storageBucket: this.configService.get<string>('FIREBASE_STORAGE_BUCKET'),
       messagingSenderId: this.configService.get<string>('FIREBASE_MESSAGING_SENDER_ID'),
       appId: this.configService.get<string>('FIREBASE_APP_ID'),
-      measurementId: this.configService.get<string>('FIREBASE_MEASUREMENT_ID'),
     });
     this.storage = getStorage(this.firebaseApp);
   }
 
-  async uploadFile(file: File, path: string, name: string): Promise<string> {
+  async uploadFile(file: Express.Multer.File, path: string, name: string): Promise<string> {
     const storageRef = ref(this.storage, `${path}/${name}`);
-    const snapshot = await uploadBytes(storageRef, file);
-    const downloadURL = await getDownloadURL(snapshot.ref);
+    await uploadBytes(storageRef, file.buffer, {
+      contentType: file.mimetype,
+    });
+    const downloadURL = await getDownloadURL(storageRef);
     return downloadURL;
   }
 }

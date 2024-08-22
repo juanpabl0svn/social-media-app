@@ -1,33 +1,33 @@
-import { Injectable } from '@nestjs/common';
-import { CreatePostDto } from './dto/create-post.dto';
-import { UpdatePostDto } from './dto/update-post.dto';
-import { PrismaService } from 'prisma/prisma.service';
+import { Injectable, HttpException } from '@nestjs/common';
+import { PrismaService } from 'prisma/prisma.service'; 
+import { FirebaseService } from 'firebase/firebase.service';
+import * as crypto from 'crypto';
 
 @Injectable()
-export class PostService {
+export class PostsService {
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly firebaseService: FirebaseService,
+  ) {}
 
+  async createPost(data: { id_user: number; image: Express.Multer.File; description: string }) {
+    const { id_user, image, description } = data;
 
-  constructor(private prisma: PrismaService){
-  }
+    try {
+      const image_url = await this.firebaseService.uploadFile(image, 'posts', crypto.randomUUID());
 
+      const post = await this.prisma.posts.create({
+        data: {
+          id_user,
+          description,
+          image_url,
+        },
+      });
 
-  create(createPostDto: CreatePostDto) {
-    return 'This action adds a new post';
-  }
-
-  findAll() {
-    return this.prisma.posts.findMany(); 
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} post`;
-  }
-
-  update(id: number, updatePostDto: UpdatePostDto) {
-    return `This action updates a #${id} post`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} post`;
+      return post;
+    } catch (error) {
+      console.error(error);
+      throw new HttpException('Error uploading image or creating post', 500);
+    }
   }
 }
