@@ -18,7 +18,7 @@
 >
   <header class="w-full">
     <button
-      class="bg-yellow-600 px-5 py-2 ml-7 text-white"
+      class="bg-blue-600 hover:bg-blue-900 px-8 py-2 ml-7 text-white rounded-e-xl button-shadow"
       [routerLink]="['/']"
     >
       Volver
@@ -35,7 +35,7 @@
       />
       <button
         (click)="uploadPost = true"
-        class="bg-white w-14 aspect-square rounded-full text-xl font-bold absolute top-[10%] -right-[15%] -translate-x-1/2 z-10"
+        class="bg-white w-14 aspect-square rounded-full text-xl border-2 hover:bg-slate-200 font-bold absolute top-[10%] -right-[15%] -translate-x-1/2 z-10"
       >
         +
       </button>
@@ -54,30 +54,30 @@
           </span>
         </h1>
         <button
-          class="text-sm bg-gray-300 text-white rounded-md p-1"
+          class="text-sm bg-gray-300 text-black rounded-md p-1 px-4 py-2 w-40 font-bold hover:bg-gray-600"
           (click)="editProfile = true"
         >
           Editar perfil
         </button>
       </div>
-      <div class="flex flex-row gap-10 text-center">
+      <div class="flex flex-row gap-10 text-center font-bold">
         <div>
           <p>Publicaciones</p>
-          <span>{{ this.postsCount }}</span>
+          <span class="font-thin">{{ this.postsCount }}</span>
         </div>
         <div>
           <p>Amigos</p>
-          <span>{{ this.followers }}</span>
+          <span class="font-thin">{{ this.followers }}</span>
         </div>
         <div>
           <p>Siguiendo</p>
-          <span>{{ this.following }}</span>
+          <span class="font-thin">{{ this.following }}</span>
         </div>
       </div>
     </div>
   </section>
   <section
-    class="w-3/4 min-h-[400px] bg-[rgba(215,219,94,0.75)] relative flex flex-wrap h-full"
+    class="w-3/4 min-h-[400px] bg-[rgba(181,181,163,0.75)] relative flex flex-wrap h-full"
   >
     @for(post of this.posts; track post.id_post;) {
 
@@ -94,7 +94,7 @@
     >
       <p>No hay publicaciones</p>
       <button
-        class="bg-white w-14 aspect-square rounded-full text-xl font-bold"
+        class="bg-white w-14 aspect-square rounded-full text-xl hover:bg-slate-200 font-bold"
         (click)="uploadPost = true"
       >
         +

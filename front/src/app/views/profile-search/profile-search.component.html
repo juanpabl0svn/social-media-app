@@ -6,17 +6,17 @@
 }
 
 <main
-  class="py-10 flex flex-col items-center gap-10 min-h-dvh h-full border max-w-[800px] overflow-hidden mx-auto bg-[rgba(255,242,104,0.8)]"
+  class="py-10 flex flex-col items-center gap-10 min-h-dvh h-full max-w-[800px] overflow-hidden mx-auto bg-secondary-color"
 >
   <header class="w-full">
     <button
-      class="bg-yellow-600 px-5 py-2 ml-7 text-white"
+      class="bg-blue-600 hover:bg-blue-900 px-8 py-2 ml-7 text-white rounded-e-xl button-shadow"
       [routerLink]="['/']"
     >
       Volver
     </button>
   </header>
-  <section class="flex flex-row gap-20 justify-center">
+  <section class="flex flex-row justify-center gap-20">
     <div class="rounded-full w-1/5 aspect-square min-w-48 relative">
       <img
         src="/assets/incognito.png"
@@ -27,51 +27,55 @@
       />
     </div>
 
-    <div class="flex flex-col gap-5 justify-center">
+    <div class="flex flex-col gap-5 justify-center items-center">
       <div class="flex items-end gap-8">
         <h1
-          class="text-4xl [view-transition-name:username-{{ this.username }}]"
-        >
+          class="text-2xl break-words max-w-44 [view-transition-name:username-{{
+            this.username
+          }}] "
+        >        
           {{ this.username }}
         </h1>
         @if(!this.state){
 
         <button
           (click)="follow()"
-          class="text-sm bg-gray-300 text-white rounded-md p-1"
+          class="text-sm bg-blue-600 text-white rounded-md p-1 px-4 py-2 w-40 font-bold"
         >
           Seguir
         </button>
         }@else if (this.state === 'pending'){
 
-        <span class="text-sm bg-blue-300 text-white rounded-md p-1">
+        <button
+          class="text-sm bg-gray-300 text-center text-zinc-900 rounded-md p-1 px-4 py-2 w-40 font-bold"
+        >
           Pendiente
-        </span>
+        </button>
 
         }@else {
-        <span class="text-sm bg-green-400 text-white rounded-md p-1">
+        <span class="text-sm bg-green-400 text-white rounded-md p-1  px-4 py-2 w-40 font-bold">
           Siguiendo
         </span>
         }
       </div>
-      <div class="flex flex-row gap-10 text-center">
+      <div class="flex flex-row gap-10 text-center font-bold">
         <div>
           <p>Publicaciones</p>
-          <span>{{ this.postsCount }}</span>
+          <span class="font-thin">{{ this.postsCount }}</span>
         </div>
         <div>
           <p>Amigos</p>
-          <span>{{ this.followers }}</span>
+          <span class="font-thin">{{ this.followers }}</span>
         </div>
         <div>
           <p>Siguiendo</p>
-          <span>{{ this.following }}</span>
+          <span class="font-thin">{{ this.following }}</span>
         </div>
       </div>
     </div>
   </section>
   <section
-    class="w-3/4 min-h-[400px] bg-[rgba(215,219,94,0.75)] relative flex flex-wrap h-full"
+    class="w-3/4 min-h-[400px] bg-[rgba(181,181,163,0.75)] relative flex flex-wrap h-full"
   >
     @for(post of this.posts; track post.id_post;) {
 
