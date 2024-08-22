@@ -1,4 +1,4 @@
-import { Controller, Post, UploadedFile, UseInterceptors, Body } from '@nestjs/common';
+import { Controller, Post, UploadedFile, UseInterceptors, Body, Get, Delete, Patch, Param } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Express } from 'express'; // Asegúrate de importar Express correctamente
 import { PostsService } from './post.service';
@@ -18,4 +18,26 @@ export class PostsController {
   ) {
     return this.postService.createPost({ id_user: +id_user, image: file, description });
   }
+
+
+  @Get()
+  async getPosts() {
+    return this.postService.getPosts();
+  }
+
+  @Delete('/delete')
+  async deletePost(@Body('id_post') id_post: string) {
+    return this.postService.deletePost(+id_post);
+  }
+
+
+  @Patch('/change_state/:id_post')
+  async changeState(@Param('id_post') id_post: string, @Body('state') state: boolean) {
+    return this.postService.changeState(+id_post, state);
+  }
+
+
+
+
+
 }

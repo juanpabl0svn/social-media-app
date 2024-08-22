@@ -120,7 +120,97 @@ export class UserService {
     }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id_user: number) {
+    return await this.prisma.users.delete({
+      where: {
+        id_user
+      }
+    })
+  }
+
+
+  async me(id_user: number) {
+    try {
+      const followers = await this.prisma.followers.findMany({
+        where: {
+          id_user_follow: id_user,
+          state: "ACCEPTED",
+        },
+      });
+
+      const following = await this.prisma.followers.findMany({
+        where: {
+          id_user_request: id_user,
+          state: "ACCEPTED",
+        },
+      });
+
+      const posts = await this.prisma.posts.findMany({
+        where: {
+          id_user: id_user,
+        },
+      });
+
+      return {
+        followers: followers.length,
+        following: following.length,
+        posts,
+      };
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+
+
+  async infoUser(id_user: number, id_user_visitor: number) {
+    try {
+      const followers = await this.prisma.followers.findMany({
+        where: {
+          id_user_follow: id_user,
+          state: "ACCEPTED",
+        },
+      });
+    
+      const following = await this.prisma.followers.findMany({
+        where: {
+          id_user_request: id_user,
+          state: "ACCEPTED",
+        },
+      });
+    
+      const posts = await this.prisma.posts.findMany({
+        where: {
+          id_user: id_user,
+        },
+      });
+    
+      const user = await this.prisma.users.findUnique({
+        where: {
+          id_user: id_user,
+        },
+      });
+    
+      if (!user) throw new Error('User not found');
+    
+      const isFollowing = await this.prisma.followers.findFirst({
+        where: {
+          id_user_follow: id_user,
+          id_user_request: id_user_visitor,
+          state: "ACCEPTED",
+        },
+      });
+    
+      return {
+        followers: followers.length,
+        following: following.length,
+        posts,
+        isFollowing,
+        ...user,
+      };
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
   }
 }

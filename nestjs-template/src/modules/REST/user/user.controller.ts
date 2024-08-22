@@ -9,6 +9,11 @@ export class UserController {
 
   constructor(private readonly userService: UserService) { }
 
+  @Get('/me/:id_user')
+  getInfo(@Param('id_user') id_user: string) {
+    return this.userService.me(+id_user);
+  }
+
   @Post('/register')
   register(@Body() createUserDto: CreateUserDto) {
     return this.userService.register(createUserDto);
@@ -38,4 +43,7 @@ export class UserController {
   remove(@Param('id') id: number) {
     return this.userService.remove(+id);
   }
+
+
+  
 }

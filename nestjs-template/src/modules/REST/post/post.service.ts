@@ -1,5 +1,5 @@
 import { Injectable, HttpException } from '@nestjs/common';
-import { PrismaService } from 'prisma/prisma.service'; 
+import { PrismaService } from 'prisma/prisma.service';
 import { FirebaseService } from 'firebase/firebase.service';
 import * as crypto from 'crypto';
 
@@ -8,7 +8,7 @@ export class PostsService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly firebaseService: FirebaseService,
-  ) {}
+  ) { }
 
   async createPost(data: { id_user: number; image: Express.Multer.File; description: string }) {
     const { id_user, image, description } = data;
@@ -30,4 +30,28 @@ export class PostsService {
       throw new HttpException('Error uploading image or creating post', 500);
     }
   }
+
+  async getPosts() {
+    return this.prisma.posts.findMany();
+  }
+
+  async deletePost(id_post: number) {
+    return this.prisma.posts.delete({
+      where: {
+        id_post,
+      },
+    });
+  }
+
+  async changeState(id_post: number, state: boolean) {
+    return this.prisma.posts.update({
+      data: {
+        public: state,
+      },
+      where: {
+        id_post,
+      },
+    });
+  }
+
 }
