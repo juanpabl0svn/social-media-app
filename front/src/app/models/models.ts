@@ -15,7 +15,8 @@ export interface IPOST {
   id_user: number;
   image_url: string;
   hasLiked: boolean;
-  likes: number;
+  likes_count: number;
+  likedByUser: boolean
   users: IUSER
 }
 

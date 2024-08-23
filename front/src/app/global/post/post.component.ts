@@ -20,10 +20,9 @@ export class PostComponent {
   constructor(public userService: UserService) {}
 
   toggleLike() {
-    let value = this.post?.hasLiked ?? false;
-
-    this.post.hasLiked = !value;
-    this.post.likes = value ? this.post.likes - 1 : this.post.likes + 1;
+    let value = this.post?.likedByUser ?? false;
+    this.post.likedByUser = !value;
+    this.post.likes_count = value ? this.post.likes_count - 1 : this.post.likes_count + 1;
   }
 
   async setComment(id_post: number) {
