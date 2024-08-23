@@ -4,7 +4,7 @@ import { DOCUMENT } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 
-import { ICOMMENT, IPOST } from '../../models/models';
+import { ICOMMENT, IPOST, IUSER } from '../../models/models';
 import { GET, POST } from '../../utils/constants';
 
 @Injectable({
@@ -13,7 +13,7 @@ import { GET, POST } from '../../utils/constants';
 export default class UserService {
   isAuth: boolean = false;
 
-  user: any = {};
+  user: Partial<IUSER> = {};
 
   showComments: ICOMMENT[] | null = null;
 
@@ -36,7 +36,7 @@ export default class UserService {
   }
 
   async getPosts() {
-    this.posts = ((await GET(`/post`)) as Array<IPOST>)?.reverse();
+    this.posts = ((await GET(`/post/${this.user.id_user}`)) as Array<IPOST>);
   }
 
   logIn(username: string, password: string) {
