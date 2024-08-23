@@ -31,9 +31,39 @@ export class PostsService {
     }
   }
 
-  async getPosts() {
-    return this.prisma.posts.findMany();
+  async getPosts(id_user: number) {
+    // Primero, obtenemos los posts junto con los likes del usuario
+    const postsWithLikes = await this.prisma.posts.findMany({
+      include: {
+        likes: {
+          where: {
+            id_user: id_user,
+          },
+        },
+      },
+      where: {
+        public: true,
+      },
+      orderBy: {
+        created_at: 'desc',
+      },
+    });
+  
+    // Ahora, añadimos manualmente el campo `likedByUser`
+    const postsWithLikedStatus = postsWithLikes.map(post => ({
+      id_post: post.id_post,
+      description: post.description,
+      image_url: post.image_url,
+      created_at: post.created_at,
+      likes_count: post.likes_count,
+      public: post.public,
+      likedByUser: post.likes.length > 0, // Si el usuario ha dado like, `likedByUser` será true
+    }));
+  
+    return postsWithLikedStatus;
   }
+  
+
 
   async deletePost(id_post: number) {
     return this.prisma.posts.delete({

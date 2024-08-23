@@ -71,4 +71,3 @@ model users {
   likes                                               likes[]
   posts                                               posts[]
 }
-

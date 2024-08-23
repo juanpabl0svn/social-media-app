@@ -6,7 +6,6 @@ import { PostsService } from './post.service';
 @Controller('post')
 export class PostsController {
 
-
     constructor(private postService: PostsService){}
 
   @Post()
@@ -20,16 +19,15 @@ export class PostsController {
   }
 
 
-  @Get()
-  async getPosts() {
-    return this.postService.getPosts();
+  @Get(':id_user')
+  async getPosts(@Param('id_user') id_user: string) {
+    return this.postService.getPosts(+id_user);
   }
 
   @Delete('/delete')
   async deletePost(@Body('id_post') id_post: string) {
     return this.postService.deletePost(+id_post);
   }
-
 
   @Patch('/change_state/:id_post')
   async changeState(@Param('id_post') id_post: string, @Body('state') state: boolean) {
