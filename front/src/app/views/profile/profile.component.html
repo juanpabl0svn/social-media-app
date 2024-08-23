@@ -50,7 +50,7 @@
         >
           {{ this.userService.user.username }}
           <span class="block text-sm text-white mt-2">
-            {{ this.userService.user.name }}
+            {{ this.userService.user.first_name }} {{ this.userService.user.last_name }}
           </span>
         </h1>
         <button
@@ -82,7 +82,7 @@
     @for(post of this.posts; track post.id_post;) {
 
     <img
-      [src]="post.image_src"
+      [src]="post.image_url"
       alt=""
       class="h-[12.45rem] aspect-square"
       (click)="showPost = post"

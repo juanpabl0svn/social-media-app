@@ -13,7 +13,7 @@ import { GET, POST } from '../../utils/constants';
 export default class UserService {
   isAuth: boolean = false;
 
-  user: Partial<IUSER> = {};
+  user!: any;
 
   showComments: ICOMMENT[] | null = null;
 
@@ -37,6 +37,7 @@ export default class UserService {
 
   async getPosts() {
     this.posts = ((await GET(`/post/${this.user.id_user}`)) as Array<IPOST>);
+    console.log(this.posts);
   }
 
   logIn(username: string, password: string) {

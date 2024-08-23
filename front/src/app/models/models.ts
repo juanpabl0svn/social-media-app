@@ -13,7 +13,7 @@ export interface IPOST {
   id_post: number;
   description: string;
   id_user: number;
-  image_src: string;
+  image_url: string;
   hasLiked: boolean;
   likes: number;
   users: IUSER
@@ -25,7 +25,8 @@ export interface IUSER {
   username: string;
   email: string;
   password: string;
-  name: string;
+  first_name: string;
+  last_name: string;
   birth_date: string;
   image: string;
   created_at: string;

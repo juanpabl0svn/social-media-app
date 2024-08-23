@@ -5,6 +5,7 @@ import { POST } from '../../../utils/constants';
 import { ToastrService } from 'ngx-toastr';
 import { EyeCloseComponent } from '../../../global/svg/eye-close/eye-close.component';
 import { EyeOpenComponent } from '../../../global/svg/eye-open/eye-open.component';
+import { IUSER } from '../../../models/models';
 
 
 @Component({
@@ -21,7 +22,7 @@ export class EditProfileComponent {
 
   constructor(private userService: UserService, private toast: ToastrService) { }
 
-  profileToEdit = { ...this.userService.user }
+  profileToEdit: IUSER = { ...this.userService.user }
 
 
   handleSpaces(e: Event) {

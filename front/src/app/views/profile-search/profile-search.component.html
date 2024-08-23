@@ -80,7 +80,7 @@
     @for(post of this.posts; track post.id_post;) {
 
     <img
-      [src]="post.image_src"
+      [src]="post.image_url"
       alt=""
       class="h-[12.45rem] aspect-square"
       (click)="showPost = post"

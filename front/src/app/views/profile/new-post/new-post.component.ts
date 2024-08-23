@@ -44,7 +44,7 @@ export class NewPostComponent {
     const formData = new FormData();
     formData.append('description', description.value ?? '');
     formData.append('image', this.file!);  // Añadimos la imagen como archivo
-    formData.append('id_user', this.userService.user.id_user.toString());
+    formData.append('id_user', this.userService.user.id_user!.toString());
 
     const response = await POST('/post', formData);
 

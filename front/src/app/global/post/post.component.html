@@ -23,7 +23,7 @@
       {{ post.users.username }}
     </h2>
   </article>
-  <img [src]="post.image_src" class="w-full aspect-[7/8]" />
+  <img [src]="post.image_url" class="w-full aspect-[7/8]" />
 
   <div class="ml-2">
     <app-comment (onClick)="setComment(post.id_post)" />
