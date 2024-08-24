@@ -4,7 +4,7 @@
   left: 0;
   width: 100%;
   min-height: 80vh;
-  background: rgb(212, 210, 86);
+  background: var(--primary-color);
   animation: up 400ms ease-in-out forwards;
   border-radius: 20px 20px 0 0;
   display: flex;

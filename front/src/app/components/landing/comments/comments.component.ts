@@ -32,7 +32,7 @@ export class CommentsComponent {
 
     if (!comment.trim()) return this.toast.error('Ingrese un comentario');
 
-    const isCommented = await POST('/comment', {
+    const isCommented = await POST('/comments', {
       id_user: this.userService.user.id_user,
       id_post: this.userService.id_post,
       comment,

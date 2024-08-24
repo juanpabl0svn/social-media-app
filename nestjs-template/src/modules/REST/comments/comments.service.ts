@@ -18,6 +18,9 @@ export class CommentsService {
 
   getComments(id_post: number) {
     return this.prisma.comments.findMany({
+      include: {
+        users: true
+      },
       where: {
         id_post
       }

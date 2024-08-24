@@ -10,9 +10,32 @@ export class LikesService {
 
   async create(createLikeDto: CreateLikeDto) {
     try {
-      await this.prisma.likes.create({
-        data: createLikeDto
-      })
+
+      if (createLikeDto.like){
+        await this.prisma.likes.create({
+          data: {
+            id_post: createLikeDto.id_post,
+            id_user: createLikeDto.id_user
+          }
+        })
+
+      }else{
+
+        const like = await this.prisma.likes.findFirst({
+          where: {
+            id_post: createLikeDto.id_post,
+            id_user: createLikeDto.id_user
+          }
+        })
+
+        await this.prisma.likes.delete({
+          where: {
+            id_like : like.id_like
+          }
+        })
+      }
+
+      const type = createLikeDto.like ? 'increment' : 'decrement'
 
       await this.prisma.posts.update({
         where: {
@@ -20,10 +43,14 @@ export class LikesService {
         },
         data: {
           likes_count: {
-            increment: 1
+            [type]: 1
           }
         }
       })
+
+      return {
+        message: 'Like updated'
+      }
 
     } catch (e) {
       throw new HttpException(e.message, 401)
