@@ -41,9 +41,9 @@ export class ProfileSearchComponent {
       if (params['id_user'] == this.userService.user.id_user)
         return this.router.navigate(['/profile']);
 
-      const userData = await POST('/getUserData', {
+      const userData = await POST('/user/user_data', {
         id_user: params['id_user'],
-        id_user_follower: this.userService.user.id_user,
+        id_user_visitor: this.userService.user.id_user,
       });
 
       if (!userData) return;

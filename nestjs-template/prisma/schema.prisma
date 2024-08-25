@@ -17,7 +17,7 @@ model comments {
   users        users?    @relation(fields: [id_user], references: [id_user], onDelete: NoAction, onUpdate: NoAction)
 }
 
-enum State {
+enum States {
   PENDING
   ACCEPTED
   REJECTED
@@ -27,7 +27,7 @@ model followers {
   id_follow                              Int       @id @default(autoincrement())
   id_user_request                        Int?
   id_user_follow                         Int?
-  state                                  State @default(PENDING)
+  state                                  States @default(PENDING)
   request_date                           DateTime? @default(now()) @db.Timestamp(6)
   request_update_date                    DateTime? @db.Timestamp(6)
   users_followers_id_user_followTousers  users?    @relation("followers_id_user_followTousers", fields: [id_user_follow], references: [id_user], onDelete: NoAction, onUpdate: NoAction)
@@ -70,4 +70,21 @@ model users {
   followers_followers_id_user_requestTousers          followers[]       @relation("followers_id_user_requestTousers")
   likes                                               likes[]
   posts                                               posts[]
+  Notifications                                       Notifications[]
+}
+
+enum TypeNotifcation{
+  LIKE
+  COMMENT
+  FOLLOW
+}
+
+
+model Notifications{
+  id_notification Int @id @default(autoincrement())
+  id_user         Int
+  type            TypeNotifcation
+  message         String
+  created_at DateTime? @default(now()) @db.Timestamp(6)
+  users users @relation(fields: [id_user], references: [id_user])
 }

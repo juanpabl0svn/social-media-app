@@ -145,11 +145,28 @@ export class UserService {
         },
       });
 
-      const posts = await this.prisma.posts.findMany({
+      let posts = await this.prisma.posts.findMany({
+        include: {
+          likes: {
+            where: {
+              id_user: id_user, // Filtramos los likes por el id_user
+            },
+          },
+          users: true, // Incluimos la información del usuario que creó el post
+        },
         where: {
-          id_user: id_user,
+          id_user
+        },
+        orderBy: {
+          created_at: 'desc', // Ordenar por la fecha de creación
         },
       });
+
+      posts = posts.map(post => ({
+        ...post,
+        likedByUser: post.likes.length > 0, // Si el usuario ha dado like, `likedByUser` será true
+      })
+      );
 
       return {
         followers: followers.length,
@@ -171,28 +188,40 @@ export class UserService {
           state: "ACCEPTED",
         },
       });
-    
+
       const following = await this.prisma.followers.findMany({
         where: {
           id_user_request: id_user,
           state: "ACCEPTED",
         },
       });
-    
-      const posts = await this.prisma.posts.findMany({
+
+      let posts = await this.prisma.posts.findMany({
+        include: {
+          likes: {
+            where: {
+              id_user: id_user, // Filtramos los likes por el id_user
+            },
+          },
+          users: true, // Incluimos la información del usuario que creó el post
+        },
         where: {
-          id_user: id_user,
+          public: true,
+          id_user
+        },
+        orderBy: {
+          created_at: 'desc', // Ordenar por la fecha de creación
         },
       });
-    
+
       const user = await this.prisma.users.findUnique({
         where: {
           id_user: id_user,
         },
       });
-    
+
       if (!user) throw new Error('User not found');
-    
+
       const isFollowing = await this.prisma.followers.findFirst({
         where: {
           id_user_follow: id_user,
@@ -200,7 +229,13 @@ export class UserService {
           state: "ACCEPTED",
         },
       });
-    
+
+
+      posts = posts.map(post => ({
+        ...post,
+        likedByUser: post.likes.length > 0, // Si el usuario ha dado like, `likedByUser` será true
+      }))
+
       return {
         followers: followers.length,
         following: following.length,

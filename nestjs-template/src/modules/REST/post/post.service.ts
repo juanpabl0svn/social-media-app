@@ -50,20 +50,8 @@ export class PostsService {
     });
   
     const postsWithLikedStatus = postsWithUserAndLikes.map(post => ({
-      id_post: post.id_post,
-      description: post.description,
-      image_url: post.image_url,
-      created_at: post.created_at,
-      likes_count: post.likes_count,
-      public: post.public,
+      ...post,
       likedByUser: post.likes.length > 0, // Si el usuario ha dado like, `likedByUser` será true
-      users: {
-        id_user: post.users?.id_user,
-        username: post.users?.username,
-        first_name: post.users?.first_name,
-        last_name: post.users?.last_name,
-        email: post.users?.email,
-      },
     }));
   
     return postsWithLikedStatus;

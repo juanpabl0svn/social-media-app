@@ -14,6 +14,11 @@ export class UserController {
     return this.userService.me(+id_user);
   }
 
+  @Post('/user_data')
+  getUserFollow(@Body() body: { id_user: number, id_user_visitor: number }) {
+    return this.userService.infoUser(+body.id_user, +body.id_user_visitor);
+  }
+
   @Post('/register')
   register(@Body() createUserDto: CreateUserDto) {
     return this.userService.register(createUserDto);
@@ -43,6 +48,22 @@ export class UserController {
   remove(@Param('id') id: number) {
     return this.userService.remove(+id);
   }
+
+
+  // @Post('/follow')
+  // follow(@Body() body: { id_user: number, id_user_follower: number }) {
+  //   return this.userService.follow(body.id_user, body.id_user_follower);
+  // }
+
+  // @Post('/unfollow')
+  // unfollow(@Body() body: { id_user: number, id_user_follower: number }) {
+  //   return this.userService.unfollow(body.id_user, body.id_user_follower);
+  // }
+
+  // @Post('/follow/request')
+  // requestFollow(@Body() body: { id_follower: number, state: string }) {
+  //   return this.userService.requestFollow(body.id_user, body.id_user_follower);
+  // }
 
 
   
