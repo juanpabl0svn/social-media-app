@@ -5,6 +5,7 @@ import { PrismaService } from 'prisma/prisma.service';
 
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
+import { addAbortListener } from 'events';
 
 
 @Injectable()
@@ -248,4 +249,47 @@ export class UserService {
       return null;
     }
   }
+
+  async follow(id_user: number, id_user_follower: number) {
+
+    try{
+
+      const user = await this.prisma.users.findFirst({
+        where : {
+          id_user : id_user_follower
+        }
+      })
+
+      if (!user) throw new Error('User not found');
+
+      await this.prisma.followers.create({
+        data: {
+          id_user_follow: id_user,
+          id_user_request: id_user_follower,
+        }
+      })
+
+      await this.prisma.notifications.create({
+        data : {
+          id_user,
+          data: {
+            id_user: id_user_follower,
+            username: user.username,
+            message : `${user.username} quiere seguirte`
+          },
+          type: 'FOLLOW',
+        }
+      })
+
+
+      return 'follow request'
+
+    }catch(e){
+      throw new HttpException(e.message, 401)
+    }
+  }
+
+
+
+
 }

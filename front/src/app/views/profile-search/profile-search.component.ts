@@ -65,7 +65,7 @@ export class ProfileSearchComponent {
   }
 
   async follow() {
-    const isFollowing = await POST('/follow', {
+    const isFollowing = await POST('/user/follow', {
       id_user: this.id_user,
       id_user_follower: this.userService.user.id_user,
     });
@@ -73,5 +73,21 @@ export class ProfileSearchComponent {
     if (!isFollowing) return;
 
     this.state = 'pending';
+  }
+
+
+  async unfollow() {
+    const isFollowing = await POST('/user/unfollow', {
+      id_user: this.id_user,
+      id_user_follower: this.userService.user.id_user,
+    });
+
+    if (!isFollowing) return;
+
+    // Poner un modal de sweetalert para poner si enserio quiere dejar de seguir a la persona,
+    // y si es asi, dejar de seguir la persona
+
+    this.state = '';
+
   }
 }
