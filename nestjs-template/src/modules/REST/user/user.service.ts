@@ -227,7 +227,6 @@ export class UserService {
         where: {
           id_user_follow: id_user,
           id_user_request: id_user_visitor,
-          state: "ACCEPTED",
         },
       });
 

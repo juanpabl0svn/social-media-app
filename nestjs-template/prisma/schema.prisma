@@ -70,7 +70,7 @@ model users {
   followers_followers_id_user_requestTousers          followers[]       @relation("followers_id_user_requestTousers")
   likes                                               likes[]
   posts                                               posts[]
-  Notifications                                       Notifications[]
+  Notifications                                       notifications[]
 }
 
 enum TypeNotifcation{
@@ -80,7 +80,7 @@ enum TypeNotifcation{
 }
 
 
-model Notifications{
+model notifications{
   id_notification Int @id @default(autoincrement())
   id_user         Int
   type            TypeNotifcation

@@ -72,7 +72,7 @@ export class ProfileSearchComponent {
 
     if (!isFollowing) return;
 
-    this.state = 'pending';
+    this.state = 'PENDING';
   }
 
 
