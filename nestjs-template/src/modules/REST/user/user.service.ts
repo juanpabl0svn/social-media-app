@@ -290,6 +290,61 @@ export class UserService {
   }
 
 
+  async unfollow(id_user: number, id_user_follower: number) {
+
+    try{
+
+      const user = await this.prisma.users.findFirst({
+        where : {
+          id_user : id_user_follower
+        }
+      })
+
+      if (!user) throw new Error('User not found');
+
+      const follow = await this.prisma.followers.findFirst({
+        where: {
+          id_user_follow: id_user,
+          id_user_request: id_user_follower,
+        }
+      })
+
+      if (!follow) throw new Error('Follow not found');
+
+      await this.prisma.followers.delete({
+        where: {
+          id_follow: follow.id_follow
+        }
+      })
+
+      if (follow.state !== 'PENDING') return 'unfollow'
+
+
+      const hasNotification = await this.prisma.notifications.findFirst({
+        where: {
+          id_user,
+          type: 'FOLLOW',
+          data: {
+            path : ['id_user'],
+            equals: id_user_follower,
+          }
+        } 
+      })
+
+      if (hasNotification){
+        await this.prisma.notifications.delete({
+          where: {
+            id_notification: hasNotification.id_notification
+          }
+        })
+      }
+
+      return 'unfollow'
+
+    }catch(e){
+      throw new HttpException(e.message, 401)
+    }
+  }
 
 
 }
