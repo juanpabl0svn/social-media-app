@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ICOMMENT, IPOST } from '../../models/models';
-import { POST } from '../../utils/constants';
+import { GET, POST } from '../../utils/constants';
 import UserService from '../../services/user/user.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -31,7 +31,7 @@ export class ModalPostComponent {
   }
 
   async ngOnInit() {
-    this.comments = await POST('/getComments', { id_post: this.post.id_post });
+    this.comments = await GET(`/comments/${this.post.id_post}`);
 
   }
 
@@ -43,21 +43,16 @@ export class ModalPostComponent {
 
     if (!comment.trim()) return this.toast.error('Ingrese un comentario');
 
-    const isCommented = await POST('/comment', {
+    const newComment = await POST('/comments', {
       id_user: this.userService.user.id_user,
       id_post: this.post.id_post,
       comment,
     });
 
 
-    if (!isCommented) {
-      return this.toast.error('No sigues a esta persona');
-    }
-
-
     const username = this.userService.user.username;
 
-    return this.comments.push({ ...isCommented, users: { username } })
+    return this.comments.push({ ...newComment, users: { username } })
 
 
   }

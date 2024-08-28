@@ -38,11 +38,6 @@ export class CommentsComponent {
       comment,
     });
 
-    if (!isCommented) {
-      return this.toast.error('No sigues a esta persona');
-    }
-
-
     const username = this.userService.user.username;
 
     return this.userService.showComments?.push({ ...isCommented, users: { username } })

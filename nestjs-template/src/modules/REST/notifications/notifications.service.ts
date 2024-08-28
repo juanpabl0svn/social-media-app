@@ -23,7 +23,7 @@ export class NotificationsService {
         id_user
       },
       orderBy: {
-        created_at: 'asc'
+        created_at: 'desc'
       }
     })
   }
