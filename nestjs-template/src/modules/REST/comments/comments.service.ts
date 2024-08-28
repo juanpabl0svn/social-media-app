@@ -22,17 +22,21 @@ export class CommentsService {
         }
       })
 
-      await this.prisma.notifications.create({
-        data: {
-          type: 'COMMENT',
-          id_user: user_post_owner.id_user,
+      if (user_post_owner.id_user !== createCommentDto.id_user) {
+
+        await this.prisma.notifications.create({
           data: {
-            id_user: createCommentDto.id_user,
-            id_post: createCommentDto.id_post,
-            message: `${user_post_owner.users.username} ha comentado tu publicación`
+            type: 'COMMENT',
+            id_user: user_post_owner.id_user,
+            data: {
+              id_user: createCommentDto.id_user,
+              id_post: createCommentDto.id_post,
+              message: `${user_post_owner.users.username} ha comentado tu publicación`
+            }
           }
-        }
-      })
+        })
+
+      }
 
       return this.prisma.comments.create({
         data: createCommentDto

@@ -51,18 +51,21 @@ export class LikesService {
               username: true
             }
           })
-          await this.prisma.notifications.create({
-            data: {
-              id_user: user_post_owner.id_user,
-              type: 'LIKE',
+
+          if (user_post_owner.id_user !== createLikeDto.id_user) {
+            await this.prisma.notifications.create({
               data: {
-                id_user: createLikeDto.id_user,
-                id_post: createLikeDto.id_post,
-                username: user_post_owner.users.username,
-                message: `${user.username} le ha dado like a tu publicación`
+                id_user: user_post_owner.id_user,
+                type: 'LIKE',
+                data: {
+                  id_user: createLikeDto.id_user,
+                  id_post: createLikeDto.id_post,
+                  username: user_post_owner.users.username,
+                  message: `${user.username} le ha dado like a tu publicación`
+                }
               }
-            }
-          })
+            })
+          }
         }
       } else {
 
