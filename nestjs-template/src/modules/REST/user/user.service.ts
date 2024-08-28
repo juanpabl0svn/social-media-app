@@ -251,11 +251,11 @@ export class UserService {
 
   async follow(id_user: number, id_user_follower: number) {
 
-    try{
+    try {
 
       const user = await this.prisma.users.findFirst({
-        where : {
-          id_user : id_user_follower
+        where: {
+          id_user: id_user_follower
         }
       })
 
@@ -269,12 +269,12 @@ export class UserService {
       })
 
       await this.prisma.notifications.create({
-        data : {
+        data: {
           id_user,
           data: {
             id_user: id_user_follower,
             username: user.username,
-            message : `${user.username} quiere seguirte`,
+            message: `${user.username} quiere seguirte`,
             id_follow: follow.id_follow,
           },
           type: 'FOLLOW',
@@ -284,7 +284,7 @@ export class UserService {
 
       return 'follow request'
 
-    }catch(e){
+    } catch (e) {
       throw new HttpException(e.message, 401)
     }
   }
@@ -292,11 +292,11 @@ export class UserService {
 
   async unfollow(id_user: number, id_user_follower: number) {
 
-    try{
+    try {
 
       const user = await this.prisma.users.findFirst({
-        where : {
-          id_user : id_user_follower
+        where: {
+          id_user: id_user_follower
         }
       })
 
@@ -325,13 +325,13 @@ export class UserService {
           id_user,
           type: 'FOLLOW',
           data: {
-            path : ['id_user'],
+            path: ['id_user'],
             equals: id_user_follower,
           }
-        } 
+        }
       })
 
-      if (hasNotification){
+      if (hasNotification) {
         await this.prisma.notifications.delete({
           where: {
             id_notification: hasNotification.id_notification
@@ -341,9 +341,18 @@ export class UserService {
 
       return 'unfollow'
 
-    }catch(e){
+    } catch (e) {
       throw new HttpException(e.message, 401)
     }
+  }
+
+
+  deleteUser(id_user: number) {
+    return this.prisma.users.delete({
+      where: {
+        id_user
+      }
+    })
   }
 
 

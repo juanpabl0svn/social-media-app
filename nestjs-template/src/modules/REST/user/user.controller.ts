@@ -46,7 +46,7 @@ export class UserController {
 
   @Delete(':id')
   remove(@Param('id') id: number) {
-    return this.userService.remove(+id);
+    return this.userService.deleteUser(+id);
   }
 
 
@@ -59,6 +59,7 @@ export class UserController {
   unfollow(@Body() body: { id_user: number, id_user_follower: number }) {
     return this.userService.unfollow(+body.id_user, +body.id_user_follower);
   }
+
 
 
 
