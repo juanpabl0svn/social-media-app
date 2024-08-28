@@ -261,7 +261,7 @@ export class UserService {
 
       if (!user) throw new Error('User not found');
 
-      await this.prisma.followers.create({
+      const follow = await this.prisma.followers.create({
         data: {
           id_user_follow: id_user,
           id_user_request: id_user_follower,
@@ -274,7 +274,8 @@ export class UserService {
           data: {
             id_user: id_user_follower,
             username: user.username,
-            message : `${user.username} quiere seguirte`
+            message : `${user.username} quiere seguirte`,
+            id_follow: follow.id_follow,
           },
           type: 'FOLLOW',
         }

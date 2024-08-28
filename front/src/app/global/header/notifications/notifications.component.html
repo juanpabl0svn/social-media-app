@@ -17,27 +17,20 @@
       }@else{
 
       <button
-        (click)="$event.stopPropagation();handleAccept(notification.data.id_follow!)"
+        (click)="$event.stopPropagation();handleAccept(notification.data.id_follow!, notification.id_notification)"
         class="bg-green-400 rounded-md py-2 px-2 text-white"
       >
         Accept
       </button>
       <button
         class="bg-red-400 rounded-md py-2 px-2 text-white"
-        (click)="$event.stopPropagation();handleReject(notification.data.id_follow!)"
+        (click)="$event.stopPropagation();handleReject(notification.data.id_follow!, notification.id_notification)"
       >
         Reject
       </button>
 
       } }
 
-      <!-- @else if (notification.type === 'LIKE'){ 
-
-
-        
-
-
-      }@else{ } -->
     </div>
   </div>
   }

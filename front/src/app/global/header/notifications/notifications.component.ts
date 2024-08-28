@@ -33,25 +33,25 @@ export class NotificationsComponent {
     this.notifications = notifications;
   }
 
-  async handleAccept(id_follow: number) {
-    const isAccepted = await POST('/notifications/accept_follow', { id_follow });
+  async handleAccept(id_follow: number, id_notification: number) {
+    const isAccepted = await POST('/notifications/accept_follow', { id_follow, id_notification });
     if (!isAccepted) return;
 
     const notification = this.notifications.find(
-      (req: any) => req.id_follow === id_follow
+      (req: any) => req.id_notification === id_notification
     );
     if (!notification) return;
 
     notification.data.state = 'ACCEPTED';
   }
 
-  async handleReject(id_follow: number) {
-    const isRejected = await POST('/notifications/reject_follow', { id_follow });
+  async handleReject(id_follow: number, id_notification: number) {
+    const isRejected = await POST('/notifications/reject_follow', { id_follow, id_notification });
     if (!isRejected) return
 
-    const notification = this.notifications.find((req) => req.data.id_follow === id_follow)
-    if (notification) {
-      notification.data.state = 'REJECTED';
-    }
+    const notification = this.notifications.find((req) => req.id_notification === id_notification)
+    if (!notification) return
+    notification.data.state = 'REJECTED';
+
   }
 }
