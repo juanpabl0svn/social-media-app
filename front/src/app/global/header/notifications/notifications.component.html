@@ -1,30 +1,30 @@
 <section
   class="w-[clamp(300px,60vw,700px)] bg-white h-[clamp(500px,60vh,900px)] p-10 rounded-xl grid place-content-center"
 >
-  @for(request of requests; track $index;){
+  @for(notification of notifications; track $index;){
   <div class="w-full flex items-center justify-between gap-5">
     <div
-      routerLink="/profile/{{ request.users.id_user }}"
+      routerLink="/profile/{{ notification.data.id_user }}"
       class="flex items-center gap-3"
     >
       <img src="/assets/incognito.png" class="h-14 rounded-full" />
-      <p>{{ request.users.username }}</p>
+      <p>{{ notification.data.username }}</p>
     </div>
-    @if(request.state === 'rejected'){
+    @if(notification.data.state === 'REJECTED'){
     <span class="text-red-300">Rejected</span>
-    }@else if (request.state === 'accepted'){
+    }@else if (notification.data.state === 'ACCEPTED'){
     <span class="text-green-400">Accepted</span>
     }@else{
 
     <button
-      (click)="handleAccept(request.id_follow)"
+      (click)="handleAccept(notification.data.id_follow!)"
       class="bg-green-400 rounded-md py-2 px-2 text-white"
     >
       Accept
     </button>
     <button
       class="bg-red-400 rounded-md py-2 px-2 text-white"
-      (click)="handleReject(request.id_follow)"
+      (click)="handleReject(notification.data.id_follow!)"
     >
       Reject
     </button>
