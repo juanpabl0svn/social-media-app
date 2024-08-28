@@ -21,6 +21,9 @@ export class NotificationsService {
     return this.prisma.notifications.findMany({
       where: {
         id_user
+      },
+      orderBy: {
+        created_at: 'asc'
       }
     })
   }
@@ -109,7 +112,7 @@ export class NotificationsService {
       },
       data: {
         data: updatedData
-      }
+      },
     });
 
 
