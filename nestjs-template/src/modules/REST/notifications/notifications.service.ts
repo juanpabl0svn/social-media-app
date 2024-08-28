@@ -33,7 +33,42 @@ export class NotificationsService {
     return `This action removes a #${id} notification`;
   }
 
-  rejectFollow(id_follow: number) {
+  async rejectFollow(id_follow: number, id_notification: number) {
+
+    // Paso 1: Obtener el valor actual del campo JSON
+    const notification = await this.prisma.notifications.findUnique({
+      where: {
+        id_notification // reemplaza con el ID real
+      },
+      select: {
+        data: true
+      }
+    });
+
+    // Paso 2: Asegurarse de que 'data' es un objeto o inicializarlo como tal
+    const existingData = notification.data || {}; // Si 'data' es null o undefined, inicializarlo como un objeto vacío
+
+    if (typeof existingData !== 'object' || Array.isArray(existingData)) {
+      throw new Error('El campo data no es un objeto JSON válido');
+    }
+
+    // Paso 3: Modificar el valor del campo JSON
+    const updatedData = {
+      ...existingData,
+      state: 'REJECTED'
+    };
+
+    // Paso 4: Guardar el JSON actualizado
+    await this.prisma.notifications.update({
+      where: {
+        id_notification
+      },
+      data: {
+        data: updatedData
+      }
+    });
+
+
     return this.prisma.followers.delete({
       where: {
         id_follow
@@ -42,7 +77,43 @@ export class NotificationsService {
   }
 
 
-  acceptFollow(id_follow: number) {
+  async acceptFollow(id_follow: number, id_notification: number) {
+
+    // Paso 1: Obtener el valor actual del campo JSON
+    const notification = await this.prisma.notifications.findUnique({
+      where: {
+        id_notification // reemplaza con el ID real
+      },
+      select: {
+        data: true
+      }
+    });
+
+    // Paso 2: Asegurarse de que 'data' es un objeto o inicializarlo como tal
+    const existingData = notification.data || {}; // Si 'data' es null o undefined, inicializarlo como un objeto vacío
+
+    if (typeof existingData !== 'object' || Array.isArray(existingData)) {
+      throw new Error('El campo data no es un objeto JSON válido');
+    }
+
+    // Paso 3: Modificar el valor del campo JSON
+    const updatedData = {
+      ...existingData,
+      state: 'ACCEPTED'
+    };
+
+    // Paso 4: Guardar el JSON actualizado
+    await this.prisma.notifications.update({
+      where: {
+        id_notification
+      },
+      data: {
+        data: updatedData
+      }
+    });
+
+
+
     return this.prisma.followers.update({
       where: {
         id_follow

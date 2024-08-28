@@ -14,19 +14,19 @@ export class NotificationsController {
   }
 
   @Post('/accept_follow')
-  acceptFollow(@Body() body: { id_follow: number }) {
+  acceptFollow(@Body() body: { id_follow: number,id_notification: number }) {
     if (!body.id_follow) {
       throw new HttpException('id_follow is required', 400);
     }
-    return this.notificationsService.acceptFollow(body.id_follow);
+    return this.notificationsService.acceptFollow(+body.id_follow, +body.id_notification);
   }
 
   @Post('/reject_follow')
-  rejectFollow(@Body() body: { id_follow: number }) {
+  rejectFollow(@Body() body: { id_follow: number, id_notification: number }) {
     if (!body.id_follow) {
       throw new HttpException('id_follow is required', 400);
     }
-    return this.notificationsService.rejectFollow(body.id_follow);
+    return this.notificationsService.rejectFollow(+body.id_follow, +body.id_notification);
   }
 
   @Patch(':id')

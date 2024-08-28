@@ -18,7 +18,7 @@ export const POST = async (endpoint: string, body: any) => {
   } catch (e) {
     const error = e as IError;
     return {
-      error: error.response.data.message[0]
+      error: error.response?.data.message[0] ?? 'Error en nuestros servicios, espere un momento y vuelva a intentarlo'
     }
 
   }
