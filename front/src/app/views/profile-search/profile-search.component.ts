@@ -46,7 +46,7 @@ export class ProfileSearchComponent {
         id_user_visitor: this.userService.user.id_user,
       });
 
-      if (!userData) return;
+      if (!userData) return this.router.navigate(['/']) ;
 
 
       this.posts = userData.posts.reverse();

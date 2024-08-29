@@ -47,6 +47,10 @@ export class UserService {
 
   async register(createUserDto: CreateUserDto) {
     createUserDto.password = await bcrypt.hash(createUserDto.password, 10);
+    createUserDto.username = createUserDto.username.toLowerCase();
+    createUserDto.email = createUserDto.email.toLowerCase();
+    createUserDto.last_name = createUserDto.last_name.toLowerCase();
+    createUserDto.first_name = createUserDto.first_name.toLowerCase();
     const user = await this.prisma.users.create({
       data: createUserDto
     });
@@ -71,6 +75,7 @@ export class UserService {
   }
 
   async login(email: string, password: string) {
+    email = email.toLowerCase();
     try {
       const user = await this.prisma.users.findFirst({
         where: {

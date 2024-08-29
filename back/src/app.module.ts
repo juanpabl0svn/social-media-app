@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
-import { ChatModule } from './modules/socket/chat/chat.module';
 import { UserModule } from './modules/rest/user/user.module';
 import { PostModule } from './modules/rest/post/post.module';
 import { NotificationsModule } from './modules/rest/notifications/notifications.module';
@@ -14,7 +13,7 @@ import { LikesModule } from './modules/rest/likes/likes.module';
     isGlobal: true,
     envFilePath: '.env'
   }),
-    ChatModule, UserModule, PostModule, NotificationsModule, CommentsModule, LikesModule],
+    UserModule, PostModule, NotificationsModule, CommentsModule, LikesModule],
   controllers: [AppController],
   providers: [AppService],
 })
