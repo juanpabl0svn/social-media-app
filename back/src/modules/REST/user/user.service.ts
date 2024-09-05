@@ -176,7 +176,7 @@ export class UserService {
           id_user
         },
         orderBy: {
-          created_at: 'desc', // Ordenar por la fecha de creación
+          created_at: 'asc', // Ordenar por la fecha de creación
         },
       });
 
@@ -228,7 +228,7 @@ export class UserService {
           id_user
         },
         orderBy: {
-          created_at: 'desc', // Ordenar por la fecha de creación
+          created_at: 'asc', // Ordenar por la fecha de creación
         },
       });
 
