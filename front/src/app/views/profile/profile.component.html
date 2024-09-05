@@ -77,14 +77,14 @@
     </div>
   </section>
   <section
-    class="w-3/4 min-h-[400px] bg-[rgba(181,181,163,0.75)] relative flex flex-wrap h-full"
+    class="w-3/4 min-h-[400px] bg-[rgba(181,181,163,0.75)] relative grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] h-full"
   >
     @for(post of this.posts; track post.id_post;) {
 
     <img
       [src]="post.image_url"
       alt=""
-      class="h-[12.45rem] aspect-square"
+      class="w-full  object-cover aspect-square cursor-pointer"
       (click)="showPost = post"
     />
 
