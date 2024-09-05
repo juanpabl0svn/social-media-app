@@ -31,7 +31,7 @@ export class UserService {
     }
   }
 
-  findOneByUsername(username: string) {
+  findByUsername(username: string) {
 
     if (username.trim().length == 0) return [];
 

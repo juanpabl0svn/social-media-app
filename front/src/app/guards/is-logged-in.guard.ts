@@ -12,7 +12,7 @@ export const isLoggedInGuard: CanActivateFn = async (route, state) => {
 
   const token = cookieService.get('token');
 
-  const router = inject(Router);
+  const router = inject(Router);  
 
   if (!token) {
     router.navigate(['/login']);
