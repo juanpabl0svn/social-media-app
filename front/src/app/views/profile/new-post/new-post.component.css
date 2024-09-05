@@ -36,6 +36,8 @@
   align-items: center;
   justify-content: center;
   gap: 5px;
+  height: 200px;
+  aspect-ratio: 1;
 }
 
 .browse-button {
