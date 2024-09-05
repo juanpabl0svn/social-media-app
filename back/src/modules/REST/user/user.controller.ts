@@ -51,6 +51,7 @@ export class UserController {
 
 
   @Post('/follow')
+  
   follow(@Body() body: { id_user: number, id_user_follower: number }) {
     return this.userService.follow(+body.id_user, +body.id_user_follower);
   }

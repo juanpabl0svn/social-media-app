@@ -56,16 +56,16 @@ export class RegisterComponent {
     }
 
 
+    if (password.length < 8) {
+      this.toast.error('Contraseña debe tener al menos 8 caracteres')
+      return;
+    }
 
     if (password !== password2) {
       this.toast.error('Contraseñas no son iguales')
       return;
     }
 
-    if (password.length < 8) {
-      this.toast.error('Contraseña debe tener al menos 8 caracteres')
-      return;
-    }
     
 
     const newUser = await POST('/user/register', { first_name, last_name, email, password, birth_date, username });

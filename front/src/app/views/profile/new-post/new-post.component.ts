@@ -13,6 +13,8 @@ import { IPOST } from '../../../models/models';
 export class NewPostComponent {
   file: File | null = null;
 
+  loading = false;
+
   @Output() addNewPost: EventEmitter<any> = new EventEmitter();
   @Output() close: EventEmitter<any> = new EventEmitter();
 
@@ -38,6 +40,7 @@ export class NewPostComponent {
 
   async handleSubmitPost(e: Event) {
     e.preventDefault();
+    this.loading = true;
 
     const { description } = e.target as HTMLFormElement;
 
