@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import UserService from '../../../services/user/user.service';
 import { FormsModule } from '@angular/forms';
-import { POST } from '../../../utils/constants';
+import { PATCH, POST } from '../../../utils/constants';
 import { ToastrService } from 'ngx-toastr';
 import { EyeCloseComponent } from '../../../global/svg/eye-close/eye-close.component';
 import { EyeOpenComponent } from '../../../global/svg/eye-open/eye-open.component';
@@ -48,7 +48,7 @@ export class EditProfileComponent {
 
 
     if (password) {
-      if (password.length < 6) {
+      if (password.length < 8) {
         return this.toast.error('Password must be at least 8 characters')
       }
 
@@ -56,7 +56,6 @@ export class EditProfileComponent {
       password = this.userService.user.password
     }
 
-    const id_user = this.userService.user.id_user
 
     const regex = /^[a-zA-Z\s'-]+$/
 
@@ -68,8 +67,7 @@ export class EditProfileComponent {
     }
 
 
-    const isEdited = await POST('/user/update', {
-      id_user,
+    const isEdited = await PATCH(`/user/${this.userService.user.id_user}`, {
       email,
       password,
       first_name,
