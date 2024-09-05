@@ -137,7 +137,7 @@ describe('LandingComponent test', () => {
         fixture.detectChanges();
 
         expect(likes_count.nativeElement.textContent).toContain('0'); // Verifica que el contador de likes se ha incrementado
-        // expect(likeButton.nativeElement.classList).toContain('fill-white'); // Verifica que el contador de likes se ha incrementado
+        expect(likeButton.nativeElement.classList).toContain('fill-white'); // Verifica que el contador de likes se ha incrementado
 
 
     });
