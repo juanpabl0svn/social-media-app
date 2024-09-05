@@ -11,7 +11,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './comments.component.css',
 })
 export class CommentsComponent {
-  timer: NodeJS.Timeout = setTimeout(() => { }, 200);
+  timer: any= setTimeout(() => { }, 200);
 
   constructor(public userService: UserService, private toast: ToastrService) { }
 
