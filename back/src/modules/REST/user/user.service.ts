@@ -334,7 +334,6 @@ export class UserService {
         }
       })
 
-      if (follow.state !== 'PENDING') return 'unfollow'
 
 
       const hasNotification = await this.prisma.notifications.findFirst({
