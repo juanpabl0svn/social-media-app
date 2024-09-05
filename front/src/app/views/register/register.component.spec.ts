@@ -4,7 +4,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing'; // Simul
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 
-describe('RegisterComponent', () => {
+describe('RegisterComponent test', () => {
     let component: RegisterComponent;
     let fixture: ComponentFixture<RegisterComponent>;
     let toast: ToastrService;
@@ -58,7 +58,7 @@ describe('RegisterComponent', () => {
     });
 
     it('should show an error toast if first_name or last_name have special characters', async () => {
-        // Simulamos un formulario con caracteres especiales
+
         const form = document.createElement('form');
         form.innerHTML = `
       <input name="first_name" value="John$">
@@ -79,7 +79,7 @@ describe('RegisterComponent', () => {
 
 
     it('should show an error toast if password is less than 8 characters', async () => {
-        // Simulamos un formulario con contraseña menor a 8 caracteres
+
         const form = document.createElement('form');
         form.innerHTML = `
         <input name="first_name" value="John">
@@ -99,7 +99,7 @@ describe('RegisterComponent', () => {
     })
 
     it("shouldn't register with wrong email", async () => {
-        // Simulamos un formulario con contraseña menor a 8 caracteres
+
         const form = document.createElement('form');
         form.innerHTML = `
         <input name="first_name" value="juan pablo">
