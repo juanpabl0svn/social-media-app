@@ -43,7 +43,7 @@
       <label for="date">Fecha nacimiento</label>
     </section>
     <section class="[view-transition-name:password]">
-      <input [type]="passwordType" name="password" id="password" required />
+      <input [type]="passwordType" name="password" id="password" (input)="handleSpaces($event)" required />
       <label for="password">Contraseña</label>
       <button
         type="button"
@@ -60,7 +60,7 @@
       </button>
     </section>
     <section>
-      <input [type]="passwordType2" name="password2" id="password2" required />
+      <input [type]="passwordType2" name="password2" id="password2" (input)="handleSpaces($event)" required />
       <label for="password2">Repetir contraseña</label>
       <button
         type="button"

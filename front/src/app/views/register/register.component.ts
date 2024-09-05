@@ -37,13 +37,14 @@ export class RegisterComponent {
 
     e.preventDefault();
 
-    const { first_name, last_name, email, password, password2, birth_date, username } = Object.fromEntries(new FormData(e.target as HTMLFormElement) as any)
+    let { first_name, last_name, email, password, password2, birth_date, username } = Object.fromEntries(new FormData(e.target as HTMLFormElement) as any)
 
 
     if (!first_name || !last_name || !email || !password || !password2 || !birth_date || !username) {
 
       return this.toast.error('Por favor llene todos los campos')
     }
+    
 
     const regex = /^[a-zA-Z\s'-]+$/
 
@@ -58,6 +59,11 @@ export class RegisterComponent {
 
     if (password !== password2) {
       this.toast.error('Contraseñas no son iguales')
+      return;
+    }
+
+    if (password.length < 8) {
+      this.toast.error('Contraseña debe tener al menos 8 caracteres')
       return;
     }
     
