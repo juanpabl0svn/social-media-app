@@ -33,12 +33,13 @@
           class="text-2xl break-words max-w-44 [view-transition-name:username-{{
             this.username
           }}] "
-        >        
+        >
           {{ this.username }}
         </h1>
         @if(!this.state){
 
         <button
+          id="follow_state"
           (click)="follow()"
           class="text-sm bg-blue-600 text-white rounded-md p-1 px-4 py-2 w-40 font-bold"
         >
@@ -47,6 +48,7 @@
         }@else if (this.state === 'PENDING'){
 
         <button
+          id="follow_state"
           class="text-sm bg-gray-300 text-center text-zinc-900 rounded-md p-1 px-4 py-2 w-40 font-bold"
           (click)="unfollow()"
         >
@@ -54,7 +56,11 @@
         </button>
 
         }@else {
-        <button class="text-sm bg-green-400 text-white rounded-md p-1  px-4 py-2 w-40 font-bold" (click)="unfollow()">
+        <button
+          id="follow_state"
+          class="text-sm bg-green-400 text-white rounded-md p-1 px-4 py-2 w-40 font-bold"
+          (click)="unfollow()"
+        >
           Siguiendo
         </button>
         }
@@ -83,7 +89,7 @@
     <img
       [src]="post.image_url"
       alt=""
-      class="w-full  object-cover aspect-square cursor-pointer"
+      class="w-full object-cover aspect-square cursor-pointer"
       (click)="showPost = post"
     />
 

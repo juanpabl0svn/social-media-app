@@ -75,6 +75,11 @@ export class ProfileSearchComponent {
     this.state = 'PENDING';
   }
 
+  followTest() {
+    this.followers += 1;
+    this.state = 'PENDING';
+  }
+
 
   async unfollow() {
     const isFollowing = await POST('/user/unfollow', {
@@ -88,6 +93,12 @@ export class ProfileSearchComponent {
     // y si es asi, dejar de seguir la persona
 
     this.state = '';
+    this.followers -= 1;
 
+  }
+
+  unfollowTest() {
+    this.followers -= 1;
+    this.state = '';
   }
 }

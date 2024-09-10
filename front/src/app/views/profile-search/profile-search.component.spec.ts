@@ -4,6 +4,8 @@ import { ActivatedRoute } from "@angular/router";
 import { ToastrModule, ToastrService } from "ngx-toastr";
 import { ProfileSearchComponent } from "./profile-search.component";
 import UserService from "../../services/user/user.service";
+import { By } from "@angular/platform-browser";
+import { of } from "rxjs";
 
 
 
@@ -20,7 +22,7 @@ describe('ProfileSearchComponent test', () => {
                 {
                     provide: ActivatedRoute,
                     useValue: {
-                        snapshot: { paramMap: { get: (key: string) => 'test-param' } }
+                        params: of({ id_user: 1 })
                     }
                 },
                 {
@@ -57,7 +59,39 @@ describe('ProfileSearchComponent test', () => {
 
     it('should follow new person', async () => {
 
+        component.followers = 0;
+        component.following = 0;
+        component.state = '';
 
+        component.followTest();
+
+        fixture.detectChanges()
+
+        const follow_state = fixture.debugElement.query(By.css('button#follow_state'));
+
+        expect(follow_state.nativeElement.textContent.trim()).toBe('Pendiente');
+
+        expect(component.followers).toBe(1);
+
+    })
+
+
+    it('should unfollow a person', async () => {
+            
+            component.followers = 1;
+            component.following = 0;
+            component.state = 'FOLLOWING';
+            
+            component.unfollowTest();
+
+            fixture.detectChanges()
+
+    
+            const follow_state = fixture.debugElement.query(By.css('button#follow_state'));
+
+            expect(follow_state.nativeElement.textContent.trim()).toBe('Seguir');
+
+            expect(component.followers).toBe(0);
     })
 
 
