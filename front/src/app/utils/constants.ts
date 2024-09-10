@@ -17,8 +17,9 @@ export const POST = async (endpoint: string, body: any) => {
     return req.data;
   } catch (e) {
     const error = e as IError;
+    const message = typeof error.response?.data.message == 'object' ? error.response?.data.message : ['Error en nuestros servicios, espere un momento y vuelva a intentarlo'];
     return {
-      error: error.response?.data.message[0] ?? 'Error en nuestros servicios, espere un momento y vuelva a intentarlo'
+      error: message
     }
 
   }

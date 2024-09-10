@@ -18,6 +18,8 @@ import { IUSER } from '../../../models/models';
 export class EditProfileComponent {
   passwordType: string = 'password';
 
+  loading: boolean = false;
+
   @Output() closeModal: EventEmitter<any> = new EventEmitter();
 
   constructor(private userService: UserService, private toast: ToastrService) { }
@@ -35,6 +37,8 @@ export class EditProfileComponent {
 
     e.preventDefault()
 
+    this.loading = true;
+
     const form = e.target as HTMLFormElement;
 
     const formData = new FormData(form);
@@ -49,6 +53,7 @@ export class EditProfileComponent {
 
     if (password) {
       if (password.length < 8) {
+        this.loading = false;
         return this.toast.error('Password must be at least 8 characters')
       }
 
@@ -63,7 +68,13 @@ export class EditProfileComponent {
 
 
     if (hasSpecialCharacter(first_name) || hasSpecialCharacter(last_name) ) {
+      this.loading = false;
       return this.toast.error('Nombre y apellido no pueden tener caracteres especiales')
+    }
+
+    if (new Date(birth_date).getFullYear() > new Date().getFullYear() - 18) {
+      this.loading = false;
+      return this.toast.error('Debes ser mayor de edad')
     }
 
 
@@ -77,6 +88,7 @@ export class EditProfileComponent {
     })
 
     if (!isEdited) {
+      this.loading = false;
       return this.toast.error('Nombre de usuario ya en uso')
     }
 
@@ -85,6 +97,8 @@ export class EditProfileComponent {
     this.userService.user = { ...this.profileToEdit, ...isEdited }
 
     this.closeModal.emit()
+
+    this.loading = false;
 
     return
 

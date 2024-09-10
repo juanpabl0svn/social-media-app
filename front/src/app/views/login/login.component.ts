@@ -22,6 +22,8 @@ export class LoginComponent {
     password: new FormControl(''),
   });
 
+  loading: boolean = false;
+
   passwordType: string = 'password';
 
   constructor(
@@ -39,14 +41,19 @@ export class LoginComponent {
   async handleSubmit(e: Event) {
     e.preventDefault();
 
+    this.loading = true;
+
     const { email, password } = this.loginForm.value;
 
-    if (!email || !password)
+    if (!email || !password){
+      this.loading = false;
       return this.toast.error('Rellena todos los campos');
+    }
 
     const userData = await POST('/user/login', { email, password });
 
     if (userData?.error) {
+      this.loading = false;
       return this.toast.error('Usuario o contraseña incorrectos');
     }
 

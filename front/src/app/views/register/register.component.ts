@@ -26,6 +26,8 @@ export class RegisterComponent {
   passwordType: string = 'password';
   passwordType2: string = 'password';
 
+  loading: boolean = false;
+
   constructor(public userService: UserService, private router: Router, private toast: ToastrService) { }
 
 
@@ -66,7 +68,11 @@ export class RegisterComponent {
       return;
     }
 
-    
+    if (new Date(birth_date).getFullYear() > new Date().getFullYear() - 18) {
+      return this.toast.error('Debes ser mayor de edad para registrarte')
+    }
+
+
 
     const newUser = await POST('/user/register', { first_name, last_name, email, password, birth_date, username });
 

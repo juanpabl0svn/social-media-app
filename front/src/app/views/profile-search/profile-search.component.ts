@@ -29,6 +29,8 @@ export class ProfileSearchComponent {
 
   showPost: IPOST | null = null;
 
+  loading: boolean = false;
+
 
   constructor(
     public path: ActivatedRoute,
@@ -65,14 +67,20 @@ export class ProfileSearchComponent {
   }
 
   async follow() {
+    this.loading = true;
+    this.state = 'PENDING';
     const isFollowing = await POST('/user/follow', {
       id_user: this.id_user,
       id_user_follower: this.userService.user.id_user,
     });
 
-    if (!isFollowing) return;
 
-    this.state = 'PENDING';
+    //If error, set state to '' because nothing happened
+    if (!isFollowing) {
+      this.state = '';
+    }
+    this.loading = false;
+
   }
 
   followTest() {
@@ -82,18 +90,23 @@ export class ProfileSearchComponent {
 
 
   async unfollow() {
+    this.loading = true;
+    const lastValue = this.state;
+    this.state = '';
     const isFollowing = await POST('/user/unfollow', {
       id_user: this.id_user,
       id_user_follower: this.userService.user.id_user,
     });
+    
+    if (!isFollowing) {
+      this.state = lastValue;
+    }else{
+      if (this.followers < 0){
+        this.followers -= 1;
+      }
+    }
 
-    if (!isFollowing) return;
-
-    // Poner un modal de sweetalert para poner si enserio quiere dejar de seguir a la persona,
-    // y si es asi, dejar de seguir la persona
-
-    this.state = '';
-    this.followers -= 1;
+    this.loading = false;
 
   }
 

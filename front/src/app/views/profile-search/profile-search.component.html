@@ -40,6 +40,7 @@
 
         <button
           id="follow_state"
+          [disabled]="loading"
           (click)="follow()"
           class="text-sm bg-blue-600 text-white rounded-md p-1 px-4 py-2 w-40 font-bold"
         >
@@ -49,6 +50,7 @@
 
         <button
           id="follow_state"
+          [disabled]="loading"
           class="text-sm bg-gray-300 text-center text-zinc-900 rounded-md p-1 px-4 py-2 w-40 font-bold"
           (click)="unfollow()"
         >
@@ -58,6 +60,7 @@
         }@else {
         <button
           id="follow_state"
+          [disabled]="loading"
           class="text-sm bg-green-400 text-white rounded-md p-1 px-4 py-2 w-40 font-bold"
           (click)="unfollow()"
         >
