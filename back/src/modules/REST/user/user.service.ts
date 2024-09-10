@@ -278,12 +278,23 @@ export class UserService {
 
       if (!user) throw new Error('User not found');
 
+      const alreadyFollow = await this.prisma.followers.findFirst({
+        where : {
+          id_user_follow: id_user,
+          id_user_request: id_user_follower
+        }
+      })
+
+      if (alreadyFollow) throw new Error('Already follow');
+
+
       const follow = await this.prisma.followers.create({
         data: {
           id_user_follow: id_user,
           id_user_request: id_user_follower,
         }
       })
+
 
       await this.prisma.notifications.create({
         data: {
