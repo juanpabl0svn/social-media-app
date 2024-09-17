@@ -4,31 +4,32 @@
 .main-log-in {
   min-height: 100dvh;
   align-content: center;
+  background: linear-gradient(to right,var(--sixth-color), var(--seventh-color));
 
-  &>form {
+  & > form {
     margin: 0 auto;
     width: fit-content;
     border: 3px solid white;
-    border-radius: 15px;
+    border-radius: 18px;
     padding: 20px 50px;
     display: grid;
     place-content: center;
-    box-shadow: 0px 0px 10px 2.5px rgba(255, 255, 255, 0.6);
-    background: var(--secondary-color);
+    box-shadow: 7.5px 7.5px 10px 2.5px rgba(4, 4, 4, 0.6);
+    background: white;
 
     &>h1 {
       font-size: 2rem;
       margin-bottom: 20px;
-      font-family: 'Edu VIC WA NT Beginner', sans-serif;
+      font-family: sans-serif;
       text-align: center;
       font-weight: bold;
-      color: var(--fourth-color);
+      color: var(--eighth-color);
     }
 
     &>button {
       padding: 10px 20px;
       border: none;
-      border-radius: 5px;
+      border-radius: 20px;
       background-color: var(--primary-color);
       border: 1px solid var(--third-color);
       color: white;
@@ -46,19 +47,20 @@
       margin: 10px 0;
 
       &>input {
+        margin-bottom:0.1rem;
         width: 100%;
         padding: 10px;
-        border: 1px solid var(--primary-color);
-        border-radius: 5px;
+        outline: 2px solid #000000;
+        border-radius: 15px;
         font-size: 0.9rem;
         transition: all 200ms ease-in-out;
         padding-left: 20px;
-        outline: 1px solid var(--primary-color);
         padding-right: 45px;
 
         &:is(:focus, :valid)+label {
           top: -3px;
           background-color: var(--primary-color);
+          border-radius: 5px;
           color: white;
         }
       }
@@ -77,5 +79,8 @@
         transition: all 200ms ease-in-out;
       }
     }
+  }
+  a{
+    font-size:0.8rem
   }
 }

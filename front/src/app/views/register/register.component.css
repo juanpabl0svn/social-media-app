@@ -7,36 +7,43 @@
 .main-register {
   min-height: 100dvh;
   align-content: center;
+  background: linear-gradient(to right,var(--sixth-color), var(--seventh-color));
+
 
   & > form {
     margin: 0 auto;
     width: fit-content;
     border: 3px solid white;
-    border-radius: 15px;
+    border-radius: 18px;
     padding: 20px 50px;
     display: grid;
     place-content: center;
-    box-shadow: 0px 0px 10px 2.5px rgba(255, 255, 255, 0.6);
-    background: var(--secondary-color);
+    box-shadow: 7.5px 7.5px 10px 2.5px rgba(4, 4, 4, 0.6);
+    background: white;
+
 
     & > h1 {
+      text-align: center;
       font-size: 2rem;
-      margin-bottom: 20px;
-      color: var(--fourth-color);
+      font-family: sans-serif;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: var(--eighth-color);
     }
 
     & > button {
       padding: 10px 20px;
       border: none;
-      border-radius: 5px;
-      background-color: var(--fourth-color);
+      border-radius: 20px;
+      background-color: var(--primary-color);
+      border: 1px solid var(--third-color);
       color: white;
       font-size: 1.2rem;
       cursor: pointer;
       transition: all 200ms ease-in-out;
 
       &:hover {
-        background-color: var(--primary-color);
+        background-color: rgb(81, 111, 188);
       }
     }
 
@@ -47,15 +54,16 @@
       & > input {
         width: 100%;
         padding: 10px;
-        border: 1px solid var(--primary-color);
-        border-radius: 5px;
+        border: 2px solid #000000;
+        border-radius: 15px;
         font-size: 0.9rem;
         transition: all 200ms ease-in-out;
         padding-right: 45px;
 
         &:is(:focus, :valid) + label {
-          top: -3px;
+          top: -2px;
           background-color: var(--primary-color);
+          border-radius: 5px;
           color: white;
         }
       }
@@ -73,16 +81,16 @@
       }
     }
   }
+  a{
+    width:17rem;
+    font-size:0.8rem;
+  }
 }
 
 input[type="date"] + label {
   top: -3px !important;
+  border-radius:5px;
   background-color: var(--primary-color);
   color: white !important;
 }
 
-input[type="email"] + label {
-  top: -3px !important;
-  background-color: var(--primary-color);
-  color: white !important;
-}
