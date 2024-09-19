@@ -10,7 +10,9 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 // Crear un RouterStub para pruebas
 class RouterStub {
-    navigate(params: string[]) { }
+    navigate(params: string[]) { 
+        //Method inherit from Router
+    }
 }
 
 describe('LandingComponent test', () => {

@@ -85,11 +85,4 @@ export default class UserService {
     return {};
   }
 
-  updateUser(userData: {
-    id_user: any;
-    name: any;
-    username: any;
-    email: any;
-    birth_date: any;
-  }) { }
 }

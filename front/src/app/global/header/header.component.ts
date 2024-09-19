@@ -48,7 +48,6 @@ export class HeaderComponent {
     }, 100);
   }
 
-  handleFollow(id: number) { }
 
   logOut() {
     this.userService.user = null;
