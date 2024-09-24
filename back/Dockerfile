@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
 
 # Instala pnpm globalmente
-RUN npm install -g pnpm && pnpm install
+RUN npm install -g pnpm && pnpm install --ignore-scripts 
 
 # Copia el resto de los archivos de la aplicación
 COPY . .
