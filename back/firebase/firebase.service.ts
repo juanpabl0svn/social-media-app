@@ -7,11 +7,11 @@ import { getStorage, FirebaseStorage, ref, uploadBytes, getDownloadURL } from 'f
 @Injectable()
 export class FirebaseService {
 
-  private firebaseApp: FirebaseApp;
+  private readonly firebaseApp: FirebaseApp;
   public storage: FirebaseStorage;
 
 
-  constructor(private configService: ConfigService) {
+  constructor(private readonly configService: ConfigService) {
     this.firebaseApp = initializeApp({
       apiKey: this.configService.get<string>('FIREBASE_API_KEY'),
       authDomain: this.configService.get<string>('FIREBASE_AUTH_DOMAIN'),
