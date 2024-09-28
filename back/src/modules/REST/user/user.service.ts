@@ -87,7 +87,7 @@ export class UserService {
         throw new Error('User or password is invalid');
       }
 
-      const isSamePassword = bcrypt.compare(password, user.password);
+      const isSamePassword = await bcrypt.compare(password, user.password);
 
       if (!isSamePassword) {
         throw new Error('User or password is invalid');
