@@ -1,17 +1,20 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { PostController } from './post.controller';
-import { PostService } from './post.service';
+import { PostsController } from './post.controller';
+import { PostsService } from './post.service';
+import { PrismaService } from 'prisma/prisma.service';
 
 describe('PostController', () => {
-  let controller: PostController;
+  let controller: PostsController;
+  let prisma: PrismaService
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [PostController],
-      providers: [PostService],
+      controllers: [PostsController],
+      providers: [PostsService, PrismaService],
     }).compile();
 
-    controller = module.get<PostController>(PostController);
+    controller = module.get<PostsController>(PostsController);
+    prisma = module.get<PrismaService>(PrismaService);
   });
 
   it('should be defined', () => {

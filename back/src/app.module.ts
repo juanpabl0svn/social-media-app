@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { UserModule } from './modules/rest/user/user.module';
 import { PostModule } from './modules/rest/post/post.module';
@@ -14,7 +12,7 @@ import { LikesModule } from './modules/rest/likes/likes.module';
     envFilePath: '.env'
   }),
     UserModule, PostModule, NotificationsModule, CommentsModule, LikesModule],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule { }

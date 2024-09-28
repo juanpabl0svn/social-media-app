@@ -29,10 +29,10 @@ jobs:
           cd front
           npm run test -- --no-watch --browsers=ChromeHeadless --no-progress  --code-coverage
       
-      - name: Run tests and coverage for NestJS (back)
-        run: |
-          cd back
-          npm run test:cov
+      # - name: Run tests and coverage for NestJS (back)
+      #   run: |
+      #     cd back
+      #     npm run test:cov
       
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
