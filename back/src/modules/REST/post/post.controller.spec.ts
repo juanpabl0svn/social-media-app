@@ -2,6 +2,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { PostsController } from './post.controller';
 import { PostsService } from './post.service';
 import { PrismaService } from 'prisma/prisma.service';
+import { FirebaseService } from '_firebase/firebase.service';
+import { ConfigService } from '@nestjs/config';
 
 describe('PostController', () => {
   let controller: PostsController;
@@ -10,7 +12,7 @@ describe('PostController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [PostsController],
-      providers: [PostsService, PrismaService],
+      providers: [PostsService, PrismaService, FirebaseService, ConfigService],
     }).compile();
 
     controller = module.get<PostsController>(PostsController);

@@ -1,6 +1,6 @@
 import { Injectable, HttpException } from '@nestjs/common';
 import { PrismaService } from 'prisma/prisma.service';
-import { FirebaseService } from 'firebase/firebase.service';
+import { FirebaseService } from '_firebase/firebase.service';
 import * as crypto from 'crypto';
 
 @Injectable()

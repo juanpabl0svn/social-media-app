@@ -1,0 +1,17 @@
+{
+  "moduleFileExtensions": ["js", "json", "ts"],
+  "roots": ["<rootDir>/src", "<rootDir>/prisma", "<rootDir>/_firebase"],
+  "testRegex": ".*\\.spec\\.ts$",
+  "transform": {
+    "^.+\\.(t|j)s$": "ts-jest"
+  },
+  "collectCoverageFrom": [
+    "**/*.(t|j)s"
+  ],
+  "coverageDirectory": "./coverage",
+  "testEnvironment": "node",
+  "moduleNameMapper": {
+    "^prisma/(.*)$": "<rootDir>/prisma/$1",
+    "^_firebase/(.*)$": "<rootDir>/_firebase/$1"
+  }
+}

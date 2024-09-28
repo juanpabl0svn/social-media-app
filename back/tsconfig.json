@@ -11,7 +11,10 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "paths": {
-      "prisma/*": ["prisma/*"]
+      "prisma/*": ["./prisma/*"],
+      "src/*": ["./src/*"],
+      "test/*": ["./test/*"],
+      "_firebase/*": ["_firebase/*"]
     },
     "incremental": true,
     "skipLibCheck": true,
@@ -19,6 +22,6 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
   }
 }

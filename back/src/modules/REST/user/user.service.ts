@@ -5,7 +5,6 @@ import { PrismaService } from 'prisma/prisma.service';
 
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { addAbortListener } from 'events';
 
 
 @Injectable()
