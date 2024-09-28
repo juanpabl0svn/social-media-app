@@ -16,7 +16,7 @@ describe('RegisterComponent test', () => {
                 {
                     provide: ActivatedRoute,
                     useValue: {
-                        snapshot: { paramMap: { get: (key: string) => 'test-param' } }
+                        snapshot: { paramMap: { get: (key: string) => key } }
                     }
                 },
                 ToastrService
@@ -38,19 +38,21 @@ describe('RegisterComponent test', () => {
         // Simulamos un formulario vacío
         const form = document.createElement('form');
         form.innerHTML = `
-      <input name="first_name" value="">
-      <input name="last_name" value="">
-      <input name="email" value="">
-      <input name="password" value="">
-      <input name="password2" value="">
-      <input name="birth_date" value="">
-      <input name="username" value="">
-    `;
+                <input name="first_name" value="">
+                <input name="last_name" value="">
+                <input name="email" value="">
+                <input name="password" value="">
+                <input name="password2" value="">
+                <input name="birth_date" value="">
+                <input name="username" value="">
+                `;
 
         const event = {
             preventDefault: jasmine.createSpy('preventDefault'),
             target: form
         } as unknown as Event;
+
+
 
         await component.handleSubmit(event);
 
@@ -61,13 +63,13 @@ describe('RegisterComponent test', () => {
 
         const form = document.createElement('form');
         form.innerHTML = `
-      <input name="first_name" value="John$">
-      <input name="last_name" value="Doe">
-      <input name="email" value="1">
-        <input name="password" value="1">
-        <input name="password2" value="1">
-        <input name="birth_date" value="1">
-        <input name="username" value="1">
+                <input name="first_name" value="John$">
+                <input name="last_name" value="Doe">
+                <input name="email" value="1@gmail.com">
+                <input name="password" value="1">
+                <input name="password2" value="1">
+                <input name="birth_date" value="1">
+                <input name="username" value="1">
         `;
         const event = {
             preventDefault: jasmine.createSpy('preventDefault'),
@@ -84,7 +86,7 @@ describe('RegisterComponent test', () => {
         form.innerHTML = `
         <input name="first_name" value="John">
         <input name="last_name" value="Doe">
-        <input name="email" value="1">
+        <input name="email" value="1@gmail.com">
         <input name="password" value="1234567">
         <input name="password2" value="1234567">
         <input name="birth_date" value="1">
@@ -115,11 +117,7 @@ describe('RegisterComponent test', () => {
             target: form
         } as unknown as Event;
         await component.handleSubmit(event);
-        expect(toast.error).toHaveBeenCalledWith('Invalid email');
+        expect(toast.error).toHaveBeenCalledWith('Email no es válido');
 
     })
-
-
-
-
 });

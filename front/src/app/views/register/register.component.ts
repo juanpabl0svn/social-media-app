@@ -46,7 +46,12 @@ export class RegisterComponent {
 
       return this.toast.error('Por favor llene todos los campos')
     }
-    
+
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+
+    if (!emailRegex.test(email)) {
+      return this.toast.error('Email no es válido')
+    }
 
     const regex = /^[a-zA-Z\s'-]+$/
 

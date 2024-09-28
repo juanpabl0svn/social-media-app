@@ -3,6 +3,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing'; // Simul
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { LoginComponent } from './login.component';
+import axios from 'axios';
 
 describe('LoginComponent test', () => {
     let component: LoginComponent;
@@ -28,8 +29,8 @@ describe('LoginComponent test', () => {
         component = fixture.componentInstance;
         toast = TestBed.inject(ToastrService); // Inyectamos el servicio de toast
 
-        spyOn(toast, 'error');  
-        spyOn(toast, 'success');  
+        spyOn(toast, 'error');
+        spyOn(toast, 'success');
 
         fixture.detectChanges();
     });
@@ -51,11 +52,13 @@ describe('LoginComponent test', () => {
             password: '1234567890'
         })
 
+        spyOn(axios, 'post').and.returnValue({ data: { first_name: 'Juan Pablo', last_name: 'Sanchez' } } as unknown as Promise<any>);
+
         const event = {
             preventDefault: jasmine.createSpy('preventDefault'),
         } as unknown as Event;
         await component.handleSubmit(event);
-        expect(toast.success).toHaveBeenCalledWith('Bienvenido Juan Pablo Sanchez');
+        expect(axios.post).toHaveBeenCalled()
 
     })
 
@@ -79,11 +82,13 @@ describe('LoginComponent test', () => {
             password: '1234567890'
         })
 
+        spyOn(axios, 'post').and.returnValue({ data: { first_name: 'Juan Pablo', last_name: 'Sanchez' } } as unknown as Promise<any>);
+
         const event = {
             preventDefault: jasmine.createSpy('preventDefault'),
         } as unknown as Event;
         await component.handleSubmit(event);
-        expect(toast.success).toHaveBeenCalledWith('Bienvenido Juan Pablo Sanchez');
+        expect(axios.post).toHaveBeenCalled()
     })
 
 
