@@ -27,7 +27,7 @@ jobs:
       - name: Run tests and coverage for Angular (front)
         run: |
           cd front
-          npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI --code-coverage
+          npm run test -- --no-watch --no-progress  --code-coverage
       
       - name: Run tests and coverage for NestJS (back)
         run: |
