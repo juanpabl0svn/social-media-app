@@ -1,4 +1,4 @@
-name: Build
+name: Build and Analyze
 on:
   push:
     branches:
@@ -7,12 +7,34 @@ on:
     types: [opened, synchronize, reopened]
 jobs:
   sonarcloud:
-    name: SonarCloud
+    name: Build and analyze
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'  # Ajusta esto a la versión de Node.js que uses
+      
+      - name: Install dependencies
+        run: |
+          npm ci
+          cd front && npm ci
+          cd ../back && npm ci
+      
+      - name: Run tests and coverage for Angular (front)
+        run: |
+          cd front
+          npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI --code-coverage
+      
+      - name: Run tests and coverage for NestJS (back)
+        run: |
+          cd back
+          npm run test:cov
+      
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
