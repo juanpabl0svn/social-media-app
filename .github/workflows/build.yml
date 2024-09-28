@@ -21,7 +21,6 @@ jobs:
       
       - name: Install dependencies
         run: |
-          npm i
           cd front && npm i
           cd ../back && npm i
       
