@@ -189,7 +189,7 @@ describe('NotificationsController', () => {
     expect(result.length).toEqual(notifications.length);
 
 
-  })
+  },10000)
 
 
 });

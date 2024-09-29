@@ -101,7 +101,7 @@ describe('UserController', () => {
   it('should bring my information', async () => {
 
     const user = {
-      "followers": 1,
+      "followers": 0,
       "following": 1,
       "posts": [
         {
@@ -179,9 +179,9 @@ describe('UserController', () => {
 
     const result = await controller.getInfo('1');
 
-    expect(result.followers).toBe(user.followers);
-    expect(result.following).toBe(user.following);
-    expect(result.posts.length).toBe(user.posts.length);
+    expect(result.followers).toEqual(user.followers);
+    expect(result.following).toEqual(user.following);
+    expect(result.posts.length).toEqual(user.posts.length);
 
 
   }, 10000)

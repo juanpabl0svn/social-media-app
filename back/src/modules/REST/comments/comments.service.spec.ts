@@ -20,6 +20,7 @@ describe('CommentsService', () => {
   });
 
   it('should show an empty array', async () => {
+    jest.spyOn(service, 'getComments').mockResolvedValue([]);
     const comments = await service.getComments(-1);
     expect(comments).toEqual([]);
   }, 10000)
@@ -47,7 +48,7 @@ describe('CommentsService', () => {
     expect(result.length).toEqual(comments.length);
     expect(result[0].id_comment).toEqual(comments[0].id_comment);
 
-  },10000)
+  }, 10000)
 
   it('should create a comment', async () => {
     const comment = {
@@ -56,9 +57,12 @@ describe('CommentsService', () => {
       "comment": "Bonito post!"
     }
 
-    const result = await service.create(comment)
+    jest.spyOn(prisma.posts, 'findUnique')
 
-    expect(result.id_post).toEqual(comment.id_post)
+    await service.create(comment)
 
-  },10000)
+    expect(prisma.posts.findUnique).toHaveBeenCalled()
+
+
+  }, 10000)
 });

@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { NotificationsService } from './notifications.service';
 import { PrismaService } from 'prisma/prisma.service';
+import { HttpException } from '@nestjs/common';
 
 describe('NotificationsService', () => {
   let service: NotificationsService;
@@ -20,9 +21,10 @@ describe('NotificationsService', () => {
   });
 
   it('should show no notifications', async () => {
+    jest.spyOn(prisma.notifications, 'findMany').mockReturnValue(Promise.resolve([]) as any)
     const result = await service.getNotifications(0);
     expect(result).toEqual([]);
-  })
+  },10000)
 
   it('should show several notifications', async () => {
 
@@ -187,5 +189,28 @@ describe('NotificationsService', () => {
     expect(result.length).toEqual(notifications.length);
 
 
-  })
+  },10000)
+
+  it('should not reject a follow', async () => {
+
+    const id_follow = 9;
+    const id_notification = 6;
+
+    const result = service.rejectFollow(id_follow, id_notification);
+
+    await expect(await result).rejects.toThrow(new HttpException('Notification not found', 404));
+
+  },10000)
+
+  it('should not accept a follow', async () => {
+
+    const id_follow = 9;
+    const id_notification = 6;
+
+    const result = service.rejectFollow(id_follow, id_notification);
+
+    await expect(await result).rejects.toThrow(new HttpException('Notification not found', 404));
+  },10000)
+
+
 });

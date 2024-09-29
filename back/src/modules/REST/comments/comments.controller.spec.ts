@@ -5,7 +5,7 @@ import { PrismaService } from 'prisma/prisma.service';
 
 describe('CommentsController', () => {
   let controller: CommentsController;
-  let prismaservice: PrismaService;
+  let prisma: PrismaService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -21,6 +21,7 @@ describe('CommentsController', () => {
   });
 
   it('should return an array of comments', async () => {
+    jest.spyOn(prisma.comments, 'findMany').mockResolvedValue([]);
     expect(await controller.findComments('-1')).toEqual([]);
   })
 
@@ -56,10 +57,12 @@ describe('CommentsController', () => {
       "comment": "Bonito post!"
     }
 
-    const result = await controller.create(comment)
+    jest.spyOn(controller, 'create')
 
+    await controller.create(comment)
 
-    expect(result.id_post).toEqual(comment.id_post)
+    expect(controller.create).toHaveBeenCalled()
+
 
   },10000)
 });

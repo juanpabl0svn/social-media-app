@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { UpdateNotificationDto } from './dto/update-notification.dto';
 import { PrismaService } from 'prisma/prisma.service';
 
@@ -22,7 +22,7 @@ export class NotificationsService {
   async rejectFollow(id_follow: number, id_notification: number) {
 
     // Paso 1: Obtener el valor actual del campo JSON
-    const notification = await this.prisma.notifications.findUnique({
+    const notification = await this.prisma.notifications.findFirst({
       where: {
         id_notification // reemplaza con el ID real
       },
@@ -32,12 +32,12 @@ export class NotificationsService {
     });
 
     // Paso 2: Asegurarse de que 'data' es un objeto o inicializarlo como tal
-    const existingData = notification?.data || {}; // Si 'data' es null o undefined, inicializarlo como un objeto vacío
 
-    if ( !existingData || typeof existingData !== 'object' || Array.isArray(existingData)) {
-      throw new Error('El campo data no es un objeto JSON válido');
+    if (!notification) {
+      throw new HttpException('Notification not found', 404);
     }
 
+    const existingData = notification.data as any; // Si 'data' es null o undefined, inicializarlo como un objeto vacío
     // Paso 3: Modificar el valor del campo JSON
     const updatedData = {
       ...existingData,
@@ -76,12 +76,12 @@ export class NotificationsService {
     });
 
     // Paso 2: Asegurarse de que 'data' es un objeto o inicializarlo como tal
-    const existingData = notification.data || {}; // Si 'data' es null o undefined, inicializarlo como un objeto vacío
 
-    if (typeof existingData !== 'object' || Array.isArray(existingData)) {
-      throw new Error('El campo data no es un objeto JSON válido');
+    if (!notification) {
+      throw new HttpException('Notification not found', 404);
     }
 
+    const existingData = notification.data as any; // Si 'data' es null o undefined, inicializarlo como un objeto vacío
     // Paso 3: Modificar el valor del campo JSON
     const updatedData = {
       ...existingData,
