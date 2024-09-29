@@ -50,6 +50,11 @@ export class EditProfileComponent {
     const username = formData.get('username') as string;
     const birth_date = formData.get('birth_date') as string;
 
+    if (!email || !first_name || !last_name || !username || !birth_date) {
+      this.loading = false;
+      return this.toast.error('No deje campos vacíos a proposito (excepto la contraseña si no desea cambiarla)')
+    }
+
 
     if (password) {
       if (password.length < 8) {
@@ -59,6 +64,13 @@ export class EditProfileComponent {
 
     } else {
       password = this.userService.user.password
+    }
+
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+
+    if (!emailRegex.test(email)) {
+      this.loading = false;
+      return this.toast.error('Email no es válido')
     }
 
 
