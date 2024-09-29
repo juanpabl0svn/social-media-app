@@ -34,4 +34,16 @@ export class CreateUserDto {
     @IsDate({ message: 'Invalid date' })
     @ApiProperty()
     birth_date: Date;
+
+
+    factory(data: any) {
+        const user = new CreateUserDto();
+        user.username = data.username;
+        user.password = data.password;
+        user.email = data.email;
+        user.first_name = data.first_name;
+        user.last_name = data.last_name;
+        user.birth_date = data.birth_date;
+        return user;
+    }
 }

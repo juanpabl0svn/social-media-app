@@ -3,7 +3,7 @@ import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import LoginDto from './dto/login.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiParam, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('User')
 @Controller('user')
@@ -11,11 +11,29 @@ export class UserController {
 
   constructor(private readonly userService: UserService) { }
 
+  @ApiParam({
+    name: 'id_user',
+    required: true,
+    type: 'number'
+  })
   @Get('/me/:id_user')
   getInfo(@Param('id_user') id_user: string) {
     return this.userService.me(+id_user);
   }
 
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        id_user: {
+          type: 'number'
+        },
+        id_user_visitor: {
+          type: 'number'
+        }
+      }
+    }
+  })
   @Post('/user_data')
   getUserFollow(@Body() body: { id_user: number, id_user_visitor: number }) {
     return this.userService.infoUser(+body.id_user, +body.id_user_visitor);
@@ -53,7 +71,7 @@ export class UserController {
 
 
   @Post('/follow')
-  
+
   follow(@Body() body: { id_user: number, id_user_follower: number }) {
     return this.userService.follow(+body.id_user, +body.id_user_follower);
   }
@@ -66,5 +84,5 @@ export class UserController {
 
 
 
-  
+
 }

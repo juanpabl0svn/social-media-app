@@ -169,7 +169,6 @@ export class UserService {
               id_user: id_user, // Filtramos los likes por el id_user
             },
           },
-          users: true, // Incluimos la información del usuario que creó el post
         },
         where: {
           id_user
