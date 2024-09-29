@@ -46,6 +46,7 @@ jobs:
       - name: Run tests and coverage for NestJS (back)
         run: |
           cd back
+          npx prisma generate
           npm run test:cov
 
       - name: SonarCloud Scan
