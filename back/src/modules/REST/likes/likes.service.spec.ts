@@ -35,21 +35,21 @@ describe('LikesService', () => {
 
   })
 
-  // it('should dislike the post', async () => {
+  it('should dislike the post', async () => {
 
-  //   const likeData = {
-  //     id_user: 1,
-  //     id_post: 1,
-  //     like: false
-  //   };
-
-
-  //   jest.spyOn(prisma.likes, 'delete')
-
-  //   await service.create(likeData);
-
-  //   expect(prisma.likes.delete).toHaveBeenCalled();
+    const likeData = {
+      id_user: 1,
+      id_post: 1,
+      like: false
+    };
 
 
-  // })
+    jest.spyOn(prisma.likes, 'delete')
+
+    await service.create(likeData);
+
+    expect(prisma.likes.delete).toHaveBeenCalled();
+
+
+  },10000)
 });
