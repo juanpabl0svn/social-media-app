@@ -23,4 +23,12 @@ describe('PostController', () => {
     expect(controller).toBeDefined();
   });
 
+  it('should have exists posts', async () => {
+    
+  
+      const result = await controller.getPosts('1');
+  
+      expect(result.length).toBeGreaterThan(0)
+  })
+
 });

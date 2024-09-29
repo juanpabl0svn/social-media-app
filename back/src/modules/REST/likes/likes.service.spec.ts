@@ -51,5 +51,5 @@ describe('LikesService', () => {
     expect(prisma.likes.delete).toHaveBeenCalled();
 
 
-  },10000)
+  }, 10000)
 });

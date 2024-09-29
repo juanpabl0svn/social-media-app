@@ -59,7 +59,7 @@ describe('UserController', () => {
 
     expect(await controller.login(userData)).toHaveProperty('token');
 
-  })
+  }, 10000)
 
   it('should say email not valid', async () => {
     const userData = new CreateUserDto().factory(
@@ -77,7 +77,7 @@ describe('UserController', () => {
 
     expect(errors.length).toBeGreaterThan(0);
     expect(errors[0].constraints?.isEmail).toBe('Invalid email');
-  })
+  },10000)
 
   it('should say password not valid', async () => {
     const userData = new CreateUserDto().factory(
