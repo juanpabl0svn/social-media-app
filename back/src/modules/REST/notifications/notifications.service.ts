@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { CreateNotificationDto } from './dto/create-notification.dto';
 import { UpdateNotificationDto } from './dto/update-notification.dto';
 import { PrismaService } from 'prisma/prisma.service';
 
@@ -8,14 +7,6 @@ export class NotificationsService {
 
   constructor(private prisma: PrismaService) { }
 
-
-  create(createNotificationDto: CreateNotificationDto) {
-    return 'This action adds a new notification';
-  }
-
-  findAll() {
-    return `This action returns all notifications`;
-  }
 
   getNotifications(id_user: number) {
     return this.prisma.notifications.findMany({
@@ -26,14 +17,6 @@ export class NotificationsService {
         created_at: 'desc'
       }
     })
-  }
-
-  update(id: number, updateNotificationDto: UpdateNotificationDto) {
-    return `This action updates a #${id} notification`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} notification`;
   }
 
   async rejectFollow(id_follow: number, id_notification: number) {
@@ -49,9 +32,9 @@ export class NotificationsService {
     });
 
     // Paso 2: Asegurarse de que 'data' es un objeto o inicializarlo como tal
-    const existingData = notification.data || {}; // Si 'data' es null o undefined, inicializarlo como un objeto vacío
+    const existingData = notification?.data || {}; // Si 'data' es null o undefined, inicializarlo como un objeto vacío
 
-    if (typeof existingData !== 'object' || Array.isArray(existingData)) {
+    if ( !existingData || typeof existingData !== 'object' || Array.isArray(existingData)) {
       throw new Error('El campo data no es un objeto JSON válido');
     }
 
@@ -114,8 +97,6 @@ export class NotificationsService {
         data: updatedData
       },
     });
-
-
 
     return this.prisma.followers.update({
       where: {

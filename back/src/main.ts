@@ -23,10 +23,9 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .addBearerAuth()
-    .setTitle('Cats example')
-    .setDescription('The cats API description')
+    .setTitle('Instapic API')
+    .setDescription('The social media perfect app')
     .setVersion('1.0')
-    .addTag('cats')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

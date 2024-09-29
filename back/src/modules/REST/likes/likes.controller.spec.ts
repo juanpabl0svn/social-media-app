@@ -20,4 +20,38 @@ describe('LikesController', () => {
   it('should be defined', () => {
     expect(controller).toBeDefined();
   });
+
+  it('should like the post', async () => {
+
+    const likeData = {
+      id_user: 1,
+      id_post: 1,
+      like: true
+    };
+
+
+    jest.spyOn(prisma.likes, 'create')
+
+    await controller.create(likeData);
+
+    expect(prisma.likes.create).toHaveBeenCalled()
+
+  })
+
+  it('should dislike the post', async () => {
+
+    const likeData = {
+      id_user: 1,
+      id_post: 1,
+      like: false
+    };
+
+
+    jest.spyOn(prisma.likes, 'delete')
+
+    await controller.create(likeData);
+
+    expect(prisma.likes.delete).toHaveBeenCalled()
+
+  })
 });

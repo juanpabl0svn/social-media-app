@@ -1,6 +1,5 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { CreateCommentDto } from './dto/create-comment.dto';
-import { UpdateCommentDto } from './dto/update-comment.dto';
 import { PrismaService } from 'prisma/prisma.service';
 
 
@@ -53,7 +52,15 @@ export class CommentsService {
   getComments(id_post: number) {
     return this.prisma.comments.findMany({
       include: {
-        users: true
+        users: {
+          select: {
+            "id_user": true,
+            "username": true,
+            "first_name": true,
+            "last_name": true,
+            "email": true,
+          }
+        }
       },
       where: {
         id_post

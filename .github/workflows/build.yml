@@ -1,41 +1,55 @@
 name: Build and Analyze
+
 on:
   push:
     branches:
       - main
   pull_request:
     types: [opened, synchronize, reopened]
+
 jobs:
   sonarcloud:
     name: Build and analyze
     runs-on: ubuntu-latest
+    env: # Definir variables de entorno globales
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
+      JWT_EXPIRES_IN: "1d"
+      SALT: "10"
+      FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
+      FIREBASE_AUTH_DOMAIN: ${{ secrets.FIREBASE_AUTH_DOMAIN }}
+      FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+      FIREBASE_STORAGE_BUCKET: ${{ secrets.FIREBASE_STORAGE_BUCKET }}
+      FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}
+      FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      
+
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'  # Ajusta esto a la versión de Node.js que uses
-      
+
       - name: Install dependencies
         run: |
           cd front && npm i
           cd ../back && npm i
-      
+
       - name: Run tests and coverage for Angular (front)
         run: |
           cd front
-          npm run test -- --no-watch --browsers=ChromeHeadless --no-progress  --code-coverage
-      
+          npm run test -- --no-watch --browsers=ChromeHeadless --no-progress --code-coverage
+
       - name: Run tests and coverage for NestJS (back)
         run: |
           cd back
           npm run test:cov
-      
+
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
