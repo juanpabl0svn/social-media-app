@@ -11,9 +11,9 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "paths": {
-      "prisma/*": ["./prisma/*"],
-      "src/*": ["./src/*"],
-      "test/*": ["./test/*"],
+      "@prisma/*": ["prisma/*"],
+      "@src/*": ["src/*"],
+      "@test/*": ["test/*"],
       "_firebase/*": ["_firebase/*"]
     },
     "incremental": true,
@@ -22,6 +22,8 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false,
-  }
+    "noFallthroughCasesInSwitch": false
+  },
+  "include": ["src/**/*", "prisma/**/*", "test/**/*", "_firebase/**/*"],
+  "exclude": ["node_modules", "dist"]
 }
