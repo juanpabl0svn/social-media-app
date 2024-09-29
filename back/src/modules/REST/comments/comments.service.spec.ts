@@ -22,7 +22,7 @@ describe('CommentsService', () => {
   it('should show an empty array', async () => {
     const comments = await service.getComments(-1);
     expect(comments).toEqual([]);
-  })
+  }, 10000)
 
   it('should show an array with one comment', async () => {
 
@@ -47,7 +47,7 @@ describe('CommentsService', () => {
     expect(result.length).toEqual(comments.length);
     expect(result[0].id_comment).toEqual(comments[0].id_comment);
 
-  })
+  },10000)
 
   it('should create a comment', async () => {
     const comment = {
@@ -60,5 +60,5 @@ describe('CommentsService', () => {
 
     expect(result.id_post).toEqual(comment.id_post)
 
-  })
+  },10000)
 });

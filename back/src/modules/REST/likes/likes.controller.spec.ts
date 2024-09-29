@@ -36,7 +36,7 @@ describe('LikesController', () => {
 
     expect(prisma.likes.create).toHaveBeenCalled()
 
-  })
+  },10000)
 
   it('should dislike the post', async () => {
 

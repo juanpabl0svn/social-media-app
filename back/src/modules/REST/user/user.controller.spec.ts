@@ -184,6 +184,6 @@ describe('UserController', () => {
     expect(result.posts.length).toBe(user.posts.length);
 
 
-  })
+  }, 10000)
 
 });

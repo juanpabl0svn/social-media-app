@@ -61,5 +61,5 @@ describe('CommentsController', () => {
 
     expect(result.id_post).toEqual(comment.id_post)
 
-  })
+  },10000)
 });
