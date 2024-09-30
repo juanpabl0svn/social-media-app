@@ -52,6 +52,7 @@ jobs:
           npm run test:cov
       - name: Merge coverage reports
         run: |
+          mkdir coverage
           npx lcov-result-merger '*/coverage/lcov.info' coverage/lcov.info
 
       - name: SonarCloud Scan
