@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import UserService from '../../services/user/user.service';
 import { ToastrService } from 'ngx-toastr';
@@ -8,16 +7,10 @@ import { EyeOpenComponent } from '../../global/svg/eye-open/eye-open.component';
 import { POST } from '../../utils/constants';
 
 
-
-
-
-
-
-
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule, EyeCloseComponent, EyeOpenComponent],
+  imports: [RouterLink, EyeCloseComponent, EyeOpenComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })
@@ -28,7 +21,7 @@ export class RegisterComponent {
 
   loading: boolean = false;
 
-  constructor(public userService: UserService, private router: Router, private toast: ToastrService) { }
+  constructor(public userService: UserService, private readonly router: Router, private readonly toast: ToastrService) { }
 
 
   handleSpaces(e: Event) {

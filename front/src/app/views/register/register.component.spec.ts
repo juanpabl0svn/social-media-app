@@ -48,7 +48,7 @@ describe('RegisterComponent test', () => {
                 `;
 
         const event = {
-            preventDefault: jasmine.createSpy('preventDefault'),
+            preventDefault: () => { },
             target: form
         } as unknown as Event;
 
@@ -72,7 +72,7 @@ describe('RegisterComponent test', () => {
                 <input name="username" value="1">
         `;
         const event = {
-            preventDefault: jasmine.createSpy('preventDefault'),
+            preventDefault: () => { },
             target: form
         } as unknown as Event;
         await component.handleSubmit(event);
@@ -93,7 +93,7 @@ describe('RegisterComponent test', () => {
         <input name="username" value="1">
         `;
         const event = {
-            preventDefault: jasmine.createSpy('preventDefault'),
+            preventDefault: () => { },
             target: form
         } as unknown as Event;
         await component.handleSubmit(event);
@@ -113,11 +113,22 @@ describe('RegisterComponent test', () => {
         <input name="username" value="1">
         `;
         const event = {
-            preventDefault: jasmine.createSpy('preventDefault'),
+            preventDefault: () => { },
             target: form
         } as unknown as Event;
         await component.handleSubmit(event);
         expect(toast.error).toHaveBeenCalledWith('Email no es válido');
+
+    })
+
+    it('should take spaces out', async () => {
+        const input = document.createElement('input');
+        input.value = '  Juan  ';
+        const event = {
+            target: input
+        } as unknown as Event;
+        component.handleSpaces(event);
+        expect(input.value).toEqual('Juan');
 
     })
 });
