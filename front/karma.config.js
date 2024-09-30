@@ -7,28 +7,31 @@ module.exports = function (config) {
         require('karma-chrome-launcher'),
         require('karma-jasmine-html-reporter'),
         require('karma-coverage'),
-        require('@angular-devkit/build-angular/plugins/karma')
+        require('@angular-devkit/build-angular/plugins/karma'),
       ],
       client: {
-        clearContext: false // Deja el contexto de Jasmine visible en el navegador.
+        clearContext: false, // Deja visible el resultado de los tests en el navegador.
+      },
+      jasmineHtmlReporter: {
+        suppressAll: true, // Remueve mensajes duplicados en el navegador.
       },
       coverageReporter: {
         dir: require('path').join(__dirname, './coverage'),
         subdir: '.',
         reporters: [
-          { type: 'html' },           // Reporte en formato HTML.
-          { type: 'text-summary' },    // Reporte en consola como resumen.
-          { type: 'lcovonly', file: 'lcov.info' } // Generar lcov.info.
-        ]
+          { type: 'html' }, // Genera un reporte de cobertura en HTML.
+          { type: 'text-summary' }, // Muestra un resumen en la consola.
+          { type: 'lcov' } // Genera el archivo lcov.info para herramientas como SonarCloud.
+        ],
       },
-      reporters: ['progress', 'kjhtml'],
+      reporters: ['progress', 'kjhtml', 'coverage'],
       port: 9876,
       colors: true,
       logLevel: config.LOG_INFO,
       autoWatch: true,
       browsers: ['Chrome'],
       singleRun: false,
-      restartOnFileChange: true
+      restartOnFileChange: true,
     });
   };
   
