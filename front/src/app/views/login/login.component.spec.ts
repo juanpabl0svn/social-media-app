@@ -38,7 +38,7 @@ describe('LoginComponent test', () => {
     it('should show an error toast if fields are empty', async () => {
 
         const event = {
-            preventDefault: jasmine.createSpy('preventDefault'),
+            preventDefault: () => { },
         } as unknown as Event;
 
         await component.handleSubmit(event);
@@ -52,10 +52,10 @@ describe('LoginComponent test', () => {
             password: '1234567890'
         })
 
-        spyOn(axios, 'post').and.returnValue({ data: { first_name: 'Juan Pablo', last_name: 'Sanchez' } } as unknown as Promise<any>);
+        spyOn(axios, 'post')
 
         const event = {
-            preventDefault: jasmine.createSpy('preventDefault'),
+            preventDefault: () => { },
         } as unknown as Event;
         await component.handleSubmit(event);
         expect(axios.post).toHaveBeenCalled()
@@ -69,7 +69,7 @@ describe('LoginComponent test', () => {
         })
 
         const event = {
-            preventDefault: jasmine.createSpy('preventDefault'),
+            preventDefault: () => { },
         } as unknown as Event;
         await component.handleSubmit(event);
         expect(toast.error).toHaveBeenCalledWith('Usuario o contraseña incorrectos');
@@ -82,16 +82,24 @@ describe('LoginComponent test', () => {
             password: '1234567890'
         })
 
-        spyOn(axios, 'post').and.returnValue({ data: { first_name: 'Juan Pablo', last_name: 'Sanchez' } } as unknown as Promise<any>);
+        spyOn(axios, 'post');
 
         const event = {
-            preventDefault: jasmine.createSpy('preventDefault'),
+            preventDefault: () => { },
         } as unknown as Event;
         await component.handleSubmit(event);
         expect(axios.post).toHaveBeenCalled()
     })
 
+    it('should take out spaces', async () => {
+        const input = document.createElement('input');
+        input.value = 'test';
+        const event = {
+            target: input
+        } as unknown as Event;
 
+        component.handleSpaces(event);
 
-
+        expect(input.value).toBe('test');
+    })
 });
