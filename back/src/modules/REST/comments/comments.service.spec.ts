@@ -50,7 +50,7 @@ describe('CommentsService', () => {
 
   }, 10000)
 
-  it('should create a comment', async () => {
+  it('should create a comment and a notification', async () => {
     const comment = {
       "id_user": 1,
       "id_post": 2,
@@ -58,10 +58,31 @@ describe('CommentsService', () => {
     }
 
     jest.spyOn(prisma.posts, 'findUnique')
+    jest.spyOn(prisma.notifications, 'create')
 
     await service.create(comment)
 
     expect(prisma.posts.findUnique).toHaveBeenCalled()
+
+    expect(prisma.posts.findUnique).toHaveBeenCalled()
+
+
+  }, 10000)
+
+  it('should create a comment and no notification', async () => {
+    const comment = {
+      "id_user": 1,
+      "id_post": 1,
+      "comment": "Bonito post!"
+    }
+
+    jest.spyOn(prisma.posts, 'findUnique')
+    jest.spyOn(prisma.notifications, 'create')
+
+    await service.create(comment)
+
+    expect(prisma.posts.findUnique).toHaveBeenCalled()
+    expect(prisma.notifications.create).not.toHaveBeenCalled()
 
 
   }, 10000)

@@ -7,6 +7,7 @@ import { HttpException } from '@nestjs/common';
 import LoginDto from './dto/login.dto';
 import { validate } from 'class-validator';
 import { CreateUserDto } from './dto/create-user.dto';
+import { last } from 'rxjs';
 
 describe('UserController', () => {
   let controller: UserController;
@@ -223,7 +224,7 @@ describe('UserController', () => {
 
     expect(result).toHaveProperty('id_user');
 
-  },10000)
+  }, 10000)
 
   it('should find by username', async () => {
     const username = 'juanpas'
@@ -232,6 +233,71 @@ describe('UserController', () => {
 
     expect(result.length).toBeGreaterThan(0);
 
-  },10000)
+  }, 10000)
 
-});
+  it('should not find by username empty', async () => {
+    const username = ''
+
+    const result = await controller.findByUsername(username);
+
+    expect(result.length).toEqual(0);
+  })
+
+  it('should not login with random user', async () => {
+
+    const userData = new LoginDto().factory({
+      email: '2342432faffwwqeriugidshfueyrqu@gmail.com',
+      password: '123455654345654'
+    })
+
+    const result = controller.login(userData);
+
+    await expect(result).rejects.toThrow(new HttpException('User or password is invalid', 401));
+
+  });
+
+
+  it('should bring person info', async () => {
+
+    const info = {
+      id_user: 1,
+      id_user_visitor: 2
+
+    }
+
+    const result = await controller.getUserFollow(info);
+
+    expect(result).toHaveProperty('id_user');
+
+
+  })
+
+
+  it('should register user', async () => {
+      
+      const userData = new CreateUserDto().factory(
+        {
+          email: 'adsf@gmail.com',
+          password: '1234567890',
+          username: 'juanpas',
+          first_name: 'juan',
+          last_name: 'perez',
+          birth_date: new Date('1999-09-09')
+        }
+
+      );
+
+      jest.spyOn(prisma.users, 'create');
+
+
+      const result = await controller.register(userData);
+
+      expect(result).toHaveProperty('token');
+      expect(prisma.users.create).toHaveBeenCalled();
+
+  })
+
+
+
+})
+

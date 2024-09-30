@@ -8,7 +8,7 @@ import { PrismaService } from 'prisma/prisma.service';
 export class CommentsService {
 
 
-  constructor(private prisma: PrismaService) { }
+  constructor(private readonly prisma: PrismaService) { }
 
 
   async create(createCommentDto: CreateCommentDto) {
