@@ -19,6 +19,7 @@ describe('UserController', () => {
     }).compile();
 
     controller = module.get<UserController>(UserController);
+    prisma = module.get<PrismaService>(PrismaService);
   });
 
   it('should be defined', () => {
@@ -77,7 +78,7 @@ describe('UserController', () => {
 
     expect(errors.length).toBeGreaterThan(0);
     expect(errors[0].constraints?.isEmail).toBe('Invalid email');
-  },10000)
+  }, 10000)
 
   it('should say password not valid', async () => {
     const userData = new CreateUserDto().factory(
@@ -185,5 +186,52 @@ describe('UserController', () => {
 
 
   }, 10000)
+
+
+  it('should verify user', async () => {
+
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c2VyIjoxfQ.JSAW5p7sk2shnMNHrAy6voWR0UDCNTy555Ze9R85G9M'
+
+    const result = await controller.verify({ token });
+
+    expect(result).toHaveProperty('id_user');
+
+  })
+
+  it('should not verify user', async () => {
+
+    const token = 'eyJhbG'
+
+    const result = controller.verify({ token });
+
+    await expect(result).rejects.toThrow(new HttpException('jwt malformed', 401));
+
+  });
+
+  it('should update user', async () => {
+
+    const user = {
+      "id_user": '1',
+      "email": "juan@gmail.com",
+      "username": "juanpas",
+      "first_name": "Juan Pablo",
+      "last_name": "Sanchez",
+      "birth_date": new Date('1999-09-09')
+    }
+
+    const result = await controller.update('1', user);
+
+    expect(result).toHaveProperty('id_user');
+
+  },10000)
+
+  it('should find by username', async () => {
+    const username = 'juanpas'
+
+    const result = await controller.findByUsername(username);
+
+    expect(result.length).toBeGreaterThan(0);
+
+  },10000)
 
 });

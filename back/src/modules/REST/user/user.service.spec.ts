@@ -17,6 +17,7 @@ describe('UserService', () => {
     }).compile();
 
     service = module.get<UserService>(UserService);
+    prisma = module.get<PrismaService>(PrismaService);
   });
 
   it('should be defined', () => {
@@ -45,7 +46,7 @@ describe('UserService', () => {
 
     expect(await service.login(userData.email, userData.password)).toHaveProperty('token');
 
-  })
+  }, 10000)
 
   it('should login no sensitive case', async () => {
 
@@ -160,12 +161,61 @@ describe('UserService', () => {
   })
 
   it('should not follow user', async () => {
-      
-  
-      const result = service.follow(-1, -8);
-  
-      await expect(await result).rejects.toThrow(new HttpException('User not found', 404));
+
+
+
+    const result = service.follow(-1, -8);
+
+    await expect(await result).rejects.toThrow(new HttpException('User not found', 404));
   })
+
+  it('should verify user', async () => {
+
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c2VyIjoxfQ.JSAW5p7sk2shnMNHrAy6voWR0UDCNTy555Ze9R85G9M'
+
+    const result = await service.verify(token);
+
+    expect(result).toHaveProperty('id_user');
+
+
+  })
+
+  it('should not verify user', async () => {
+      
+      const token = 'eyJasdfsSdf12'
+
+      const result = service.verify(token);
+
+      await expect(result).rejects.toThrow(new HttpException('jwt malformed', 401));
+  })
+
+  it('should update user', async () => {
+
+    const user = {
+      "id_user": '1',
+      "email": "juan@gmail.com",
+      "username": "juanpas",
+      "first_name": "Juan Pablo",
+      "last_name": "Sanchez",
+      "birth_date": new Date('1999-09-09')
+    }
+
+    const result = await service.update(1, user);
+
+    expect(result).toHaveProperty('id_user');
+
+  },10000)
+
+  it('should find by username', async () => {
+    const username = 'juanpas'
+
+    const result = await service.findByUsername(username);
+
+    expect(result.length).toBeGreaterThan(0);
+
+  },10000)
+
+
 
 
 
