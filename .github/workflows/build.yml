@@ -50,6 +50,9 @@ jobs:
           cd back
           npx prisma generate
           npm run test:cov
+      - name: Merge coverage reports
+        run: |
+          npx lcov-result-merger '*/coverage/lcov.info' coverage/lcov.info
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
