@@ -4,8 +4,6 @@ import { PrismaService } from 'prisma/prisma.service';
 import { FirebaseService } from '_firebase/firebase.service';
 import { ConfigService } from '@nestjs/config';
 
-
-
 describe('PostService', () => {
   let service: PostsService;
   let prisma: PrismaService;
