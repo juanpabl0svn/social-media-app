@@ -10,6 +10,7 @@ import { HttpException } from '@nestjs/common';
 describe('UserService', () => {
   let service: UserService;
   let prisma: PrismaService;
+  let jwt: JwtService
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -18,6 +19,7 @@ describe('UserService', () => {
 
     service = module.get<UserService>(UserService);
     prisma = module.get<PrismaService>(PrismaService);
+    jwt = module.get<JwtService>(JwtService)
   });
 
   it('should be defined', () => {
@@ -181,12 +183,12 @@ describe('UserService', () => {
   })
 
   it('should not verify user', async () => {
-      
-      const token = 'eyJasdfsSdf12'
 
-      const result = service.verify(token);
+    const token = 'eyJasdfsSdf12'
 
-      await expect(result).rejects.toThrow(new HttpException('jwt malformed', 401));
+    const result = service.verify(token);
+
+    await expect(result).rejects.toThrow(new HttpException('jwt malformed', 401));
   })
 
   it('should update user', async () => {
@@ -204,7 +206,7 @@ describe('UserService', () => {
 
     expect(result).toHaveProperty('id_user');
 
-  },10000)
+  }, 10000)
 
   it('should find by username', async () => {
     const username = 'juanpas'
@@ -213,7 +215,52 @@ describe('UserService', () => {
 
     expect(result.length).toBeGreaterThan(0);
 
-  },10000)
+  }, 10000)
+
+  it('should register', async () => {
+    const user = {
+      username: 'pepegrillo',
+      password: 'daS#@Dtw3^643',
+      email: 'pepe@gmail.com',
+      first_name: 'pepe',
+      last_name: 'grillo',
+      birth_date: new Date(),
+      factory() { return new CreateUserDto() }
+
+
+    }
+
+
+    jest.spyOn(prisma.users, 'create').mockResolvedValue({ id_user: 1, created_at: new Date(), ...user })
+
+    jest.spyOn(jwt, 'sign')
+
+
+
+    const result = await service.register(user)
+
+
+    expect(result).toHaveProperty('token')
+    expect(jwt.sign).toHaveBeenCalled()
+
+  })
+
+
+  it('should return info user', async () => {
+
+    const data = {
+      id_user: 1,
+      id_visitor: 1
+
+    }
+
+    const result = await service.infoUser(data.id_user, data.id_visitor)
+
+
+    expect(result).toHaveProperty('isFollowing')
+    expect(result.isFollowing).toBeFalsy()
+
+  })
 
 
 

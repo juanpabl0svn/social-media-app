@@ -1,5 +1,4 @@
 import { HttpException, Injectable } from '@nestjs/common';
-import { UpdateNotificationDto } from './dto/update-notification.dto';
 import { PrismaService } from 'prisma/prisma.service';
 
 @Injectable()
