@@ -18,9 +18,9 @@ async function userTests(app) {
     console.log('Usuarios encontrados ✅:', users.length);
 
     const loggedInUser = await userService.login('juan@gmail.com', '1234567890');
-    console.log('Usuario autenticado ✅ :', loggedInUser.username);
+    console.log('Usuario autenticado ✅ :', !!loggedInUser.token);
 
-    const me = await userService.me(loggedInUser.id_user);
+    const me = await userService.verify(loggedInUser.token);
     console.log('Información del usuario logueado ✅ :', me.username);
 
   } catch (error) {
