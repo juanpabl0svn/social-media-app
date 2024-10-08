@@ -100,10 +100,10 @@ export class ProfileSearchComponent {
     
     if (!isFollowing) {
       this.state = lastValue;
-    }else{
-      if (this.followers < 0){
-        this.followers -= 1;
-      }
+    }
+
+    if (this.followers > 0){
+      this.followers -= 1;
     }
 
     this.loading = false;

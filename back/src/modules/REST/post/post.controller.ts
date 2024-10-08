@@ -8,7 +8,7 @@ import { ApiTags } from '@nestjs/swagger';
 @Controller('post')
 export class PostsController {
 
-    constructor(private postService: PostsService){}
+    constructor(private readonly postService: PostsService){}
 
   @Post()
   @UseInterceptors(FileInterceptor('image'))
