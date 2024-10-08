@@ -22,7 +22,8 @@
     "migrate": "prisma migrate dev --name init",
     "generate": "prisma generate",
     "pull": "prisma db pull",
-    "push": "prisma db push"
+    "push": "prisma db push",
+    "manual:test" : "ts-node -r tsconfig-paths/register test/manual-tests.test.ts"
   },
   "dependencies": {
     "@fastify/formbody": "^7.4.0",
