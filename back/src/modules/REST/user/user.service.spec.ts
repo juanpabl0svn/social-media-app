@@ -46,7 +46,16 @@ describe('UserService', () => {
       password: '1234567890'
     });
 
-    expect(await service.login(userData.email, userData.password)).toHaveProperty('token');
+    spyOn(prisma.users, 'findFirst')
+
+    const user = await service.login(userData.email, userData.password)
+
+    expect(user).toHaveProperty('token');
+    expect(prisma.users).toHaveBeenCalledWith({
+      where: {
+        email: userData.email
+      }
+    })
 
   }, 10000)
 
@@ -165,7 +174,6 @@ describe('UserService', () => {
   it('should not follow user', async () => {
 
 
-
     const result = service.follow(-1, -8);
 
     await expect(await result).rejects.toThrow(new HttpException('User not found', 404));
@@ -261,10 +269,6 @@ describe('UserService', () => {
     expect(result.isFollowing).toBeFalsy()
 
   })
-
-
-
-
 
 
 });
