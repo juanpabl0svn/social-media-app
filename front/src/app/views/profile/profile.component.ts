@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import UserService from '../../services/user/user.service';
 import { Router, RouterLink } from '@angular/router';
-import { GET, POST, handleCloseModal } from '../../utils/constants';
+import { GET, handleCloseModal } from '../../utils/constants';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { NewPostComponent } from './new-post/new-post.component';
 import { IPOST } from '../../models/models';

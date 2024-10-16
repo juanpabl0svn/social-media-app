@@ -110,6 +110,7 @@ export class EditProfileComponent {
 
     this.closeModal.emit()
 
-    return this.loading = false;
+    this.loading = false;
+    return true
   }
 }

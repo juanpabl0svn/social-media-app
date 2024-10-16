@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import UserService from '../../../services/user/user.service';
 import { POST } from '../../../utils/constants';
-import { Router } from '@angular/router';
 import { IPOST } from '../../../models/models';
 
 @Component({
