@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import UserService from '../../../services/user/user.service';
 import { FormsModule } from '@angular/forms';
-import { PATCH, POST } from '../../../utils/constants';
+import { PATCH } from '../../../utils/constants';
 import { ToastrService } from 'ngx-toastr';
 import { EyeCloseComponent } from '../../../global/svg/eye-close/eye-close.component';
 import { EyeOpenComponent } from '../../../global/svg/eye-open/eye-open.component';
