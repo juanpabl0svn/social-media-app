@@ -48,7 +48,7 @@ export class ProfileSearchComponent {
         id_user_visitor: this.userService.user.id_user,
       });
 
-      if (!userData) return this.router.navigate(['/']) ;
+      if (!userData) return this.router.navigate(['/']);
 
 
       this.posts = userData.posts.reverse();
@@ -75,18 +75,13 @@ export class ProfileSearchComponent {
       id_user_follower: this.userService.user.id_user,
     });
 
-
-    //If error, set state to '' because nothing happened
     if (!isFollowing) {
       this.state = '';
+    } else {
+      this.followers++
     }
     this.loading = false;
 
-  }
-
-  followTest() {
-    this.followers += 1;
-    this.state = 'PENDING';
   }
 
 
@@ -98,21 +93,16 @@ export class ProfileSearchComponent {
       id_user: this.id_user,
       id_user_follower: this.userService.user.id_user,
     });
-    
+
     if (!isFollowing) {
       this.state = lastValue;
     }
 
-    if (this.followers > 0){
+    if (this.followers > 0) {
       this.followers -= 1;
     }
 
     this.loading = false;
 
-  }
-
-  unfollowTest() {
-    this.followers -= 1;
-    this.state = '';
   }
 }
