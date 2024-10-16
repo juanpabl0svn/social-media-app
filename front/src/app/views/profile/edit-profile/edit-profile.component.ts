@@ -79,7 +79,7 @@ export class EditProfileComponent {
     const hasSpecialCharacter = (string: string) => !regex.test(string);
 
 
-    if (hasSpecialCharacter(first_name) || hasSpecialCharacter(last_name) ) {
+    if (hasSpecialCharacter(first_name) || hasSpecialCharacter(last_name)) {
       this.loading = false;
       return this.toast.error('Nombre y apellido no pueden tener caracteres especiales')
     }
@@ -110,9 +110,6 @@ export class EditProfileComponent {
 
     this.closeModal.emit()
 
-    this.loading = false;
-
-    return
-
+    return this.loading = false;
   }
 }

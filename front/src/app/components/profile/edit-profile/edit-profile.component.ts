@@ -76,12 +76,6 @@ export class EditProfileComponent {
 
     this.userService.user = { ...this.profileToEdit, ...isEdited }
 
-    this.closeModal.emit()
-
-    return
-
-
-
-
+    return this.closeModal.emit()
   }
 }

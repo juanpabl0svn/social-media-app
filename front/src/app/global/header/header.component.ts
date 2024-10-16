@@ -5,7 +5,7 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { CookieService } from 'ngx-cookie-service';
 import { ModalComponent } from '../modal/modal.component';
 import UserService from '../../services/user/user.service';
-import { GET, POST } from '../../utils/constants';
+import { GET} from '../../utils/constants';
 
 
 

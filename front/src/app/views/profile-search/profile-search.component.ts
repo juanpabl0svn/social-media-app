@@ -60,9 +60,8 @@ export class ProfileSearchComponent {
 
       this.username = userData.username;
 
-      this.id_user = params['id_user'];
+      return this.id_user = params['id_user'];
 
-      return;
     });
   }
 

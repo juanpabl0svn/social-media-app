@@ -65,8 +65,7 @@ export class LoginComponent {
       this.router.navigate(['/']);
     }, 1500);
 
-    this.toast.success(`Bienvenido ${userData.first_name} ${userData.last_name}`);
-
-    return;
+    return this.toast.success(`Bienvenido ${userData.first_name} ${userData.last_name}`);
+    
   }
 }

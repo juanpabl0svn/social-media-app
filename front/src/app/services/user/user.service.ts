@@ -1,10 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable, Inject } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 
-import { ICOMMENT, IPOST, IUSER } from '../../models/models';
+import { ICOMMENT, IPOST } from '../../models/models';
 import { GET, POST } from '../../utils/constants';
 
 @Injectable({

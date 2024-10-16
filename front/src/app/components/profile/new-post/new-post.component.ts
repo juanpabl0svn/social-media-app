@@ -1,9 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import UserService from '../../../services/user/user.service';
-import { POST_FORMDATA } from '../../../utils/constants';
-import { Router } from '@angular/router';
 
 import { IPOST } from '../../../models/models';
+import { POST } from '../../../utils/constants';
 
 @Component({
   selector: 'app-new-post',
@@ -58,7 +57,7 @@ export class NewPostComponent {
     formData.set('description', description.value);
     formData.set('file', this.image as File);
     formData.set('id_user', this.userService.user.id_user);
-    const response = await POST_FORMDATA('/createPost', formData);
+    const response = await POST('/createPost', formData);
 
     if (!response) return;
 
