@@ -15,12 +15,17 @@ describe('LikesService', () => {
     prisma = module.get<PrismaService>(PrismaService);
   });
 
+  afterEach(()=>{
+    prisma.$disconnect()
+  })
+
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
 
   it('should like the post', async () => {
 
+    //Arrange
     const likeData = {
       id_user: 1,
       id_post: 1,
@@ -29,8 +34,10 @@ describe('LikesService', () => {
 
     jest.spyOn(prisma.likes, 'create')
 
+    //Act
     await service.create(likeData);
 
+    //Assert
     expect(prisma.likes.create).toHaveBeenCalled();
 
   })

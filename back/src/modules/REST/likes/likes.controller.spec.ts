@@ -17,6 +17,10 @@ describe('LikesController', () => {
     prisma = module.get<PrismaService>(PrismaService);
   });
 
+  afterEach(()=>{
+    prisma.$disconnect()
+  })
+
   it('should be defined', () => {
     expect(controller).toBeDefined();
   });

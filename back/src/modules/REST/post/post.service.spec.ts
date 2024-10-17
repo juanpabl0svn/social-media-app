@@ -18,6 +18,10 @@ describe('PostService', () => {
     prisma = module.get<PrismaService>(PrismaService);
   });
 
+  afterEach(()=>{
+    prisma.$disconnect()
+  })
+
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
@@ -38,7 +42,7 @@ describe('PostService', () => {
     , 10000)
 
   it('should delete a post', async () => {
-    jest.spyOn(prisma.posts, 'delete')
+    jest.spyOn(prisma.posts, 'delete').mockImplementation()
 
     await service.deletePost(1);
 

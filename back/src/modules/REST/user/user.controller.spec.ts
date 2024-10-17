@@ -8,6 +8,7 @@ import LoginDto from './dto/login.dto';
 import { validate } from 'class-validator';
 import { CreateUserDto } from './dto/create-user.dto';
 import { last } from 'rxjs';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 describe('UserController', () => {
   let controller: UserController;
@@ -22,6 +23,10 @@ describe('UserController', () => {
     controller = module.get<UserController>(UserController);
     prisma = module.get<PrismaService>(PrismaService);
   });
+
+  afterEach(() => {
+    prisma.$disconnect()
+  })
 
   it('should be defined', () => {
     expect(controller).toBeDefined();
@@ -211,14 +216,18 @@ describe('UserController', () => {
 
   it('should update user', async () => {
 
-    const user = {
-      "id_user": '1',
-      "email": "juan@gmail.com",
-      "username": "juanpas",
-      "first_name": "Juan Pablo",
-      "last_name": "Sanchez",
-      "birth_date": new Date('1999-09-09')
-    }
+    const user = new UpdateUserDto()
+
+
+
+    user.email = 'adsf@gmail.com',
+      user.username = 'juanpas',
+      user.password = '1234567890',
+      user.first_name = 'juan',
+      user.last_name = 'perez',
+      user.birth_date = new Date('1999-09-09')
+
+    jest.spyOn(prisma.users, 'update').mockResolvedValue({ id_user: 1, created_at: new Date(), ...user } as any);
 
     const result = await controller.update('1', user);
 
@@ -274,26 +283,26 @@ describe('UserController', () => {
 
 
   it('should register user', async () => {
-      
-      const userData = new CreateUserDto().factory(
-        {
-          email: 'adsf@gmail.com',
-          password: '1234567890',
-          username: 'juanpas',
-          first_name: 'juan',
-          last_name: 'perez',
-          birth_date: new Date('1999-09-09')
-        }
 
-      );
-
-      jest.spyOn(prisma.users, 'create');
+    const userData = new CreateUserDto()
 
 
-      const result = await controller.register(userData);
+    userData.email = 'adsf@gmail.com',
+      userData.password = '1234567890',
+      userData.username = 'juanpas',
+      userData.first_name = 'juan',
+      userData.last_name = 'perez',
+      userData.birth_date = new Date('1999-09-09')
 
-      expect(result).toHaveProperty('token');
-      expect(prisma.users.create).toHaveBeenCalled();
+
+
+    jest.spyOn(prisma.users, 'create').mockResolvedValue({ id_user: 1, created_at: new Date(), ...userData });
+
+
+    const result = await controller.register(userData);
+
+    expect(result).toHaveProperty('token');
+    expect(prisma.users.create).toHaveBeenCalled();
 
   })
 

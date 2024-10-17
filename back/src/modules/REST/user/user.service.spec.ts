@@ -6,6 +6,7 @@ import { validate } from 'class-validator';
 import { CreateUserDto } from './dto/create-user.dto';
 import LoginDto from './dto/login.dto';
 import { HttpException } from '@nestjs/common';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 describe('UserService', () => {
   let service: UserService;
@@ -21,6 +22,10 @@ describe('UserService', () => {
     prisma = module.get<PrismaService>(PrismaService);
     jwt = module.get<JwtService>(JwtService)
   });
+
+  afterEach(() => {
+    prisma.$disconnect()
+  })
 
   it('should be defined', () => {
     expect(service).toBeDefined();
@@ -46,12 +51,12 @@ describe('UserService', () => {
       password: '1234567890'
     });
 
-    spyOn(prisma.users, 'findFirst')
+    jest.spyOn(prisma.users, 'findFirst')
 
     const user = await service.login(userData.email, userData.password)
 
     expect(user).toHaveProperty('token');
-    expect(prisma.users).toHaveBeenCalledWith({
+    expect(prisma.users.findFirst).toHaveBeenCalledWith({
       where: {
         email: userData.email
       }
@@ -164,19 +169,22 @@ describe('UserService', () => {
 
   it('should delete user', async () => {
 
-    jest.spyOn(prisma.users, 'delete')
+    jest.spyOn(prisma.users, 'delete').mockResolvedValue({ id_user: 1, created_at: new Date() } as any)
 
     await service.remove(30);
 
     expect(prisma.users.delete).toHaveBeenCalled();
   })
 
+
   it('should not follow user', async () => {
+
+    jest.spyOn(prisma.users, 'findFirst').mockResolvedValue(null)
 
 
     const result = service.follow(-1, -8);
 
-    await expect(await result).rejects.toThrow(new HttpException('User not found', 404));
+    await expect(result).rejects.toThrow(new HttpException('User not found', 404));
   })
 
   it('should verify user', async () => {
@@ -192,40 +200,60 @@ describe('UserService', () => {
 
   it('should not verify user', async () => {
 
+    //Arrange
     const token = 'eyJasdfsSdf12'
 
+
+    //Act
     const result = service.verify(token);
 
+
+    //Assert
     await expect(result).rejects.toThrow(new HttpException('jwt malformed', 401));
   })
 
   it('should update user', async () => {
 
-    const user = {
-      "id_user": '1',
-      "email": "juan@gmail.com",
-      "username": "juanpas",
-      "first_name": "Juan Pablo",
-      "last_name": "Sanchez",
-      "birth_date": new Date('1999-09-09')
-    }
+    //Arrange
+    const user = new UpdateUserDto()
+
+
+
+    user.email = 'adsf@gmail.com',
+      user.username = 'juanpas',
+      user.password = '1234567890',
+      user.first_name = 'juan',
+      user.last_name = 'perez',
+      user.birth_date = new Date('1999-09-09')
+
+    jest.spyOn(prisma.users, 'update').mockResolvedValue({ id_user: 1, created_at: new Date(), ...user } as any);
+
+    //Act
 
     const result = await service.update(1, user);
 
+
+    //Assert
     expect(result).toHaveProperty('id_user');
 
   }, 10000)
 
   it('should find by username', async () => {
+
+    //Arrange
     const username = 'juanpas'
 
+    //Act
     const result = await service.findByUsername(username);
 
+    //Assert
     expect(result.length).toBeGreaterThan(0);
 
   }, 10000)
 
   it('should register', async () => {
+
+    //Arrange
     const user = {
       username: 'pepegrillo',
       password: 'daS#@Dtw3^643',
@@ -234,8 +262,6 @@ describe('UserService', () => {
       last_name: 'grillo',
       birth_date: new Date(),
       factory() { return new CreateUserDto() }
-
-
     }
 
 
@@ -245,9 +271,11 @@ describe('UserService', () => {
 
 
 
+    //Act
     const result = await service.register(user)
 
 
+    //Assert
     expect(result).toHaveProperty('token')
     expect(jwt.sign).toHaveBeenCalled()
 

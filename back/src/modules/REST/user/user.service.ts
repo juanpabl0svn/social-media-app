@@ -83,13 +83,13 @@ export class UserService {
       })
 
       if (!user) {
-        throw new HttpException('User or password is invalid',401);
+        throw new HttpException('User or password is invalid', 401);
       }
 
       const isSamePassword = await bcrypt.compare(password, user.password);
 
       if (!isSamePassword) {
-        throw new HttpException('User or password is invalid',401);
+        throw new HttpException('User or password is invalid', 401);
       }
 
       const token = this.jwt.sign({
@@ -122,7 +122,7 @@ export class UserService {
 
       if (updateUserDto.password != user.password) {
         updateUserDto.password = await bcrypt.hash(updateUserDto.password, 10);
-      }else{
+      } else {
         updateUserDto.password = user.password;
       }
 
@@ -166,7 +166,7 @@ export class UserService {
         include: {
           likes: {
             where: {
-              id_user: id_user, 
+              id_user: id_user,
             },
           },
         },
@@ -180,7 +180,7 @@ export class UserService {
 
       posts = posts.map(post => ({
         ...post,
-        likedByUser: post.likes.length > 0, 
+        likedByUser: post.likes.length > 0,
       })
       );
 
@@ -216,7 +216,7 @@ export class UserService {
         include: {
           likes: {
             where: {
-              id_user: id_user, 
+              id_user: id_user,
             },
           },
           users: true,
@@ -226,7 +226,7 @@ export class UserService {
           id_user
         },
         orderBy: {
-          created_at: 'asc', 
+          created_at: 'asc',
         },
       });
 
@@ -236,7 +236,7 @@ export class UserService {
         },
       });
 
-      if (!user) throw new HttpException('User not found',401);
+      if (!user) throw new HttpException('User not found', 401);
 
       const isFollowing = await this.prisma.followers.findFirst({
         where: {
@@ -274,16 +274,16 @@ export class UserService {
         }
       })
 
-      if (!user) throw new HttpException('User not found',401);
+      if (!user) throw new HttpException('User not found', 401);
 
       const alreadyFollow = await this.prisma.followers.findFirst({
-        where : {
+        where: {
           id_user_follow: id_user,
           id_user_request: id_user_follower
         }
       })
 
-      if (alreadyFollow) throw new HttpException('Already follow',401);
+      if (alreadyFollow) throw new HttpException('Already follow', 401);
 
 
       const follow = await this.prisma.followers.create({
@@ -326,7 +326,7 @@ export class UserService {
         }
       })
 
-      if (!user) throw new HttpException('User not found',401);
+      if (!user) throw new HttpException('User not found', 401);
 
       const follow = await this.prisma.followers.findFirst({
         where: {
@@ -335,7 +335,7 @@ export class UserService {
         }
       })
 
-      if (!follow) throw new HttpException('Follow not found',401);
+      if (!follow) throw new HttpException('Follow not found', 401);
 
       await this.prisma.followers.delete({
         where: {

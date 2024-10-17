@@ -17,6 +17,10 @@ describe('NotificationsService', () => {
     prisma = module.get<PrismaService>(PrismaService);
   });
 
+  afterEach(()=>{
+    prisma.$disconnect()
+  })
+
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
@@ -197,20 +201,24 @@ describe('NotificationsService', () => {
     const id_follow = 9;
     const id_notification = 6;
 
+    jest.spyOn(prisma.notifications, 'findFirst').mockResolvedValue(null as any);
+
     const result = service.rejectFollow(id_follow, id_notification);
 
-    await expect(await result).rejects.toThrow(new HttpException('Notification not found', 404));
+    await expect(result).rejects.toThrow(new HttpException('Notification not found', 404));
 
-  }, 10000)
+  })
 
   it('should not accept a follow', async () => {
 
     const id_follow = 9;
     const id_notification = 6;
 
+    jest.spyOn(prisma.notifications, 'findFirst').mockResolvedValue(null as any);
+
     const result = service.rejectFollow(id_follow, id_notification);
 
-    await expect(await result).rejects.toThrow(new HttpException('Notification not found', 404));
+    await expect(result).rejects.toThrow(new HttpException('Notification not found', 404));
   }, 10000)
 
   it('reject follow fails because notification not found', async () => {
@@ -222,7 +230,7 @@ describe('NotificationsService', () => {
 
     const result = service.rejectFollow(data.id_follow, data.id_notification)
 
-    await expect(await result).rejects.toThrow(new HttpException('Notification not found', 404))
+    await expect(result).rejects.toThrow(new HttpException('Notification not found', 404))
 
   })
 
@@ -235,7 +243,7 @@ describe('NotificationsService', () => {
 
     const result = service.acceptFollow(data.id_follow, data.id_notification)
 
-    await expect(await result).rejects.toThrow(new HttpException('Notification not found', 404))
+    await expect(result).rejects.toThrow(new HttpException('Notification not found', 404))
 
   })
 
@@ -247,10 +255,10 @@ describe('NotificationsService', () => {
     }
 
     jest.spyOn(prisma.notifications, 'findUnique').mockResolvedValue({ id_notification: 1, id_user: 1, type: 'FOLLOW', data: {}, created_at: new Date() })
-    jest.spyOn(prisma.notifications, 'update')
-    jest.spyOn(prisma.followers, 'update')
+    jest.spyOn(prisma.notifications, 'update').mockImplementation()
+    jest.spyOn(prisma.followers, 'update').mockImplementation()
 
-    await service.acceptFollow(data.id_follow, data.id_notification)
+    const result = await service.acceptFollow(data.id_follow, data.id_notification)
 
 
     expect(prisma.notifications.findUnique).toHaveBeenCalled()

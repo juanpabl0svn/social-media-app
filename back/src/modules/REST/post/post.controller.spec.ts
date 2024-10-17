@@ -19,6 +19,10 @@ describe('PostController', () => {
     prisma = module.get<PrismaService>(PrismaService);
   });
 
+  afterEach(() => {
+    prisma.$disconnect()
+  })
+
   it('should be defined', () => {
     expect(controller).toBeDefined();
   });
@@ -39,7 +43,8 @@ describe('PostController', () => {
     , 10000)
 
   it('should delete a post', async () => {
-    jest.spyOn(prisma.posts, 'delete')
+    jest.spyOn(prisma.posts, 'delete').mockImplementation()
+
 
     await controller.deletePost('1');
 
