@@ -166,7 +166,7 @@ export class UserService {
         include: {
           likes: {
             where: {
-              id_user: id_user, // Filtramos los likes por el id_user
+              id_user: id_user, 
             },
           },
         },
@@ -174,13 +174,13 @@ export class UserService {
           id_user
         },
         orderBy: {
-          created_at: 'asc', // Ordenar por la fecha de creación
+          created_at: 'asc',
         },
       });
 
       posts = posts.map(post => ({
         ...post,
-        likedByUser: post.likes.length > 0, // Si el usuario ha dado like, `likedByUser` será true
+        likedByUser: post.likes.length > 0, 
       })
       );
 
@@ -216,17 +216,17 @@ export class UserService {
         include: {
           likes: {
             where: {
-              id_user: id_user, // Filtramos los likes por el id_user
+              id_user: id_user, 
             },
           },
-          users: true, // Incluimos la información del usuario que creó el post
+          users: true,
         },
         where: {
           public: true,
           id_user
         },
         orderBy: {
-          created_at: 'asc', // Ordenar por la fecha de creación
+          created_at: 'asc', 
         },
       });
 
@@ -248,7 +248,7 @@ export class UserService {
 
       posts = posts.map(post => ({
         ...post,
-        likedByUser: post.likes.length > 0, // Si el usuario ha dado like, `likedByUser` será true
+        likedByUser: post.likes.length > 0,
       }))
 
       return {

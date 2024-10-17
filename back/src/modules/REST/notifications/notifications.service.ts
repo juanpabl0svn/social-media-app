@@ -20,30 +20,26 @@ export class NotificationsService {
 
   async rejectFollow(id_follow: number, id_notification: number) {
 
-    // Paso 1: Obtener el valor actual del campo JSON
     const notification = await this.prisma.notifications.findFirst({
       where: {
-        id_notification // reemplaza con el ID real
+        id_notification 
       },
       select: {
         data: true
       }
     });
 
-    // Paso 2: Asegurarse de que 'data' es un objeto o inicializarlo como tal
 
     if (!notification) {
       throw new HttpException('Notification not found', 404);
     }
 
-    const existingData = notification.data as any; // Si 'data' es null o undefined, inicializarlo como un objeto vacío
-    // Paso 3: Modificar el valor del campo JSON
+    const existingData = notification.data as any; 
     const updatedData = {
       ...existingData,
       state: 'REJECTED'
     };
 
-    // Paso 4: Guardar el JSON actualizado
     await this.prisma.notifications.update({
       where: {
         id_notification
@@ -64,30 +60,26 @@ export class NotificationsService {
 
   async acceptFollow(id_follow: number, id_notification: number) {
 
-    // Paso 1: Obtener el valor actual del campo JSON
     const notification = await this.prisma.notifications.findUnique({
       where: {
-        id_notification // reemplaza con el ID real
+        id_notification
       },
       select: {
         data: true
       }
     });
 
-    // Paso 2: Asegurarse de que 'data' es un objeto o inicializarlo como tal
 
     if (!notification) {
       throw new HttpException('Notification not found', 404);
     }
 
-    const existingData = notification.data as any; // Si 'data' es null o undefined, inicializarlo como un objeto vacío
-    // Paso 3: Modificar el valor del campo JSON
+    const existingData = notification.data as any; 
     const updatedData = {
       ...existingData,
       state: 'ACCEPTED'
     };
 
-    // Paso 4: Guardar el JSON actualizado
     await this.prisma.notifications.update({
       where: {
         id_notification

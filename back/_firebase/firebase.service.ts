@@ -1,4 +1,3 @@
-// config/firebase.config.ts
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { initializeApp, FirebaseApp } from 'firebase/app';

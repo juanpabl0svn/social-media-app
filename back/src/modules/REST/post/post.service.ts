@@ -36,22 +36,22 @@ export class PostsService {
       include: {
         likes: {
           where: {
-            id_user: id_user, // Filtramos los likes por el id_user
+            id_user: id_user,
           },
         },
-        users: true, // Incluimos la información del usuario que creó el post
+        users: true,
       },
       where: {
-        public: true, // Filtrar solo los posts públicos
+        public: true,
       },
       orderBy: {
-        created_at: 'desc', // Ordenar por la fecha de creación
+        created_at: 'desc',
       },
     });
   
     const postsWithLikedStatus = postsWithUserAndLikes.map(post => ({
       ...post,
-      likedByUser: post.likes.length > 0, // Si el usuario ha dado like, `likedByUser` será true
+      likedByUser: post.likes.length > 0, 
     }));
   
     return postsWithLikedStatus;
