@@ -2,14 +2,19 @@
 
 
 
-Cypress.Commands.add('login', (email: string, password: string) => {
-    cy.visit('http://localhost:4200/login')
+Cypress.Commands.add('login', (email: string = "juan@gmail.com", password: string = "1234567890") => {
+    cy.visit('/')
 
-    cy.get('[name="email"]').type(email)
+    cy.wait(1000)
 
-    cy.get('[name="password"]').type(password, { force: true })
+    cy.get('#email').click().type(email)
+
+    cy.get('#password').type(password, { force: true });
 
     cy.get('button:last').click()
+
+    // cy.clock().tick(2000)
+
 
 }
 )

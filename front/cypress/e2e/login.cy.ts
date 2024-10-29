@@ -7,7 +7,7 @@ describe('Login e2e test', () => {
 
   it('correct credentials', () => {
     cy.login("juan@gmail.com", "1234567890")
-    cy.contains('Instapic').should('be.visible')
+    cy.contains('Bienvenido Juan Pablo Sanchez').should('be.visible')
   })
 
   it("should take me to register", () => {
