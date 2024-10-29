@@ -1,20 +1,18 @@
 /// <reference types="cypress" />
 
 
-Cypress.Commands.add('login', (email, password) => {
-    cy.visit('http://localhost:4200/login');
 
-    cy.intercept('POST', 'http://localhost:3000/user/login').as('loginRequest');
+Cypress.Commands.add('login', (email: string, password: string) => {
+    cy.visit('http://localhost:4200/login')
 
-    cy.get('[name="email"]').type(email);
-    cy.get('[name="password"]').type(password, { force: true });
-    cy.get('button:last').click();
+    cy.get('[name="email"]').type(email)
 
-    cy.wait('@loginRequest').then((interception) => {
-        console.log('Interception:', interception); // Verifica si hay respuesta o error
-    });
-});
+    cy.get('[name="password"]').type(password, { force: true })
 
+    cy.get('button:last').click()
+
+}
+)
 
 
 
