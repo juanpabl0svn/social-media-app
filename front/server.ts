@@ -17,7 +17,6 @@ export function app(): express.Express {
   server.set('view engine', 'html');
   server.set('views', browserDistFolder);
 
-  server.get('/api/**', (req, res) => { res.send('hola mi papa')});
   server.get('*.*', express.static(browserDistFolder, {
     maxAge: '1y'
   }));

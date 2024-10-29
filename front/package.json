@@ -7,7 +7,9 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:front": "node dist/front/server/server.mjs"
+    "serve:ssr:front": "node dist/front/server/server.mjs",
+    "cypress:open": "cypress open",
+    "test:e2e": "cypress run"
   },
   "private": true,
   "dependencies": {
@@ -38,6 +40,7 @@
     "@types/jasmine": "~5.1.0",
     "@types/node": "^18.18.0",
     "autoprefixer": "^10.4.18",
+    "cypress": "^13.15.1",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
