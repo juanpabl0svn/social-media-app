@@ -21,6 +21,7 @@ import './commands'
 
 import { mount } from 'cypress/angular'
 
+
 // Augment the Cypress namespace to include type definitions for
 // your custom command.
 // Alternatively, can be defined in cypress/support/component.d.ts
@@ -29,7 +30,8 @@ declare global {
   namespace Cypress {
     interface Chainable {
       mount: typeof mount,
-      login: (email?: string, password?: string) => void
+      login: (email?: string, password?: string) => void,
+      api: (method: string, endpoint: string, body?: any) => void
     }
   }
 }

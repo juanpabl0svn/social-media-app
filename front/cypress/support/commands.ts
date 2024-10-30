@@ -1,6 +1,10 @@
 /// <reference types="cypress" />
 
+import 'cypress-file-upload';
 
+
+
+const API_URL = "http://localhost:3000"
 
 Cypress.Commands.add('login', (email: string = "juan@gmail.com", password: string = "1234567890") => {
     cy.visit('/')
@@ -17,6 +21,9 @@ Cypress.Commands.add('login', (email: string = "juan@gmail.com", password: strin
 )
 
 
+Cypress.Commands.add('api', (method: string, endpoint: string, body: any = {}) => {
+    return cy.request(method, API_URL + endpoint, body)
+})
 
 // ***********************************************
 // This example commands.ts shows you how to

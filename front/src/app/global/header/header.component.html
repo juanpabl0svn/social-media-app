@@ -77,7 +77,6 @@
     >Instapic</span
   >
   <div class="flex gap-7 justify-center items-center mr-4">
-
     <button (click)="notifications = true" class="flex items-center gap-3">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -114,6 +113,7 @@
           this.userService.user.username
         }}]"
         routerLink="/profile"
+        id="nav-own-profile"
       />
       <p
         class="[view-transition-name:username-{{

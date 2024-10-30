@@ -3,6 +3,7 @@ import UserService from '../../../services/user/user.service';
 
 import { IPOST } from '../../../models/models';
 import { POST } from '../../../utils/constants';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-new-post',
@@ -20,7 +21,7 @@ export class NewPostComponent {
 
   @Output() close: EventEmitter<any> = new EventEmitter();
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private readonly toast: ToastrService) {}
 
   handleChangeImage(e: Event) {
     const file = (e.target as HTMLInputElement)?.files?.[0];
@@ -62,6 +63,8 @@ export class NewPostComponent {
     if (!response) return;
 
     this.addNewPost.emit(response as IPOST);
+
+    this.toast.success('Post creado correctamente');
 
     setTimeout(() => {
       this.close.emit(null);

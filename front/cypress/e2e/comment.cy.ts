@@ -5,7 +5,7 @@ describe("Commenting posts", () => {
         const text = "This is a comment by cypress"
 
         cy.get("#comment:first").click()
-        
+
 
         cy.get("#comments:first").should('be.visible')
 
@@ -13,5 +13,7 @@ describe("Commenting posts", () => {
         cy.contains("button", " Comment ").click()
 
         cy.contains(text).should('be.visible')
+
+        cy.api("DELETE", "/comments/delete/test")
     })
 })
