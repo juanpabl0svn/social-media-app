@@ -1,20 +1,40 @@
 describe("Following users", () => {
 
-    it("should follow a user and unfollow it", () => {
+    it("should follow a user", () => {
         cy.login()
 
-        cy.wait(500)
+        cy.wait(1000)
 
         cy.get("#profile-nav:first").click()
 
-        cy.wait(500)
+        cy.wait(2000)
 
         cy.contains("Seguir").click()
 
-        cy.wait(500)
+        cy.wait(1000)
+
+
+        cy.contains("Pendiente").should('be.visible')
+    })
+
+
+    it("should unfollow", () => {
+
+        cy.login()
+
+        cy.wait(1000)
+
+        cy.get("#profile-nav:last").click()
+
+        cy.wait(2000)
 
 
         cy.contains("Pendiente").should('be.visible').click()
+        cy.wait(1000)
+
+        cy.contains("Seguir")
+
+
     })
 
 })

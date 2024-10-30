@@ -5,16 +5,13 @@
 Cypress.Commands.add('login', (email: string = "juan@gmail.com", password: string = "1234567890") => {
     cy.visit('/')
 
-    cy.wait(1000)
+    cy.wait(500)
 
     cy.get('#email').click().type(email)
 
     cy.get('#password').type(password, { force: true });
 
     cy.get('button:last').click()
-
-    // cy.clock().tick(2000)
-
 
 }
 )
