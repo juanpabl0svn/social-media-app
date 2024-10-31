@@ -81,6 +81,12 @@ export class UserController {
   }
 
 
+  @Delete('/delete/test')
+  async deleteUserTest(){
+    return this.userService.deleteUserTest()
+  }
+
+
 
 
 

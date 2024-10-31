@@ -26,7 +26,7 @@ export class PostsService {
 
       return post;
     } catch (error) {
-      console.error(error);
+      console.log(error);
       throw new HttpException('Error uploading image or creating post', 500);
     }
   }

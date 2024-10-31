@@ -370,4 +370,21 @@ export class UserService {
       throw new HttpException(e.message, 401)
     }
   }
+
+
+  async deleteUserTest() {
+    const user = await this.prisma.users.findFirst({
+      orderBy: {
+        id_user: 'desc',
+      }
+    })
+
+    return this.prisma.users.delete({
+      where: {
+        id_user: user.id_user,
+      },
+    });
+
+
+  }
 }

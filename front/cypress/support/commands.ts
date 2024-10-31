@@ -10,10 +10,14 @@ Cypress.Commands.add('login', (email: string = "juan@gmail.com", password: strin
     cy.visit('/')
 
     cy.wait(500)
+    
+    if(email){   
+        cy.get('#email').click().type(email)
+    }
 
-    cy.get('#email').click().type(email)
-
-    cy.get('#password').type(password, { force: true });
+    if(password){   
+        cy.get('#password').type(password, { force: true });
+    }
 
     cy.get('button:last').click()
 
@@ -26,8 +30,13 @@ Cypress.Commands.add('register', (username:string='Isa204', email: string = 'isa
 
     cy.wait(500)
 
-    cy.get('#username').type(username)
-    cy.get('#email').type(email)
+    if (username) {
+        cy.get('#username').click().type(username)
+    }
+    if(email){
+
+        cy.get('#email').type(email)
+    }
     cy.get('#first_name').type(name)
     cy.get('#last_name').type(lastname)
     cy.get('#date').type(birthday.toISOString().split('T')[0])

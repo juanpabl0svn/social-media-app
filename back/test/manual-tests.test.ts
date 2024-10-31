@@ -24,7 +24,7 @@ async function userTests(app) {
     console.log('Información del usuario logueado ✅ :', me.username);
 
   } catch (error) {
-    console.error('Error en pruebas manuales de UserService ❌ :', error);
+    console.log('Error en pruebas manuales de UserService ❌ :', error);
   }
 }
 
@@ -38,7 +38,7 @@ async function notificationsTests(app) {
     console.log('Notificaciones encontradas ✅:', notifications.length);
     
   } catch (error) {
-    console.error('Error en pruebas manuales de NotificationsService ❌ :', error);
+    console.log('Error en pruebas manuales de NotificationsService ❌ :', error);
   }
 }
 
@@ -52,7 +52,7 @@ async function commentsTests(app) {
     console.log('Comentarios encontrados ✅:', comments.length);
 
   } catch (error) {
-    console.error('Error en pruebas manuales de CommentsService ❌ :', error);
+    console.log('Error en pruebas manuales de CommentsService ❌ :', error);
   }
 }
 
@@ -66,7 +66,7 @@ async function bootstrap() {
     await notificationsTests(app);
     await commentsTests(app);
   } catch (error) {
-    console.error('Error en la ejecución de las pruebas manuales ❌:', error);
+    console.log('Error en la ejecución de las pruebas manuales ❌:', error);
   } finally {
     // Cerrar la aplicación para liberar los recursos
     await app.close();
