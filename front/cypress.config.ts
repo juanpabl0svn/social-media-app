@@ -8,6 +8,7 @@ export default defineConfig({
     },
     baseUrl: "http://localhost:4200",
     video: false,
+    chromeWebSecurity: false,
 
 
   },
