@@ -17,6 +17,7 @@ describe('PostService', () => {
 
     service = module.get<PostsService>(PostsService);
     prisma = module.get<PrismaService>(PrismaService);
+    firebase = module.get<FirebaseService>(FirebaseService)
   });
 
   afterEach(() => {
