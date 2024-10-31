@@ -30,6 +30,7 @@ declare global {
   namespace Cypress {
     interface Chainable {
       mount: typeof mount,
+      register: (username?:string, email?: string, name?: string, lastname?:string, birthday?:Date ,password?:string, password2?:string) => void,
       login: (email?: string, password?: string) => void,
       api: (method: string, endpoint: string, body?: any) => void
     }

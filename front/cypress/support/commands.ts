@@ -20,9 +20,33 @@ Cypress.Commands.add('login', (email: string = "juan@gmail.com", password: strin
 }
 )
 
+Cypress.Commands.add('register', (username:string='Isa204', email: string = 'isamiamor@gmail.com', name: string = 'Isabella', lastname:string = 'Garcia', birthday:Date = new Date('2006-5-19') ,password:string = 'Apolo12346_', password2:string = 'Apolo12346_') => {
+
+    cy.visit('/register')
+
+    cy.wait(500)
+
+    cy.get('#first_name').type(name)
+    
+    cy.get('#last_name').type(lastname)
+    
+    cy.get('#email').type(email)
+    
+    cy.get('#username').type(username)
+
+    cy.get('#date').type(birthday.toISOString().split('T')[0])
+    
+    cy.get('#password').type(password)
+    
+    cy.get('#password2').type(password2, { force: true });
+
+    cy.get('button:last').click()
+})
+
 
 Cypress.Commands.add('api', (method: string, endpoint: string, body: any = {}) => {
     return cy.request(method, API_URL + endpoint, body)
+    
 })
 
 // ***********************************************
