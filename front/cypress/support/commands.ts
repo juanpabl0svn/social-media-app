@@ -26,27 +26,20 @@ Cypress.Commands.add('register', (username:string='Isa204', email: string = 'isa
 
     cy.wait(500)
 
-    cy.get('#first_name').type(name)
-    
-    cy.get('#last_name').type(lastname)
-    
-    cy.get('#email').type(email)
-    
     cy.get('#username').type(username)
-
+    cy.get('#email').type(email)
+    cy.get('#first_name').type(name)
+    cy.get('#last_name').type(lastname)
     cy.get('#date').type(birthday.toISOString().split('T')[0])
-    
     cy.get('#password').type(password)
-    
     cy.get('#password2').type(password2, { force: true });
-
     cy.get('button:last').click()
 })
 
 
 Cypress.Commands.add('api', (method: string, endpoint: string, body: any = {}) => {
     return cy.request(method, API_URL + endpoint, body)
-    
+
 })
 
 // ***********************************************
