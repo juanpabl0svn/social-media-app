@@ -196,7 +196,7 @@ describe('UserService', () => {
 
     const result = await service.follow(1, 2);
 
-    expect(result).toHaveProperty('id_follower');
+    expect(result).toEqual('follow request');
 
   })
 
@@ -207,9 +207,11 @@ describe('UserService', () => {
 
     jest.spyOn(prisma.followers, 'delete').mockResolvedValue({ id_follower: 1, created_at: new Date() } as any)
 
+    jest.spyOn(prisma.followers, 'findFirst').mockResolvedValue({ id_follower: 1, created_at: new Date() } as any)
+
     const result = await service.unfollow(1, 2);
 
-    expect(result).toHaveProperty('id_follower');
+    expect(result).toEqual('unfollow');
   })
 
 

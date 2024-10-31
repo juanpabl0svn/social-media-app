@@ -97,12 +97,14 @@ describe('CommentsService', () => {
   }, 10000)
 
   it("should delete comment test", async () => {
-  
-      jest.spyOn(prisma.comments, 'findFirst').mockResolvedValue(null as any);
 
-  
-      const result = await service.deleteCommentTest();
-  
-      expect(result).toEqual(null);
+    jest.spyOn(prisma.comments, 'findFirst').mockResolvedValue({
+      id_comment: 1
+    } as any);
+
+    jest.spyOn(prisma.comments, 'delete').mockResolvedValue(null);
+    const result = await service.deleteCommentTest();
+
+    expect(result).toEqual(null);
   })
 });

@@ -370,15 +370,4 @@ export class UserService {
       throw new HttpException(e.message, 401)
     }
   }
-
-
-  deleteUser(id_user: number) {
-    return this.prisma.users.delete({
-      where: {
-        id_user
-      }
-    })
-  }
-
-
 }

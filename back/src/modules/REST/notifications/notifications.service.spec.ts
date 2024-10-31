@@ -59,6 +59,18 @@ describe('NotificationsService', () => {
         "created_at": "2024-09-10T16:27:12.351Z"
       },
       {
+        "id_notification": 54,
+        "id_user": 1,
+        "type": "FOLLOW",
+        "data": {
+          "id_user": 11,
+          "message": "1 quiere seguirte",
+          "username": "1",
+          "id_follow": 58
+        },
+        "created_at": "2024-09-10T16:27:12.351Z"
+      },
+      {
         "id_notification": 53,
         "id_user": 1,
         "type": "FOLLOW",
@@ -187,8 +199,35 @@ describe('NotificationsService', () => {
           "id_follow": 9
         },
         "created_at": "2024-08-28T13:43:38.338Z"
+      },
+      {
+        "id_notification": 6,
+        "id_user": 1,
+        "type": "FOLLOW",
+        "data": {
+          "state": "ACCEPTED",
+          "id_user": 4,
+          "message": "luigi quiere seguirte",
+          "username": "luigi",
+          "id_follow": 9
+        },
+        "created_at": "2024-08-28T13:43:38.338Z"
+      },
+      {
+        "id_notification": 6,
+        "id_user": 1,
+        "type": "FOLLOW",
+        "data": {
+          "state": "ACCEPTED",
+          "id_user": 4,
+          "message": "luigi quiere seguirte",
+          "username": "luigi",
+          "id_follow": 9
+        },
+        "created_at": "2024-08-28T13:43:38.338Z"
       }
     ]
+
     const result = await service.getNotifications(1);
 
     expect(result.length).toEqual(notifications.length);
@@ -275,13 +314,13 @@ describe('NotificationsService', () => {
       id_notification: 1
     }
 
-    jest.spyOn(prisma.notifications, 'findUnique').mockResolvedValue({ id_notification: 1, id_user: 1, type: 'FOLLOW', data: {}, created_at: new Date() })
-    jest.spyOn(prisma.notifications, 'update').mockImplementation()
-    jest.spyOn(prisma.followers, 'delete').mockImplementation()
+    jest.spyOn(prisma.notifications, 'findFirst').mockResolvedValue({ id_notification: 1, id_user: 1, type: 'FOLLOW', data: {}, created_at: new Date() })
+    jest.spyOn(prisma.notifications, 'update').mockResolvedValue({ id_notification: 1, id_user: 1, type: 'FOLLOW', data: {}, created_at: new Date() })
+    jest.spyOn(prisma.followers, 'delete').mockImplementation(null)
 
     await service.rejectFollow(data.id_follow, data.id_notification)
 
-    expect(prisma.notifications.findUnique).toHaveBeenCalled()
+    expect(prisma.notifications.findFirst).toHaveBeenCalled()
     expect(prisma.notifications.update).toHaveBeenCalled()
     expect(prisma.followers.delete).toHaveBeenCalled()
 

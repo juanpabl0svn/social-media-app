@@ -66,7 +66,7 @@ export class UserController {
 
   @Delete(':id')
   remove(@Param('id') id: number) {
-    return this.userService.deleteUser(+id);
+    return this.userService.remove(+id);
   }
 
 

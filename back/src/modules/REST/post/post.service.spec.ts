@@ -48,4 +48,19 @@ describe('PostService', () => {
 
     expect(prisma.posts.delete).toHaveBeenCalled()
   })
+
+
+  it("should delete a post test", async () => {
+
+    jest.spyOn(prisma.posts, 'findFirst').mockResolvedValue({
+      id_comment: 1
+    } as any)
+
+    jest.spyOn(prisma.posts, 'delete').mockResolvedValue(null)
+
+    const result = await service.deletePost(1);
+
+    expect(result).toBeFalsy()
+
+  })
 });

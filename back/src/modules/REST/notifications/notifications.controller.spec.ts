@@ -186,6 +186,45 @@ describe('NotificationsController', () => {
           "id_follow": 9
         },
         "created_at": "2024-08-28T13:43:38.338Z"
+      },
+      {
+        "id_notification": 6,
+        "id_user": 1,
+        "type": "FOLLOW",
+        "data": {
+          "state": "ACCEPTED",
+          "id_user": 4,
+          "message": "luigi quiere seguirte",
+          "username": "luigi",
+          "id_follow": 9
+        },
+        "created_at": "2024-08-28T13:43:38.338Z"
+      },
+      {
+        "id_notification": 6,
+        "id_user": 1,
+        "type": "FOLLOW",
+        "data": {
+          "state": "ACCEPTED",
+          "id_user": 4,
+          "message": "luigi quiere seguirte",
+          "username": "luigi",
+          "id_follow": 9
+        },
+        "created_at": "2024-08-28T13:43:38.338Z"
+      },
+      {
+        "id_notification": 6,
+        "id_user": 1,
+        "type": "FOLLOW",
+        "data": {
+          "state": "ACCEPTED",
+          "id_user": 4,
+          "message": "luigi quiere seguirte",
+          "username": "luigi",
+          "id_follow": 9
+        },
+        "created_at": "2024-08-28T13:43:38.338Z"
       }
     ]
     const result = await controller.getNotifications('1');
