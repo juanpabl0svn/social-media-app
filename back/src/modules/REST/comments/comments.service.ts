@@ -68,4 +68,19 @@ export class CommentsService {
     })
   }
 
+  async deleteCommentTest() {
+
+    const comment = await this.prisma.comments.findFirst({
+      orderBy: {
+        id_post: 'desc',
+      },
+    });
+
+    return this.prisma.comments.delete({
+      where: {
+        id_comment: comment.id_comment,
+      },
+    })
+  }
+
 }

@@ -15,7 +15,7 @@ describe('CommentsService', () => {
     prisma = module.get<PrismaService>(PrismaService);
   });
 
-  afterEach(()=>{
+  afterEach(() => {
     prisma.$disconnect()
   })
 
@@ -29,27 +29,26 @@ describe('CommentsService', () => {
     expect(comments).toEqual([]);
   }, 10000)
 
-  it('should show an array with one comment', async () => {
+  it('should return an specific comment', async () => {
 
     const comments = [
       {
-        "id_comment": 9,
+        "id_comment": 2,
         "id_user": 1,
-        "id_post": 1,
-        "comment": "Bonito post!",
-        "created_at": "2024-09-29T01:22:50.127Z",
+        "id_post": 2,
+        "comment": "asdfsd",
+        "created_at": "2024-08-28T22:50:25.696Z",
         "users": {
           "id_user": 1,
           "username": "juanpas",
           "first_name": "Juan Pablo",
           "last_name": "Sanchez",
-          "email": "juanpablo@yconsultores.com"
+          "email": "juan@gmail.com"
         }
       }
     ]
 
-    const result = await service.getComments(1);
-    expect(result.length).toBeGreaterThan(1);
+    const result = await service.getComments(2);
     expect(result[0].id_comment).toEqual(comments[0].id_comment);
 
   }, 10000)

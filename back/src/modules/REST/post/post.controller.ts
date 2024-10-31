@@ -30,6 +30,11 @@ export class PostsController {
     return this.postService.deletePost(+id_post);
   }
 
+  @Delete("/delete/test")
+  async deletePostTest(){
+    return this.postService.deletePostTest()
+  }
+
   @Patch('/change_state/:id_post')
   async changeState(@Param('id_post') id_post: string, @Body('state') state: boolean) {
     return this.postService.changeState(+id_post, state);

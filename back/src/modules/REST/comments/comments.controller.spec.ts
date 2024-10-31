@@ -17,7 +17,7 @@ describe('CommentsController', () => {
     prisma = module.get<PrismaService>(PrismaService);
   });
 
-  afterEach(()=>{
+  afterEach(() => {
     prisma.$disconnect()
   })
 
@@ -33,27 +33,27 @@ describe('CommentsController', () => {
   it('should return an array of comments', async () => {
     const comments = [
       {
-        "id_comment": 9,
+        "id_comment": 2,
         "id_user": 1,
-        "id_post": 1,
-        "comment": "Bonito post!",
-        "created_at": new Date("2024-09-29T01:22:50.127Z"),
+        "id_post": 2,
+        "comment": "asdfsd",
+        "created_at": "2024-08-28T22:50:25.696Z",
         "users": {
           "id_user": 1,
           "username": "juanpas",
           "first_name": "Juan Pablo",
           "last_name": "Sanchez",
-          "email": "juanpablo@yconsultores.com"
+          "email": "juan@gmail.com"
         }
       }
     ]
 
-    const result = await controller.findComments('1');
+    const result = await controller.findComments('2');
 
     expect(result.length).toBeGreaterThan(0)
     expect(result[0].id_comment).toEqual(comments[0].id_comment)
 
-  },10000)
+  }, 10000)
 
   it('should create a comment', async () => {
     const comment = {
@@ -69,5 +69,5 @@ describe('CommentsController', () => {
     expect(controller.create).toHaveBeenCalled()
 
 
-  },10000)
+  }, 10000)
 });

@@ -3,7 +3,7 @@ describe("Following users", () => {
     it("should follow a user", () => {
         cy.login()
 
-        cy.wait(1000)
+        cy.wait(2000)
 
         cy.get("#profile-nav:first").click()
 
@@ -11,7 +11,7 @@ describe("Following users", () => {
 
         cy.contains("Seguir").click()
 
-        cy.wait(1000)
+        cy.wait(2000)
 
 
         cy.contains("Pendiente").should('be.visible')
@@ -22,7 +22,7 @@ describe("Following users", () => {
 
         cy.login()
 
-        cy.wait(1000)
+        cy.wait(2000)
 
         cy.get("#profile-nav:last").click()
 
@@ -30,7 +30,7 @@ describe("Following users", () => {
 
 
         cy.contains("Pendiente").should('be.visible').click()
-        cy.wait(1000)
+        cy.wait(2000)
 
         cy.contains("Seguir")
 

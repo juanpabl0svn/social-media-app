@@ -48,15 +48,15 @@ export class PostsService {
         created_at: 'desc',
       },
     });
-  
+
     const postsWithLikedStatus = postsWithUserAndLikes.map(post => ({
       ...post,
-      likedByUser: post.likes.length > 0, 
+      likedByUser: post.likes.length > 0,
     }));
-  
+
     return postsWithLikedStatus;
   }
-  
+
 
 
 
@@ -66,6 +66,20 @@ export class PostsService {
         id_post,
       },
     });
+  }
+
+  async deletePostTest() {
+    const post = await this.prisma.posts.findFirst({
+      orderBy: {
+        id_post: 'desc',
+      },
+    });
+
+    return this.prisma.posts.delete({
+      where: {
+        id_post: post.id_post,
+      },
+    })
   }
 
   async changeState(id_post: number, state: boolean) {

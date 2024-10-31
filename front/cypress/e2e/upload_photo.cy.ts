@@ -31,6 +31,8 @@ describe("uploading a photo", () => {
 
         cy.api("DELETE", "/post/delete/test")
 
+        cy.wait(2000)
+
     })
 
 
