@@ -196,7 +196,7 @@ describe('NotificationsService', () => {
 
   }, 10000)
 
-  it('should not reject a follow', async () => {
+  it('should not reject a follow error', async () => {
 
     const id_follow = 9;
     const id_notification = 6;
@@ -264,6 +264,26 @@ describe('NotificationsService', () => {
     expect(prisma.notifications.findUnique).toHaveBeenCalled()
     expect(prisma.notifications.update).toHaveBeenCalled()
     expect(prisma.followers.update).toHaveBeenCalled()
+
+  })
+
+
+  it("should reject follow", async () => {
+
+    const data = {
+      id_follow: 1,
+      id_notification: 1
+    }
+
+    jest.spyOn(prisma.notifications, 'findUnique').mockResolvedValue({ id_notification: 1, id_user: 1, type: 'FOLLOW', data: {}, created_at: new Date() })
+    jest.spyOn(prisma.notifications, 'update').mockImplementation()
+    jest.spyOn(prisma.followers, 'delete').mockImplementation()
+
+    await service.rejectFollow(data.id_follow, data.id_notification)
+
+    expect(prisma.notifications.findUnique).toHaveBeenCalled()
+    expect(prisma.notifications.update).toHaveBeenCalled()
+    expect(prisma.followers.delete).toHaveBeenCalled()
 
   })
 

@@ -7,6 +7,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import LoginDto from './dto/login.dto';
 import { HttpException } from '@nestjs/common';
 import { UpdateUserDto } from './dto/update-user.dto';
+import e from 'express';
 
 describe('UserService', () => {
   let service: UserService;
@@ -185,6 +186,39 @@ describe('UserService', () => {
     const result = service.follow(-1, -8);
 
     await expect(result).rejects.toThrow(new HttpException('User not found', 404));
+  })
+
+  it('should follow user', async () => {
+
+    jest.spyOn(prisma.users, 'findFirst').mockResolvedValue({ id_user: 1, created_at: new Date() } as any)
+
+    jest.spyOn(prisma.followers, 'create').mockResolvedValue({ id_follower: 1, created_at: new Date() } as any)
+
+    const result = await service.follow(1, 2);
+
+    expect(result).toHaveProperty('id_follower');
+
+  })
+
+
+  it("should unfollow user", async () => {
+
+    jest.spyOn(prisma.users, 'findFirst').mockResolvedValue({ id_user: 1, created_at: new Date() } as any)
+
+    jest.spyOn(prisma.followers, 'delete').mockResolvedValue({ id_follower: 1, created_at: new Date() } as any)
+
+    const result = await service.unfollow(1, 2);
+
+    expect(result).toHaveProperty('id_follower');
+  })
+
+
+  it("should delete user", async () => {
+    jest.spyOn(prisma.users, 'delete').mockResolvedValue({ id_user: 1, created_at: new Date() } as any)
+
+    await service.remove(1);
+
+    expect(prisma.users.delete).toHaveBeenCalled();
   })
 
   it('should verify user', async () => {

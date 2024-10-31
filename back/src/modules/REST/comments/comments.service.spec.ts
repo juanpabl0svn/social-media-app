@@ -60,8 +60,14 @@ describe('CommentsService', () => {
       "comment": "Bonito post!"
     }
 
-    jest.spyOn(prisma.posts, 'findUnique')
-    jest.spyOn(prisma.notifications, 'create')
+    jest.spyOn(prisma.posts, 'findUnique').mockResolvedValue({
+      id_user: 1,
+      id_post: 2,
+      users: {
+        username: 'juanpas'
+      }
+    } as any)
+    jest.spyOn(prisma.notifications, 'create').mockImplementation()
 
     await service.create(comment)
 
@@ -89,4 +95,14 @@ describe('CommentsService', () => {
 
 
   }, 10000)
+
+  it("should delete comment test", async () => {
+  
+      jest.spyOn(prisma.comments, 'findFirst').mockResolvedValue(null as any);
+
+  
+      const result = await service.deleteCommentTest();
+  
+      expect(result).toEqual(null);
+  })
 });
